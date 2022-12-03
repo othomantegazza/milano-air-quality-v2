@@ -95,8 +95,9 @@ Plot.plot({
 
 ```{ojs}
 chart = Scatterplot(ozone, {
-  x: d => d.date    ,
+  x: d => Date.parse(d.date)    ,
   y: d => d.valore,
+  xType: d3.scaleTime,
   xLabel: "Miles per gallon →",
   yLabel: "↑ Horsepower",
   stroke: "steelblue",
@@ -143,13 +144,16 @@ function Scatterplot(data, {
   haloWidth = 3 // padding around the labels
 } = {}) {
   // Compute values.
-  console.log(data)
-  console.log(d3)
-  console.log(d3.map)
-  console.log(data.id)
-  console.log(d3.map(data, d => d.id))
-  console.log('here')
+  // console.log(data)
+  // console.log(d3)
+  // console.log(d3.map)
+  // console.log(data.id)
+  // console.log(d3.map(data, d => d.id))
+  // console.log('here')
+  
+  console.log(x)
   const X = d3.map(data, x);
+  console.log(X)
   const Y = d3.map(data, y);
   const T = title == null ? null : d3.map(data, title);
   const I = d3.range(X.length).filter(i => !isNaN(X[i]) && !isNaN(Y[i]));
@@ -160,6 +164,9 @@ function Scatterplot(data, {
 
   // Construct scales and axes.
   const xScale = xType(xDomain, xRange);
+  console.log(xDomain)
+  console.log(xRange)
+  console.log(xScale)
   const yScale = yType(yDomain, yRange);
   const xAxis = d3.axisBottom(xScale).ticks(width / 80, xFormat);
   const yAxis = d3.axisLeft(yScale).ticks(height / 50, yFormat);
