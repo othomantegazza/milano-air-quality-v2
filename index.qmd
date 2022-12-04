@@ -37,7 +37,7 @@ library(janitor)
 
 ```{js}
 //| echo: false
-var height = 450
+var height = 350
 ```
 
 
@@ -108,7 +108,8 @@ chart = Scatterplot(ozone, {
   yLabel: "↑ Horsepower",
   stroke: "steelblue",
   width,
-  height: height
+  height: height,
+  columnsRatio: 8/12,
 })
 ```
 

@@ -17,12 +17,11 @@ function Scatterplot(data, {
   insetLeft = inset, // inset the default x-range
   width = 640, // outer width, in pixels
   height = 400, // outer height, in pixels
+  columnsRatio = 8/12,
   xType = d3.scaleLinear, // type of x-scale
   xDomain, // [xmin, xmax]
-  xRange = [marginLeft + insetLeft, width - marginRight - insetRight], // [left, right]
   yType = d3.scaleLinear, // type of y-scale
   yDomain, // [ymin, ymax]
-  yRange = [height - marginBottom - insetBottom, marginTop + insetTop], // [bottom, top]
   xLabel, // a label for the x-axis
   yLabel, // a label for the y-axis
   xFormat, // a format specifier string for the x-axis
@@ -41,6 +40,18 @@ function Scatterplot(data, {
   // console.log(d3.map(data, d => d.id))
   // console.log('here')
   
+  if(screen.width >= 1200) {
+    width = width*columnsRatio
+  }
+
+  const xRange = [marginLeft + insetLeft, width - marginRight - insetRight] // [left, right]
+  const yRange = [height - marginBottom - insetBottom, marginTop + insetTop] // [bottom, top]
+  
+  console.log({'width': width})
+
+  console.log({'screen-width': screen.width})
+  console.log({'height': height})
+  
   console.log(x)
   const X = d3.map(data, x);
   console.log(X)
@@ -54,13 +65,15 @@ function Scatterplot(data, {
   
   // Construct scales and axes.
   const xScale = xType(xDomain, xRange);
-  console.log(xDomain)
-  console.log(xRange)
-  console.log(xScale)
+  console.log({'xDomain': xDomain})
+  console.log({'xRange': xRange})
+  console.log({'xScale': xScale})
   const yScale = yType(yDomain, yRange);
   const xAxis = d3.axisBottom(xScale).ticks(width / 80, xFormat);
   const yAxis = d3.axisLeft(yScale).ticks(height / 50, yFormat);
   
+
+
   const svg = d3.create("svg")
   .attr("width", width)
   .attr("height", height)
