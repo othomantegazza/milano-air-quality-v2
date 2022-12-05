@@ -7,9 +7,9 @@ function Scatterplot(data, {
   r = 3, // (fixed) radius of dots, in pixels
   title, // given d in data, returns the title
   marginTop = 20, // top margin, in pixels
-  marginRight = 30, // right margin, in pixels
+  marginRight = 0, // right margin, in pixels
   marginBottom = 30, // bottom margin, in pixels
-  marginLeft = 40, // left margin, in pixels
+  marginLeft = 20, // left margin, in pixels
   inset = r * 2, // inset the default range, in pixels
   insetTop = inset, // inset the default y-range
   insetRight = inset, // inset the default x-range
@@ -17,6 +17,7 @@ function Scatterplot(data, {
   insetLeft = inset, // inset the default x-range
   width = 640, // outer width, in pixels
   height = 400, // outer height, in pixels
+  minWidth = 375,
   columnsRatio = 8/12,
   xType = d3.scaleLinear, // type of x-scale
   xDomain, // [xmin, xmax]
@@ -37,6 +38,8 @@ function Scatterplot(data, {
   
   if(screen.width >= 1200) {
     width = width*columnsRatio
+  } else if(width < minWidth) {
+    width = minWidth
   }
 
   const xRange = [marginLeft + insetLeft, width - marginRight - insetRight] // [left, right]
@@ -63,7 +66,9 @@ function Scatterplot(data, {
   .attr("width", width)
   .attr("height", height)
   .attr("viewBox", [0, 0, width, height])
-  .attr("style", "max-width: 100%; height: auto; height: intrinsic;");
+  .attr("style", `max-width: 100%;
+                  height: auto;
+                  height: intrinsic;`);
   
   svg.append("g")
   .attr("transform", `translate(0,${height - marginBottom})`)
