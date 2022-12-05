@@ -94,7 +94,7 @@ ojs_define(ozone_in = ozone)
 
 ::: {.panel-tabset}
 
-# Ozone
+### Ozone
 
 ```{ojs scatterplot}
 //| echo: false
@@ -104,8 +104,8 @@ chart = Scatterplot(ozone, {
   x: d => Date.parse(d.date)    ,
   y: d => d.valore,
   xType: d3.scaleTime,
-  xLabel: "Miles per gallon →",
-  yLabel: "↑ Horsepower",
+  xLabel: "Days →",
+  yLabel: "↑ Concentration [µg/m3]",
   stroke: "steelblue",
   width,
   height: height,

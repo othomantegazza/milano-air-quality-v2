@@ -8,8 +8,8 @@ function Scatterplot(data, {
   title, // given d in data, returns the title
   marginTop = 20, // top margin, in pixels
   marginRight = 0, // right margin, in pixels
-  marginBottom = 30, // bottom margin, in pixels
-  marginLeft = 20, // left margin, in pixels
+  marginBottom = 40, // bottom margin, in pixels
+  marginLeft = 25, // left margin, in pixels
   inset = r * 2, // inset the default range, in pixels
   insetTop = inset, // inset the default y-range
   insetRight = inset, // inset the default x-range
@@ -27,6 +27,8 @@ function Scatterplot(data, {
   yLabel, // a label for the y-axis
   xFormat, // a format specifier string for the x-axis
   yFormat, // a format specifier string for the y-axis
+  fontSize = 14,
+  fontTickReducer = 0.9,
   fill = "none", // fill color for dots
   stroke = "currentColor", // stroke color for the dots
   strokeWidth = 1.5, // stroke width for dots
@@ -70,20 +72,26 @@ function Scatterplot(data, {
                   height: auto;
                   height: intrinsic;`);
   
+
+  // axis x                  
   svg.append("g")
   .attr("transform", `translate(0,${height - marginBottom})`)
   .call(xAxis)
-  .call(g => g.select(".domain").remove())
+  //.call(g => g.select(".domain").remove())
   .call(g => g.selectAll(".tick line").clone()
         .attr("y2", marginTop + marginBottom - height)
         .attr("stroke-opacity", 0.1))
+  .call(g => g.selectAll(".tick text")
+        .attr("font-size", fontSize * fontTickReducer))
   .call(g => g.append("text")
         .attr("x", width)
-        .attr("y", marginBottom - 4)
+        .attr("y", marginBottom  - 4)
+        .attr("font-size", fontSize)
         .attr("fill", "currentColor")
         .attr("text-anchor", "end")
         .text(xLabel));
   
+  // axis y
   svg.append("g")
   .attr("transform", `translate(${marginLeft},0)`)
   .call(yAxis)
@@ -91,9 +99,12 @@ function Scatterplot(data, {
   .call(g => g.selectAll(".tick line").clone()
         .attr("x2", width - marginLeft - marginRight)
         .attr("stroke-opacity", 0.1))
+  .call(g => g.selectAll(".tick text")
+        .attr("font-size", fontSize * fontTickReducer))
   .call(g => g.append("text")
         .attr("x", -marginLeft)
         .attr("y", 10)
+        .attr("font-size", fontSize)
         .attr("fill", "currentColor")
         .attr("text-anchor", "start")
         .text(yLabel));
