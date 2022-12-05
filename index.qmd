@@ -22,7 +22,8 @@ editor_options:
 ```
 
 <!--- js dependencies -->
-<script src="js/time-series-dot.js"></script> 
+<script src="js/time-series-dot.js"></script>
+<script src="js/heatmap.js"></script>
 <script src="https://d3js.org/d3.v7.min.js"></script> 
 
 ```{r rpackages}
@@ -82,11 +83,33 @@ ozone <-
 ojs_define(ozone_in = ozone)
 ```
 
+```{ojs}
+//| echo: false
+ozone = transpose(ozone_in)
+```
+
+
 :::::: {.grid}
 
 ::::: {.g-col-12 .g-col-xl-8}
 
 ::: {.g-col-12}
+
+```{ojs heatmap}
+//| echo: false
+heatmap(ozone, {
+  x: d => Date.parse(d.date)    ,
+  y: d => d.valore,
+  fill: d => d.valore, 
+  xType: d3.scaleTime,
+  xLabel: "Days →",
+  yLabel: "↑ Concentration [µg/m3]",
+  stroke: "steelblue",
+  width,
+  height: height,
+  columnsRatio: 8/12,
+})
+```
 
 :::
 
@@ -98,9 +121,7 @@ ojs_define(ozone_in = ozone)
 
 ```{ojs scatterplot}
 //| echo: false
-ozone = transpose(ozone_in)
-
-chart = Scatterplot(ozone, {
+Scatterplot(ozone, {
   x: d => Date.parse(d.date)    ,
   y: d => d.valore,
   xType: d3.scaleTime,

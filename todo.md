@@ -4,10 +4,10 @@
 - [ ] Limits under scatterplot
 - [ ] Axis and labels
 - [ ] Heatmap
-- [ ] size and text labels
 
 # Done
 
 - [x] Layout
 - [x] Define plot size ratio
 - [x] min width
+- [x] size and text labels
