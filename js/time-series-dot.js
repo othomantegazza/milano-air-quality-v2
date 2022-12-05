@@ -109,24 +109,6 @@ function Scatterplot(data, {
         .attr("text-anchor", "start")
         .text(yLabel));
   
-  if (T) svg.append("g")
-  .attr("font-family", "sans-serif")
-  .attr("font-size", 10)
-  .attr("stroke-linejoin", "round")
-  .attr("stroke-linecap", "round")
-  .selectAll("text")
-  .data(I)
-  .join("text")
-  .attr("dx", 7)
-  .attr("dy", "0.35em")
-  .attr("x", i => xScale(X[i]))
-  .attr("y", i => yScale(Y[i]))
-  .text(i => T[i])
-  .call(text => text.clone(true))
-  .attr("fill", "none")
-  .attr("stroke", halo)
-  .attr("stroke-width", haloWidth);
-  
   svg.append("g")
   .attr("fill", fill)
   .attr("stroke", stroke)
