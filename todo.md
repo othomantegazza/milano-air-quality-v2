@@ -4,6 +4,8 @@
 - [ ] Limits under scatterplot
 - [ ] Axis and labels
 - [ ] Heatmap
+- [ ] min width
+- [ ] size and text labels
 
 # Done
 

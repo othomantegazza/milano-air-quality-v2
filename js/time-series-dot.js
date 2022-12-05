@@ -32,13 +32,8 @@ function Scatterplot(data, {
   halo = "#fff", // color of label halo 
   haloWidth = 3 // padding around the labels
 } = {}) {
+
   // Compute values.
-  // console.log(data)
-  // console.log(d3)
-  // console.log(d3.map)
-  // console.log(data.id)
-  // console.log(d3.map(data, d => d.id))
-  // console.log('here')
   
   if(screen.width >= 1200) {
     width = width*columnsRatio
@@ -47,14 +42,7 @@ function Scatterplot(data, {
   const xRange = [marginLeft + insetLeft, width - marginRight - insetRight] // [left, right]
   const yRange = [height - marginBottom - insetBottom, marginTop + insetTop] // [bottom, top]
   
-  console.log({'width': width})
-
-  console.log({'screen-width': screen.width})
-  console.log({'height': height})
-  
-  console.log(x)
   const X = d3.map(data, x);
-  console.log(X)
   const Y = d3.map(data, y);
   const T = title == null ? null : d3.map(data, title);
   const I = d3.range(X.length).filter(i => !isNaN(X[i]) && !isNaN(Y[i]));
@@ -65,9 +53,6 @@ function Scatterplot(data, {
   
   // Construct scales and axes.
   const xScale = xType(xDomain, xRange);
-  console.log({'xDomain': xDomain})
-  console.log({'xRange': xRange})
-  console.log({'xScale': xScale})
   const yScale = yType(yDomain, yRange);
   const xAxis = d3.axisBottom(xScale).ticks(width / 80, xFormat);
   const yAxis = d3.axisLeft(yScale).ticks(height / 50, yFormat);
