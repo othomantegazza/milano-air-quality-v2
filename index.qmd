@@ -115,37 +115,6 @@ heatmap(ozone, {
 
 :::
 
-::: {.g-col-12}
-
-```{ojs}
-import { ramp } from "@mbostock/color-ramp"
-range = d3.range(domain.length).map((i) => i / (domain.length - 1)) // fake range
-color = d3.interpolateCividis
-```
-
-
-```{ojs}
-range
-```
-
-```{ojs}
-viewof first = Inputs.range([0, .5], {label: "first", value: .1, step: 0.01})
-viewof last = Inputs.range([.5, 1], {label: "last", value: .9, step: 0.01})
-```
-
-
-```{ojs}
-domain = [0, first, last, 1]
-scale = d3
-  .scaleLinear()
-  .domain(domain)
-  .range(range)
-  .interpolate((i, j) => (t) => color(i + t * (j - i)))
-ramp(scale)
-```
-
-:::
-
 :::: {.g-col-12}
 
 ::: {.panel-tabset}
