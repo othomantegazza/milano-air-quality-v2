@@ -75,16 +75,24 @@ air_q <-
               TRUE ~ .)
   })
 
+all <- 
+  air_q %>% 
+  drop_na()
+
 ozone <- 
   air_q %>% 
   filter(inquinante == 'O3') %>% 
   drop_na()
 
-ojs_define(ozone_in = ozone)
+ojs_define(
+  all_in = all,
+  ozone_in = ozone
+  )
 ```
 
 ```{ojs}
 //| echo: false
+all = transpose(all_in)
 ozone = transpose(ozone_in)
 ```
 
@@ -97,9 +105,9 @@ ozone = transpose(ozone_in)
 
 ```{ojs heatmap}
 //| echo: false
-heatmap(ozone, {
+heatmap(all, {
   x: d => Date.parse(d.date)    ,
-  y: d => d.valore,
+  y: d => d.inquinante,
   fill: d => d.valore,
   r: 10,
   xType: d3.scaleTime,

@@ -1,13 +1,13 @@
 function heatmap(data, { 
     x = ([x]) => x, // given d in data, returns the (quantitative) x-value
-    y = ([, y]) => y, // given d in data, returns the (quantitative) y-value
+    y = ([y]) => y, // given d in data, returns the (quantitative) y-value
     fill = ([, fill]) => fill,
     r = 3, // (fixed) radius of dots, in pixels
     title, // given d in data, returns the title
     marginTop = 20, // top margin, in pixels
     marginRight = 0, // right margin, in pixels
     marginBottom = 40, // bottom margin, in pixels
-    marginLeft = 25, // left margin, in pixels
+    marginLeft = 40, // left margin, in pixels
     inset = r * 2, // inset the default range, in pixels
     insetTop = inset, // inset the default y-range
     insetRight = inset, // inset the default x-range
@@ -20,7 +20,7 @@ function heatmap(data, {
     columnWidth = 1200,
     xType = d3.scaleLinear, // type of x-scale
     xDomain, // [xmin, xmax]
-    yType = d3.scaleLinear, // type of y-scale
+    yType = d3.scaleBand, // type of y-scale
     yDomain, // [ymin, ymax]
     //fillType = d3.interpolateRgb.gamma,
     fillType = d3.scaleLinear,
@@ -34,7 +34,7 @@ function heatmap(data, {
     fontSize = 14,
     fontTickReducer = 0.9,
     stroke = "currentColor", // stroke color for the dots
-    strokeWidth = 1.5, // stroke width for dots
+    strokeWidth = 0, // stroke width for dots
     halo = "#fff", // color of label halo 
     haloWidth = 3 // padding around the labels
   } = {}) {
@@ -51,20 +51,22 @@ function heatmap(data, {
     const X = d3.map(data, x);
     const Y = d3.map(data, y);
     const FILL = d3.map(data, fill)
-    const I = d3.range(X.length).filter(i => !isNaN(X[i]) && !isNaN(Y[i]));
+    const I = d3.range(X.length)//.filter(i => !isNaN(X[i]) && !isNaN(Y[i]));
 
     console.log({
         'x': X,
         'y': Y,
         'fill': FILL,
+        'I': I,
     })
 
     // Compute default domains.
     if (xDomain === undefined) xDomain = d3.extent(X);
-    if (yDomain === undefined) yDomain = d3.extent(Y);
+    if (yDomain === undefined) yDomain = new d3.InternSet(Y);
     if (fillDomain === undefined) fillDomain = [d3.min(FILL), targetLimit, d3.max(FILL)];
 
     console.log({
+        'yDomain': yDomain,
         'filldomain': fillDomain,
         'fillrange': fillRange,
     })
@@ -82,8 +84,9 @@ function heatmap(data, {
     const yAxis = d3.axisLeft(yScale).ticks(height / 50, yFormat);
 
     console.log({
-        'y_50': yScale(50),
-        'fill_50': fillScale(50)
+        'y_ozone': yScale('O3'),
+        'y_SO2': yScale('SO2'),
+        'fill_50': fillScale(50),
     })
 
 
