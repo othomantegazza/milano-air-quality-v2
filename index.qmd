@@ -107,6 +107,7 @@ heatmap(ozone, {
   yLabel: "↑ Concentration [µg/m3]",
   stroke: "steelblue",
   width,
+  targetLimit: 40,
   height: height,
   columnsRatio: 8/12,
 })

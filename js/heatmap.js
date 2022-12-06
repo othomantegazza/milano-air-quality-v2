@@ -24,9 +24,9 @@ function heatmap(data, {
     yDomain, // [ymin, ymax]
     //fillType = d3.interpolateRgb.gamma,
     fillType = d3.scaleLinear,
-    fillDomain, // [fillmin, fillmax]
-    fillRange = ['blue', 'red'],
-    fillRange2 = [0, 1],
+    fillDomain, // [fillmin, fillmid, fillmax]
+    fillRange = [0, 0.5, 1],
+    targetLimit,
     xLabel, // a label for the x-axis
     yLabel, // a label for the y-axis
     xFormat, // a format specifier string for the x-axis
@@ -53,38 +53,38 @@ function heatmap(data, {
     const FILL = d3.map(data, fill)
     const I = d3.range(X.length).filter(i => !isNaN(X[i]) && !isNaN(Y[i]));
 
-    console.log({'x':  X})
-    console.log({'y': Y})
-    console.log({'fill': FILL})
+    console.log({
+        'x': X,
+        'y': Y,
+        'fill': FILL,
+    })
 
     // Compute default domains.
     if (xDomain === undefined) xDomain = d3.extent(X);
     if (yDomain === undefined) yDomain = d3.extent(Y);
-    if (fillDomain === undefined) fillDomain = d3.extent(FILL);
+    if (fillDomain === undefined) fillDomain = [d3.min(FILL), targetLimit, d3.max(FILL)];
 
-    console.log({'filldomain': fillDomain,
-                 'fillrange': fillRange,
-                 'fillRange2': fillRange2})
+    console.log({
+        'filldomain': fillDomain,
+        'fillrange': fillRange,
+    })
 
     const fillPalette = d3.interpolateCividis 
 
     // Construct scales and axes.
     const xScale = xType(xDomain, xRange);
     const yScale = yType(yDomain, yRange);
-    const fillScale = fillType(fillDomain, fillRange);
-    const fillScale2 = fillType()
+    const fillScale = fillType()
         .domain(fillDomain)
-        .range(fillRange2)
-        //.interpolate((i, j) => (t) => {
-        //    console.log({'i': I, 'j': j, 't': t})
-        //    fillPalette(i + t * (j - i))});
+        .range(fillRange)
         .interpolate(() => fillPalette);
     const xAxis = d3.axisBottom(xScale).ticks(width / 80, xFormat);
     const yAxis = d3.axisLeft(yScale).ticks(height / 50, yFormat);
 
-    console.log({'y_50': yScale(50),
-                 'fill_50': fillScale(50),
-                 'fill_2_50': fillScale2(50)})
+    console.log({
+        'y_50': yScale(50),
+        'fill_50': fillScale(50)
+    })
 
 
     console.log({'x':  xScale})
