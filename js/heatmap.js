@@ -26,6 +26,7 @@ function heatmap(data, {
     fillType = d3.scaleLinear,
     fillDomain, // [fillmin, fillmax]
     fillRange = ['blue', 'red'],
+    fillRange2 = [0, 1],
     xLabel, // a label for the x-axis
     yLabel, // a label for the y-axis
     xFormat, // a format specifier string for the x-axis
@@ -62,17 +63,28 @@ function heatmap(data, {
     if (fillDomain === undefined) fillDomain = d3.extent(FILL);
 
     console.log({'filldomain': fillDomain,
-                  'fillrange': fillRange})
+                 'fillrange': fillRange,
+                 'fillRange2': fillRange2})
+
+    const fillPalette = d3.interpolateCividis 
 
     // Construct scales and axes.
     const xScale = xType(xDomain, xRange);
     const yScale = yType(yDomain, yRange);
     const fillScale = fillType(fillDomain, fillRange);
+    const fillScale2 = fillType()
+        .domain(fillDomain)
+        .range(fillRange2)
+        //.interpolate((i, j) => (t) => {
+        //    console.log({'i': I, 'j': j, 't': t})
+        //    fillPalette(i + t * (j - i))});
+        .interpolate(() => fillPalette);
     const xAxis = d3.axisBottom(xScale).ticks(width / 80, xFormat);
     const yAxis = d3.axisLeft(yScale).ticks(height / 50, yFormat);
 
     console.log({'y_50': yScale(50),
-                 'fill_50': fillScale(50)})
+                 'fill_50': fillScale(50),
+                 'fill_2_50': fillScale2(50)})
 
 
     console.log({'x':  xScale})

@@ -119,7 +119,12 @@ heatmap(ozone, {
 ```{ojs}
 import { ramp } from "@mbostock/color-ramp"
 range = d3.range(domain.length).map((i) => i / (domain.length - 1)) // fake range
-color = d3.interpolateWarm
+color = d3.interpolateCividis
+```
+
+
+```{ojs}
+range
 ```
 
 ```{ojs}
