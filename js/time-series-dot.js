@@ -3,7 +3,7 @@
 // https://observablehq.com/@d3/scatterplot
 function Scatterplot(data, { 
   x = ([x]) => x, // given d in data, returns the (quantitative) x-value
-  y = ([, y]) => y, // given d in data, returns the (quantitative) y-value
+  y = ([y]) => y, // given d in data, returns the (quantitative) y-value
   r = 3, // (fixed) radius of dots, in pixels
   title, // given d in data, returns the title
   marginTop = 20, // top margin, in pixels
