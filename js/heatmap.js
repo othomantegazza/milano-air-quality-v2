@@ -77,7 +77,7 @@ function heatmap(data, {
     const fillScale = fillType()
         .domain(fillDomain)
         .range(fillRange)
-        .interpolate(() => fillPalette);
+        .interpolate((i, j) => (t) => fillPalette(i + t * (j - i)));
     const xAxis = d3.axisBottom(xScale).ticks(width / 80, xFormat);
     const yAxis = d3.axisLeft(yScale).ticks(height / 50, yFormat);
 
