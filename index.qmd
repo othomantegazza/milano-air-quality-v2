@@ -129,6 +129,21 @@ getDates = d => Date.parse(d.date)
 allDates = d3.map(all_scaled, getDates)
 ```
 
+```{ojs}
+viewof start = Inputs.date({label: "Start date",
+                            value: d3.min(allDates),
+                            min: d3.min(allDates),
+                            max: d3.max(allDates)})
+```
+
+
+```{ojs}
+viewof end = Inputs.date({label: "End date",
+                            value: d3.max(allDates),
+                            min: start,
+                            max: d3.max(allDates)})   
+```
+
 :::::: {.grid}
 
 ::::: {.g-col-12 .g-col-xl-8}
