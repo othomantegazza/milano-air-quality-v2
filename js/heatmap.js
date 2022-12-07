@@ -65,13 +65,20 @@ function heatmap(data, {
     if (yDomain === undefined) yDomain = new d3.InternSet(Y);
     if (fillDomain === undefined) fillDomain = [d3.min(FILL), targetLimit, d3.max(FILL)];
 
-    console.log({
-        'yDomain': yDomain,
-        'filldomain': fillDomain,
-        'fillrange': fillRange,
-    })
+      console.log({
+            'xDomain': xDomain,
+            'xRange': xRange,
+            'yDomain': yDomain,            
+            'filldomain': fillDomain,
+            'fillrange': fillRange,
+      })
 
     const fillPalette = d3.interpolateCividis 
+
+    const dayMillisec = 24 * 60 * 60 * 1000
+    
+    const nDays = ( xDomain[1] - xDomain[0] ) / dayMillisec
+    const tileWidth = (xRange[1] - xRange[0] ) / nDays
 
     // Construct scales and axes.
     const xScale = xType(xDomain, xRange);
@@ -87,6 +94,7 @@ function heatmap(data, {
         'y_ozone': yScale('O3'),
         'y_SO2': yScale('SO2'),
         'fill_50': fillScale(50),
+        'yStep': yScale.step(),
     })
 
 
@@ -138,17 +146,18 @@ function heatmap(data, {
           .attr("text-anchor", "start")
           .text(yLabel));
     
-    // circles
+    // rectangles
     svg.append("g")
     .attr("stroke", stroke)
     .attr("stroke-width", strokeWidth)
-    .selectAll("circle")
+    .selectAll("rect")
     .data(I)
-    .join("circle")
-    .attr("cx", i => xScale(X[i]))
-    .attr("cy", i => yScale(Y[i]))
+    .join("rect")
+    .attr("x", i => xScale(X[i]))
+    .attr("y", i => yScale(Y[i]))
     .attr("fill", i => fillScale(FILL[i]))
-    .attr("r", r);
+    .attr("width", tileWidth)
+    .attr("height", yScale.step());
       
     return svg.node();
 }
