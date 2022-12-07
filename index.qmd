@@ -119,14 +119,14 @@ ojs_define(
 
 ```{ojs}
 //| echo: false
-all_scaled = transpose(all_scaled_in)
+allScaled = transpose(all_scaled_in)
 ozone = transpose(ozone_in)
 ```
 
 ```{ojs}
 getDates = d => Date.parse(d.date)
 
-allDates = d3.map(all_scaled, getDates)
+allDates = d3.map(allScaled, getDates)
 ```
 
 ```{ojs}
@@ -144,6 +144,18 @@ viewof end = Inputs.date({label: "End date",
                             max: d3.max(allDates)})   
 ```
 
+```{ojs}
+allScaledFiltered = allScaled.filter((i) => {
+    return (Date.parse(i.date) >= start) & (Date.parse(i.date) <= end) 
+})
+```
+
+```{ojs}
+ozoneFiltered = ozone.filter((i) => {
+    return (Date.parse(i.date) >= start) & (Date.parse(i.date) <= end) 
+})
+```
+
 :::::: {.grid}
 
 ::::: {.g-col-12 .g-col-xl-8}
@@ -152,7 +164,7 @@ viewof end = Inputs.date({label: "End date",
 
 ```{ojs heatmap}
 //| echo: false
-heatmap(all_scaled, {
+heatmap(allScaledFiltered, {
   x: d => Date.parse(d.date)    ,
   y: d => d.inquinante,
   fill: d => d.scaled,
@@ -175,7 +187,7 @@ heatmap(all_scaled, {
 
 ```{ojs scatterplot}
 //| echo: false
-Scatterplot(ozone, {
+Scatterplot(ozoneFiltered, {
   x: d => Date.parse(d.date)    ,
   y: d => d.valore,
   xType: d3.scaleTime,
