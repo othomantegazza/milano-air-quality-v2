@@ -35,6 +35,14 @@ library(lubridate)
 library(janitor)
 ```
 
+```{r utils}
+source(
+  here(
+    'R/utils.R'
+  )
+)
+```
+
 
 ```{js}
 //| echo: false
@@ -44,16 +52,17 @@ var height = 350
 
 ```{r pollutants}
 #| include: false
+
 # from https://environment.ec.europa.eu/topics/air/air-quality/eu-air-quality-standards_en
 pollutants <- 
   tribble(~inquinante, ~pollutant_name, ~eu_limits,
           'C6H6', 'Polycyclic Aromatic Hydrocarbons', 1e-3,
-          'CO_8h', 'Carbon monoxide', 1e4,
-          'NO2', 'Nitrogen dioxide', 40,
+          'CO', 'Carbon Monoxide', 1e4,
+          'NO2', 'Nitrogen Dioxide', 40,
           'O3', 'Ozone', 120,
-          'PM10', 'Particulate matter', 40,
-          'PM25', 'Fine particles', 20,
-          'SO2', 'Sulphur dioxide', 125,
+          'PM10', 'Particulate Matter', 40,
+          'PM25', 'Fine Particles', 20,
+          'SO2', 'Sulphur Dioxide', 125,
           )
 ```
 
@@ -64,20 +73,38 @@ air_q_url <-
 
 air_q <- 
   air_q_url %>% 
-  readr::read_csv() %>% 
+  readr::read_delim(delim = ',') %>% 
   janitor::clean_names() %>% 
   rename(date = data) %>% 
   mutate(date = date %>% as_date()) %>% 
-  # guessing real order of magnitude of measuremnts
-  mutate(valore = valore %>% {
-    case_when(inquinante == 'C6H6' ~ . * 1e-3,
-              inquinante == 'CO_8h' ~ . * 1e3,
-              TRUE ~ .)
-  })
+  mutate(
+    across(
+      .cols = inquinante,
+      .fns = ~case_when(
+        . == 'CO_8h' ~ 'CO',
+        TRUE ~ .)
+    ),
+    # guessing real order of magnitude of measurements
+    across(
+      .cols = valore,
+      .fns = ~case_when(
+        inquinante == 'C6H6' ~ . * 1e-3,
+        inquinante == 'CO' ~ . * 1e3,
+        TRUE ~ .)
+    )
+  ) %>% 
+  drop_na() %>% 
+  left_join(pollutants)
 
-all <- 
+air_q_scaled <- 
   air_q %>% 
-  drop_na()
+  group_by(inquinante, eu_limits) %>% 
+  nest(); air_q_scaled$scaled <- 
+  air_q_scaled %>% 
+  pmap(scale_pollutant); air_q_scaled <- 
+  air_q_scaled %>% 
+  unnest(scaled) %>% 
+  select(-data)
 
 ozone <- 
   air_q %>% 
@@ -85,17 +112,22 @@ ozone <-
   drop_na()
 
 ojs_define(
-  all_in = all,
+  all_scaled_in = air_q_scaled,
   ozone_in = ozone
   )
 ```
 
 ```{ojs}
 //| echo: false
-all = transpose(all_in)
+all_scaled = transpose(all_scaled_in)
 ozone = transpose(ozone_in)
 ```
 
+```{ojs}
+getDates = d => Date.parse(d.date)
+
+allDates = d3.map(all_scaled, getDates)
+```
 
 :::::: {.grid}
 
@@ -105,17 +137,15 @@ ozone = transpose(ozone_in)
 
 ```{ojs heatmap}
 //| echo: false
-heatmap(all, {
+heatmap(all_scaled, {
   x: d => Date.parse(d.date)    ,
   y: d => d.inquinante,
-  fill: d => d.valore,
-  r: 10,
+  fill: d => d.scaled,
   xType: d3.scaleTime,
   xLabel: "Days →",
   yLabel: "↑ Concentration [µg/m3]",
-  stroke: "steelblue",
   width,
-  targetLimit: 40,
+  targetLimit: 1,
   height: height,
   columnsRatio: 8/12,
 })

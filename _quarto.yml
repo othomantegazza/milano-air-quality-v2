@@ -10,5 +10,7 @@ project:
 execute:
   freeze: auto
 
-
+format:
+  html:
+   echo: false
 

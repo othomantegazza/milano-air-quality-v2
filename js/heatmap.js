@@ -2,13 +2,12 @@ function heatmap(data, {
       x = ([x]) => x, // given d in data, returns the (quantitative) x-value
       y = ([y]) => y, // given d in data, returns the (quantitative) y-value
       fill = ([, fill]) => fill,
-      r = 3, // (fixed) radius of dots, in pixels
       title, // given d in data, returns the title
       marginTop = 20, // top margin, in pixels
       marginRight = 0, // right margin, in pixels
       marginBottom = 40, // bottom margin, in pixels
       marginLeft = 40, // left margin, in pixels
-      inset = r * 2, // inset the default range, in pixels
+      inset = 3, // inset the default range, in pixels
       insetTop = inset, // inset the default y-range
       insetRight = inset, // inset the default x-range
       insetBottom = inset, // inset the default y-range
@@ -33,8 +32,7 @@ function heatmap(data, {
       yFormat, // a format specifier string for the y-axis
       fontSize = 14,
       fontTickReducer = 0.9,
-      stroke = "currentColor", // stroke color for the dots
-      strokeWidth = 0, // stroke width for dots
+      strokeWidth = .5, // stroke width for dots
       halo = "#fff", // color of label halo 
       haloWidth = 3 // padding around the labels
 } = {}) {
@@ -94,7 +92,8 @@ function heatmap(data, {
             'y_ozone': yScale('O3'),
             'y_SO2': yScale('SO2'),
             'fill_50': fillScale(50),
-            'yStep': yScale.step(),
+            'yStep': yScale.step(), 
+            'tileWidth': tileWidth,
       })
 
 
@@ -148,7 +147,6 @@ function heatmap(data, {
 
       // rectangles
       svg.append("g")
-            .attr("stroke", stroke)
             .attr("stroke-width", strokeWidth)
             .selectAll("rect")
             .data(I)
@@ -156,6 +154,7 @@ function heatmap(data, {
             .attr("x", i => xScale(X[i]))
             .attr("y", i => yScale(Y[i]))
             .attr("fill", i => fillScale(FILL[i]))
+            .attr("stroke",  i => fillScale(FILL[i]))
             .attr("width", tileWidth)
             .attr("height", yScale.step());
 
