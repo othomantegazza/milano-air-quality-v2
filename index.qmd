@@ -158,7 +158,6 @@ heatmap(all_scaled, {
   fill: d => d.scaled,
   xType: d3.scaleTime,
   xLabel: "Days →",
-  yLabel: "↑ Concentration [µg/m3]",
   width,
   targetLimit: 1,
   height: height,

@@ -4,6 +4,7 @@
 function Scatterplot(data, { 
   x = ([x]) => x, // given d in data, returns the (quantitative) x-value
   y = ([y]) => y, // given d in data, returns the (quantitative) y-value
+  targetLimit = 40,
   r = 3, // (fixed) radius of dots, in pixels
   title, // given d in data, returns the title
   marginTop = 20, // top margin, in pixels
@@ -109,6 +110,21 @@ function Scatterplot(data, {
         .attr("text-anchor", "start")
         .text(yLabel));
   
+  // target limit ine
+  svg.append("g")
+      .selectAll("line")
+      .data([1])
+      .join("line")
+      .attr("x1", xScale(d3.min(X)))
+      .attr("x2",  xScale(d3.max(X)))
+      .attr("y1", yScale(targetLimit))
+      .attr("y2", yScale(targetLimit))
+      .attr("stroke-width", 3)
+      .attr("stroke", '#CCCCCC')
+      .attr("stroke-dasharray", "6 2");
+
+
+  // circles    
   svg.append("g")
   .attr("fill", fill)
   .attr("stroke", stroke)

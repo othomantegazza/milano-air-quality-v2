@@ -2,8 +2,6 @@
 
 - [ ] Smooth under scatterplot
 - [ ] Limits under scatterplot
-- [ ] Axis and labels
-- [ ] Heatmap
 
 # Done
 
@@ -11,3 +9,5 @@
 - [x] Define plot size ratio
 - [x] min width
 - [x] size and text labels
+- [x] Heatmap
+- [x] Axis and labels
