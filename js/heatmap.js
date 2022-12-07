@@ -7,6 +7,7 @@ function heatmap(data, {
       marginRight = 0, // right margin, in pixels
       marginBottom = 40, // bottom margin, in pixels
       marginLeft = 40, // left margin, in pixels
+      rectYPadding = 4,
       inset = 3, // inset the default range, in pixels
       insetTop = inset, // inset the default y-range
       insetRight = inset, // inset the default x-range
@@ -152,11 +153,11 @@ function heatmap(data, {
             .data(I)
             .join("rect")
             .attr("x", i => xScale(X[i]))
-            .attr("y", i => yScale(Y[i]))
+            .attr("y", i => yScale(Y[i]) + rectYPadding)
             .attr("fill", i => fillScale(FILL[i]))
             .attr("stroke",  i => fillScale(FILL[i]))
             .attr("width", tileWidth)
-            .attr("height", yScale.step());
+            .attr("height", yScale.step() - 2 * rectYPadding);
 
       return svg.node();
 }
