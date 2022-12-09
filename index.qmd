@@ -33,6 +33,7 @@ library(here)
 library(tsibble)
 library(lubridate)
 library(janitor)
+library(broom)
 ```
 
 ```{r utils}
@@ -41,6 +42,10 @@ source(
     'R/utils.R'
   )
 )
+```
+
+```{r params}
+loess_span <- .2
 ```
 
 
@@ -96,13 +101,17 @@ air_q <-
   drop_na() %>% 
   left_join(pollutants)
 
-air_q_scaled <- 
+air_q_nested <- 
   air_q %>% 
   group_by(inquinante, eu_limits) %>% 
-  nest(); air_q_scaled$scaled <- 
-  air_q_scaled %>% 
-  pmap(scale_pollutant); air_q_scaled <- 
-  air_q_scaled %>% 
+  nest(); air_q_nested$scaled <- 
+  air_q_nested %>% 
+  pmap(scale_pollutant); air_q_nested$smoothed <-
+  air_q_nested %>% 
+  pmap(smooth_air_q)
+
+air_q_scaled <- 
+  air_q_nested %>% 
   unnest(scaled) %>% 
   select(-data)
 

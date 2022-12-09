@@ -19,3 +19,41 @@ scale_pollutant <-
     
     return(data)
   }
+
+smooth_air_q <- 
+  function(data, eu_limits, ...) {
+    
+    date_range <- range(air_q$date)
+    all_dates <-  seq.Date(date_range[1], date_range[2], by = 1)
+    conf_95 <- 1.96 / 2
+    
+    loess_fit <- 
+      air_q %>% 
+      filter(pollutant_name == 'Ozone') %>% 
+      mutate(date = as.numeric(date)) %>%
+      {
+        loess(formula = valore ~ date,
+              data = .,
+              span = loess_span)
+      }
+    
+    dates_for_fit <- 
+      tibble(
+        date = as.numeric(all_dates)
+      )
+    
+    out <- 
+      loess_fit %>% 
+      {
+        augment(x = .,
+                newdata = dates_for_fit,
+                se_fit = TRUE)
+      } %>%  
+      mutate(
+        low_95 = .fitted - .se.fit * conf_95,
+        high_95 = .fitted + .se.fit * conf_95,
+      ) %>% 
+      mutate(date = as_date(date))
+    
+    return(out)
+  } 
