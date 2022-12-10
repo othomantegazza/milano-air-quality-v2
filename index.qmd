@@ -184,12 +184,6 @@ allScaledFiltered = allScaled.filter((i) => {
 })
 ```
 
-```{ojs}
-ozoneFiltered = ozone.filter((i) => {
-    return (Date.parse(i.date) >= start) & (Date.parse(i.date) <= end) 
-})
-```
-
 :::::: {.grid}
 
 ::::: {.g-col-12 .g-col-xl-8}
@@ -224,6 +218,8 @@ heatmap(allScaledFiltered, {
 Scatterplot(air_q_list.O3, {
   x: d => d.date*24*60*60*1000,
   y: d => d.valore,
+  start: start,
+  end: end,
   xType: d3.scaleTime,
   xLabel: "Days →",
   yLabel: "↑ Concentration [µg/m3]",

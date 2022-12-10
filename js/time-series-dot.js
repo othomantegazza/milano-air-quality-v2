@@ -3,9 +3,12 @@
 // https://observablehq.com/@d3/scatterplot
 function Scatterplot(data, {
       originalData = data.data,
+      smoothedData = data.smoothed,
       x = ([x]) => x, // given d in data, returns the (quantitative) x-value
       y = ([y]) => y, // given d in data, returns the (quantitative) y-value
       targetLimit = 40,
+      start, // start date, from view
+      end,  // end date, from view
       r = 3, // (fixed) radius of dots, in pixels
       title, // given d in data, returns the title
       marginTop = 20, // top margin, in pixels
@@ -42,6 +45,17 @@ function Scatterplot(data, {
         'X': x,
         'Y': y,
         'originalData': originalData,
+        'smoothedData': smoothedData,
+        'start': start,
+        'end': end
+      })
+      
+      originalData = originalData.filter((i) => {
+            return (i.date*24*60*60*1000 >= start) & (i.date*24*60*60*1000 <= end)
+      })
+
+      smoothedData = smoothedData.filter((i) => {
+            return (i.date*24*60*60*1000 >= start) & (i.date*24*60*60*1000 <= end)
       })
 
       // Compute values.
