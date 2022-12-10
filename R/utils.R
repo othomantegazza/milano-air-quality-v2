@@ -1,11 +1,11 @@
-df_to_js <- function(x, ...){
-  
-  const_name <- ensym(x)
-  
-  json_data <- jsonlite::toJSON(x, ...)
-  
-  htmltools::tags$script(paste0("const ", const_name, " = ", json_data, ";"))
-}
+# df_to_js <- function(x, ...){
+#   
+#   const_name <- ensym(x)
+#   
+#   json_data <- jsonlite::toJSON(x, ...)
+#   
+#   htmltools::tags$script(paste0("const ", const_name, " = ", json_data, ";"))
+# }
 
 scale_pollutant <- 
   function(data, eu_limits, ...) {

@@ -2,6 +2,7 @@
 // Released under the ISC license.
 // https://observablehq.com/@d3/scatterplot
 function Scatterplot(data, {
+      originalData = data.data,
       x = ([x]) => x, // given d in data, returns the (quantitative) x-value
       y = ([y]) => y, // given d in data, returns the (quantitative) y-value
       targetLimit = 40,
@@ -36,6 +37,12 @@ function Scatterplot(data, {
       halo = "#fff", // color of label halo 
       haloWidth = 3 // padding around the labels
 } = {}) {
+  
+      console.log({
+        'X': x,
+        'Y': y,
+        'originalData': originalData,
+      })
 
       // Compute values.
 
@@ -48,9 +55,9 @@ function Scatterplot(data, {
       const xRange = [marginLeft + insetLeft, width - marginRight - insetRight] // [left, right]
       const yRange = [height - marginBottom - insetBottom, marginTop + insetTop] // [bottom, top]
 
-      const X = d3.map(data, x);
-      const Y = d3.map(data, y);
-      const T = title == null ? null : d3.map(data, title);
+      const X = d3.map(originalData, x);
+      const Y = d3.map(originalData, y);
+      const T = title == null ? null : d3.map(originalData, title);
       const I = d3.range(X.length).filter(i => !isNaN(X[i]) && !isNaN(Y[i]));
 
       // Compute default domains.
@@ -72,6 +79,11 @@ function Scatterplot(data, {
             .attr("style", `max-width: 100%;
                   height: auto;
                   height: intrinsic;`);
+                  
+      console.log({
+        'X': X,
+        'Y': Y
+      })
 
 
       // axis x                  

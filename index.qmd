@@ -118,8 +118,14 @@ air_q_scaled <-
   select(-data)
 
 # named list for all other plot
-air_q_out <-
+air_q_list <-
   air_q_nested %>% 
+  mutate(
+    across(
+      .cols = c(data, scaled, smoothed),
+      .fns = ~map(., transpose)
+    )
+  ) %>% 
   {
     transpose(.l = .,
               .names = .$inquinante)
@@ -133,13 +139,18 @@ ozone <-
 
 ojs_define(
   all_scaled_in = air_q_scaled,
-  ozone_in = ozone
+  air_q_list = air_q_list
   )
 ```
 
 ```{r data-to-js}
-df_to_js(air_q_out)
+# df_to_js(air_q_list)
 ```
+
+```{ojs}
+air_q_list.O3.data
+```
+
 
 
 ```{ojs}
@@ -212,8 +223,8 @@ heatmap(allScaledFiltered, {
 
 ```{ojs scatterplot}
 //| echo: false
-Scatterplot(ozoneFiltered, {
-  x: d => Date.parse(d.date)    ,
+Scatterplot(air_q_list.O3, {
+  x: d => d.date*24*60*60*1000,
   y: d => d.valore,
   xType: d3.scaleTime,
   xLabel: "Days →",
@@ -222,7 +233,7 @@ Scatterplot(ozoneFiltered, {
   width,
   height: height,
   columnsRatio: 8/12,
-})
+})    
 ```
 
 :::
