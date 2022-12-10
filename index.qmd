@@ -110,10 +110,21 @@ air_q_nested <-
   air_q_nested %>% 
   pmap(smooth_air_q)
 
+
+# scaled data for the heatmap
 air_q_scaled <- 
   air_q_nested %>% 
   unnest(scaled) %>% 
   select(-data)
+
+# named list for all other plot
+air_q_out <-
+  air_q_nested %>% 
+  {
+    transpose(.l = .,
+              .names = .$inquinante)
+  }
+
 
 ozone <- 
   air_q %>% 
@@ -125,6 +136,11 @@ ojs_define(
   ozone_in = ozone
   )
 ```
+
+```{r data-to-js}
+df_to_js(air_q_out)
+```
+
 
 ```{ojs}
 //| echo: false
