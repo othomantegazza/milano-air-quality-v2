@@ -62,7 +62,8 @@ smooth_air_q <-
         low_95 = .fitted - .se.fit * conf_95,
         high_95 = .fitted + .se.fit * conf_95,
       ) %>% 
-      mutate(date = as_date(date))
+      mutate(date = as_date(date)) %>% 
+      select(-.fitted, -.se.fit)
     
     return(out)
   } 

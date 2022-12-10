@@ -2,7 +2,7 @@
 
 - [ ] Add smooth to scatterplot
   - [x] Smooth data in R
-  - [ ] pass smooth to js
+  - [X] pass smooth to js
   - [ ] represent ribbon in d3 (with area chart)
 
 # Done

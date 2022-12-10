@@ -48,13 +48,6 @@ source(
 loess_span <- .2
 ```
 
-
-```{js}
-//| echo: false
-var height = 350
-```
-
-
 ```{r pollutants}
 #| include: false
 
@@ -76,12 +69,14 @@ pollutants <-
 air_q_url <-
   'data/aq.csv'
 
+# read the data and do main cleaning
 air_q <- 
   air_q_url %>% 
   readr::read_delim(delim = ',') %>% 
   janitor::clean_names() %>% 
   rename(date = data) %>% 
   mutate(date = date %>% as_date()) %>% 
+  select(-id) %>% 
   mutate(
     across(
       .cols = inquinante,
@@ -101,15 +96,16 @@ air_q <-
   drop_na() %>% 
   left_join(pollutants)
 
+# Nest by pollutant
 air_q_nested <- 
   air_q %>% 
+  select(-pollutant_name) %>% 
   group_by(inquinante, eu_limits) %>% 
   nest(); air_q_nested$scaled <- 
   air_q_nested %>% 
   pmap(scale_pollutant); air_q_nested$smoothed <-
   air_q_nested %>% 
   pmap(smooth_air_q)
-
 
 # scaled data for the heatmap
 air_q_scaled <- 
@@ -120,9 +116,11 @@ air_q_scaled <-
 # named list for all other plot
 air_q_list <-
   air_q_nested %>% 
+  ungroup() %>% 
+  select(-scaled) %>% 
   mutate(
     across(
-      .cols = c(data, scaled, smoothed),
+      .cols = c(data, smoothed),
       .fns = ~map(., transpose)
     )
   ) %>% 
@@ -147,16 +145,16 @@ ojs_define(
 # df_to_js(air_q_list)
 ```
 
-```{ojs}
-air_q_list.O3.data
-```
 
+```{js params-js}
+//| echo: false
+var height = 350
+```
 
 
 ```{ojs}
 //| echo: false
 allScaled = transpose(all_scaled_in)
-ozone = transpose(ozone_in)
 ```
 
 ```{ojs}
