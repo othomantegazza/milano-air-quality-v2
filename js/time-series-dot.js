@@ -164,9 +164,7 @@ function Scatterplot(data, {
 
       // target limit ine
       svg.append("g")
-            .selectAll("line")
-            .data([1])
-            .join("line")
+            .append("line")
             .attr("x1", xScale(d3.min(X)))
             .attr("x2", xScale(d3.max(X)))
             .attr("y1", yScale(targetLimit))
