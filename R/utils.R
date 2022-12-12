@@ -30,15 +30,14 @@ scale_pollutant <-
   }
 
 smooth_air_q <- 
-  function(data, eu_limits, ...) {
+  function(data, ...) {
     
     date_range <- range(air_q$date)
     all_dates <-  seq.Date(date_range[1], date_range[2], by = 1)
     conf_95 <- 1.96
     
     loess_fit <- 
-      air_q %>% 
-      filter(pollutant_name == 'Ozone') %>% 
+      data %>% 
       mutate(date = as.numeric(date)) %>%
       {
         loess(formula = valore ~ date,
