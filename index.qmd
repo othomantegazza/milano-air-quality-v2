@@ -193,7 +193,7 @@ allScaledFiltered = allScaled.filter((i) => {
 ```{ojs heatmap}
 //| echo: false
 heatmap(allScaledFiltered, {
-  x: d => Date.parse(d.date)    ,
+  x: d => Date.parse(d.date),
   y: d => d.inquinante,
   fill: d => d.scaled,
   xType: d3.scaleTime,
@@ -218,6 +218,9 @@ heatmap(allScaledFiltered, {
 Scatterplot(air_q_list.O3, {
   x: d => d.date*24*60*60*1000,
   y: d => d.valore,
+  xSmooth: d => d.date*24*60*60*1000,
+  yLow95: d => d.low_95,
+  yHigh95: d => d.high_95,
   start: start,
   end: end,
   xType: d3.scaleTime,

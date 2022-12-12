@@ -6,6 +6,9 @@ function Scatterplot(data, {
       smoothedData = data.smoothed,
       x = ([x]) => x, // given d in data, returns the (quantitative) x-value
       y = ([y]) => y, // given d in data, returns the (quantitative) y-value
+      xSmooth = ([x]) => x,
+      yLow95 = ([y]) => y,
+      yHigh95 = ([y]) => y,
       targetLimit = 40,
       start, // start date, from view
       end,  // end date, from view
@@ -32,6 +35,7 @@ function Scatterplot(data, {
       yLabel, // a label for the y-axis
       xFormat, // a format specifier string for the x-axis
       yFormat, // a format specifier string for the y-axis
+      curve = d3.curveLinear,  // method of interpolation between points
       fontSize = 14,
       fontTickReducer = 0.9,
       fill = "none", // fill color for dots
@@ -70,9 +74,13 @@ function Scatterplot(data, {
       const yRange = [height - marginBottom - insetBottom, marginTop + insetTop] // [bottom, top]
 
       const X = d3.map(originalData, x);
+      const XSMOOTH = d3.map(smoothedData, xSmooth);
+      const YLOW95 = d3.map(smoothedData, yLow95);
+      const YHIGH95 = d3.map(smoothedData, yHigh95);
       const Y = d3.map(originalData, y);
       const T = title == null ? null : d3.map(originalData, title);
-      const I = d3.range(X.length).filter(i => !isNaN(X[i]) && !isNaN(Y[i]));
+      const I = d3.range(X.length).filter(i => !isNaN(X[i]) && !isNaN(Y[i]))
+      const ISMOOTH = d3.range(XSMOOTH.length);
 
       // Compute default domains.
       if (xDomain === undefined) xDomain = d3.extent(X);
@@ -84,7 +92,7 @@ function Scatterplot(data, {
       const xAxis = d3.axisBottom(xScale).ticks(width / 80, xFormat);
       const yAxis = d3.axisLeft(yScale).ticks(height / 50, yFormat);
 
-
+      defined = (d, i) => true;
 
       const svg = d3.create("svg")
             .attr("width", width)
@@ -96,8 +104,20 @@ function Scatterplot(data, {
                   
       console.log({
         'X': X,
-        'Y': Y
+        'Y': Y,
+        'XSMOOTH': XSMOOTH,
+        'YLOW95': YLOW95,
+        'YHIGH95': YHIGH95,
       })
+
+        // Construct an area generator.
+      const area = d3.area()
+            .defined(i => ISMOOTH[i])
+            .curve(curve)
+            .x(i => xScale(XSMOOTH[i]))
+            .y0(i => yScale(YLOW95[i]))
+            .y1(i => yScale(YHIGH95[i]));
+
 
 
       // axis x                  
@@ -135,6 +155,11 @@ function Scatterplot(data, {
                   .attr("fill", "currentColor")
                   .attr("text-anchor", "start")
                   .text(yLabel));
+
+      // smooth
+      svg.append("g")
+            .attr("fill", '#DEDEDE')
+            .attr("d", area(ISMOOTH));
 
       // target limit ine
       svg.append("g")
