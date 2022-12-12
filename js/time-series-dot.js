@@ -17,7 +17,7 @@ function Scatterplot(data, {
       marginTop = 20, // top margin, in pixels
       marginRight = 0, // right margin, in pixels
       marginBottom = 40, // bottom margin, in pixels
-      marginLeft = 25, // left margin, in pixels
+      marginLeft = 45, // left margin, in pixels
       inset = r * 2, // inset the default range, in pixels
       insetTop = inset, // inset the default y-range
       insetRight = inset, // inset the default x-range
@@ -84,7 +84,7 @@ function Scatterplot(data, {
 
       // Compute default domains.
       if (xDomain === undefined) xDomain = d3.extent(X);
-      if (yDomain === undefined) yDomain = d3.extent(Y);
+      if (yDomain === undefined) yDomain = [0, d3.max(Y)];
 
       // Construct scales and axes.
       const xScale = xType(xDomain, xRange);
