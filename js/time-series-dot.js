@@ -158,6 +158,7 @@ function Scatterplot(data, {
 
       // smooth
       svg.append("g")
+            .append("path")
             .attr("fill", '#DEDEDE')
             .attr("d", area(ISMOOTH));
 
