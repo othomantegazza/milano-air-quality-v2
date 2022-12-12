@@ -34,7 +34,7 @@ smooth_air_q <-
     
     date_range <- range(air_q$date)
     all_dates <-  seq.Date(date_range[1], date_range[2], by = 1)
-    conf_95 <- 1.96 / 2
+    conf_95 <- 1.96
     
     loess_fit <- 
       air_q %>% 
