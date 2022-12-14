@@ -1,7 +1,6 @@
 # To Do
 
 -   [ ] interaction
--   [ ] tabs
 
 # Done
 
@@ -17,3 +16,5 @@
     -   [x] pass smooth to js
     -   [x] represent ribbon in d3 (with area chart)
 -   [x] fix smooth for other pollutants
+-   [x] tabs
+-   [x] connect eu limits

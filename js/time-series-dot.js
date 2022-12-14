@@ -4,12 +4,12 @@
 function Scatterplot(data, {
       originalData = data.data,
       smoothedData = data.smoothed,
+      euLimit = data.eu_limits,
       x = ([x]) => x, // given d in data, returns the (quantitative) x-value
       y = ([y]) => y, // given d in data, returns the (quantitative) y-value
       xSmooth = ([x]) => x,
       yLow95 = ([y]) => y,
       yHigh95 = ([y]) => y,
-      targetLimit = 40,
       start, // start date, from view
       end,  // end date, from view
       r = 3, // (fixed) radius of dots, in pixels
@@ -50,6 +50,7 @@ function Scatterplot(data, {
         'Y': y,
         'originalData': originalData,
         'smoothedData': smoothedData,
+        'euLimits': euLimit,
         'start': start,
         'end': end
       })
@@ -167,8 +168,8 @@ function Scatterplot(data, {
             .append("line")
             .attr("x1", xScale(d3.min(X)))
             .attr("x2", xScale(d3.max(X)))
-            .attr("y1", yScale(targetLimit))
-            .attr("y2", yScale(targetLimit))
+            .attr("y1", yScale(euLimit))
+            .attr("y2", yScale(euLimit))
             .attr("stroke-width", 3)
             .attr("stroke", '#CCCCCC')
             .attr("stroke-dasharray", "6 2");
