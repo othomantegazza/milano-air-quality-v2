@@ -111,7 +111,7 @@ function Scatterplot(data, {
         'YHIGH95': YHIGH95,
       })
 
-        // Construct an area generator.
+      // Construct an area generator.
       const area = d3.area()
             .defined(i => ISMOOTH[i])
             .curve(curve)
@@ -119,7 +119,26 @@ function Scatterplot(data, {
             .y0(i => yScale(YLOW95[i]))
             .y1(i => yScale(YHIGH95[i]));
 
+      // Tooltip
+      // const div = d3.selectAll(".observablehq")
+      // const tooltip = div.append('div')
+      //       .attr('class', 'tooltiptest')
+      //       .style('background-color', tooltipBackground)
+      //       .style('width', 'fit-content')
+      //       .style('height', tooltipHeight + 'px')
+      //       .style('position', 'fixed')
+      //       .style('pointer-events', 'none')
+      //       .style('opacity', 1)
+      //       .style('padding', tooltipPadding + 'px')
+      //       .style('font-size', '10px')
 
+      const tooltip = d3.select("body")
+            .append("div")
+            .attr("class", "svg-tooltip")
+            .style('position', 'fixed')
+            .style('pointer-events', 'none')
+            .style("visibility", "visible")
+            .text("I'm a circle!")
 
       // axis x                  
       svg.append("g")
@@ -185,7 +204,21 @@ function Scatterplot(data, {
             .join("circle")
             .attr("cx", i => xScale(X[i]))
             .attr("cy", i => yScale(Y[i]))
-            .attr("r", r);
+            .attr("r", r)
+            .on('mouseover', function (e, i) {
+                  tooltip.style("visibility", "visible")
+            })
+            .on('mouseout', function (e, i) {
+                  tooltip.style("visibility", "hidden")
+            })
+            .on('mousemove', (e, i) => {
+                  const [x, y] = [e.clientX, e.clientY]
+            
+                  return tooltip.style('top', `${y - tooltipHeight}px`)
+                    .style('left', `${x}px`)
+                })
+
+                  
 
       return svg.node();
 }
