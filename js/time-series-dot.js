@@ -96,18 +96,18 @@ function Scatterplot(data, {
       const xAxis = d3.axisBottom(xScale).ticks(width / 80, xFormat);
       const yAxis = d3.axisLeft(yScale).ticks(height / 50, yFormat);
 
-      defined = (d, i) => true;
-
+      
       console.log({
-        'X': X,
-        'Y': Y,
-        'xRange': xRange,
-        'XSMOOTH': XSMOOTH,
-        'YLOW95': YLOW95,
-        'YHIGH95': YHIGH95,
+            'X': X,
+            'Y': Y,
+            'xRange': xRange,
+            'XSMOOTH': XSMOOTH,
+            'YLOW95': YLOW95,
+            'YHIGH95': YHIGH95,
       })
-
+      
       // Construct an area generator.
+      defined = (d, i) => true;
       const area = d3.area()
             .defined(i => ISMOOTH[i])
             .curve(curve)
