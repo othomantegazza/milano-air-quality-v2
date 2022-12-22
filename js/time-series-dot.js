@@ -14,7 +14,7 @@ function Scatterplot(data, {
       end,  // end date, from view
       r = 3, // (fixed) radius of dots, in pixels
       title, // given d in data, returns the title
-      marginTop = 20, // top margin, in pixels
+      marginTop = 25, // top margin, in pixels
       marginRight = 0, // right margin, in pixels
       marginBottom = 40, // bottom margin, in pixels
       marginLeft = 45, // left margin, in pixels
@@ -42,7 +42,10 @@ function Scatterplot(data, {
       stroke = "currentColor", // stroke color for the dots
       strokeWidth = 1.5, // stroke width for dots
       halo = "#fff", // color of label halo 
-      haloWidth = 3 // padding around the labels
+      haloWidth = 3, // padding around the labels,
+      tooltipBackground = 'black',
+      tooltipHeight = 40,
+      tooltipPadding = 5
 } = {}) {
   
       console.log({
@@ -95,17 +98,10 @@ function Scatterplot(data, {
 
       defined = (d, i) => true;
 
-      const svg = d3.create("svg")
-            .attr("width", width)
-            .attr("height", height)
-            .attr("viewBox", [0, 0, width, height])
-            .attr("style", `max-width: 100%;
-                  height: auto;
-                  height: intrinsic;`);
-                  
       console.log({
         'X': X,
         'Y': Y,
+        'xRange': xRange,
         'XSMOOTH': XSMOOTH,
         'YLOW95': YLOW95,
         'YHIGH95': YHIGH95,
@@ -138,7 +134,20 @@ function Scatterplot(data, {
             .style('position', 'fixed')
             .style('pointer-events', 'none')
             .style("visibility", "visible")
-            .text("I'm a circle!")
+
+
+      const svg = d3.create("svg")
+            .attr("width", width)
+            .attr("height", height)
+            .attr("viewBox", [0, 0, width, height])
+            // .attr("style", `max-width: 100%;
+            //                 height: auto;
+            //                 height: intrinsic;`)
+            .on("pointerenter pointermove", pointermoved)
+            .on("pointerleave", pointerleft);
+
+      
+            
 
       // axis x                  
       svg.append("g")
@@ -205,20 +214,43 @@ function Scatterplot(data, {
             .attr("cx", i => xScale(X[i]))
             .attr("cy", i => yScale(Y[i]))
             .attr("r", r)
-            .on('mouseover', function (e, i) {
-                  tooltip.style("visibility", "visible")
-            })
-            .on('mouseout', function (e, i) {
-                  tooltip.style("visibility", "hidden")
-            })
-            .on('mousemove', (e, i) => {
-                  const [x, y] = [e.clientX, e.clientY]
-            
-                  return tooltip.style('top', `${y - tooltipHeight}px`)
-                    .style('left', `${x}px`)
-                })
 
-                  
+      // vertical [line] point
+      svg.append("g")
+            .attr("class", "pointer-line")
+            .append("circle")
+            .attr("cy", yScale(d3.min(Y)))
+            //.attr("y2", yScale(d3.max(Y)))
+            .attr("cx", 0)
+            //.attr("x2", 0)
+            .attr("stroke-width", 0)
+            .attr("stroke", '#CCCCCC')
+
+      function pointermoved(event) {
+            console.log({
+                  'event': event,
+                  'pointer': d3.pointer(event),
+                  'invert':  xScale.invert(d3.pointer(event)[0]),
+                  'bisect':  d3.bisectCenter(X, xScale.invert(d3.pointer(event)[0])),
+            })
+            const line_x = event.layerX;
+            const line_y = event.layerY;
+            d3.select(".pointer-line")
+                  .select("circle")
+                  .attr("stroke-width", 3)
+                  .attr("fill", '#00000000')
+                  .attr("r", 10)
+                  .attr("cx", line_x)
+                  //.attr("x2", line_x)
+                  .attr("cy", line_y)
+
+
+            
+      }
+      function pointerleft() {
+            console.log('pointer left')
+      }
+
 
       return svg.node();
 }

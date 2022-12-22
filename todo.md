@@ -1,6 +1,10 @@
 # To Do
 
--   [ ] interaction
+-  [ ] interaction
+  - [ ] tooltip
+  - [ ] vertical line
+-  [ ] Fix filtering when date specified
+-  [ ] bring x axis on 0
 
 # Done
 
