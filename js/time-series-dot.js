@@ -21,7 +21,7 @@ function Scatterplot(data, {
       inset = r * 2, // inset the default range, in pixels
       insetTop = inset, // inset the default y-range
       insetRight = inset, // inset the default x-range
-      insetBottom = inset, // inset the default y-range
+      insetBottom = 0, // inset the default y-range
       insetLeft = inset, // inset the default x-range
       width = 640, // outer width, in pixels
       height = 400, // outer height, in pixels

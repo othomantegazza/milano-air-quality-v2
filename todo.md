@@ -3,8 +3,8 @@
 -  [ ] interaction
   - [ ] tooltip
   - [ ] vertical line
--  [ ] Fix filtering when date specified
--  [ ] bring x axis on 0
+-  [ ] Fix filtering when date not  specified
+
 
 # Done
 
@@ -22,3 +22,4 @@
 -   [x] fix smooth for other pollutants
 -   [x] tabs
 -   [x] connect eu limits
+-  [x] bring x axis on 0
