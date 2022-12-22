@@ -252,6 +252,10 @@ function Scatterplot(data, {
       }
       function pointerleft() {
             console.log('pointer left')
+
+            d3.select(".pointer-line")
+                  .select("line")
+                  .attr("stroke-width", 0)
       }
 
 
