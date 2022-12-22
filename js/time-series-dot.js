@@ -218,11 +218,11 @@ function Scatterplot(data, {
       // vertical [line] point
       svg.append("g")
             .attr("class", "pointer-line")
-            .append("circle")
-            .attr("cy", yScale(d3.min(Y)))
-            //.attr("y2", yScale(d3.max(Y)))
-            .attr("cx", 0)
-            //.attr("x2", 0)
+            .append("line")
+            .attr("y1", yRange[0])
+            .attr("y2", yScale(d3.max(Y)))
+            .attr("x1", 0)
+            .attr("x2", 0)
             .attr("stroke-width", 0)
             .attr("stroke", '#CCCCCC')
 
@@ -234,16 +234,19 @@ function Scatterplot(data, {
                   'bisect':  d3.bisectCenter(X, xScale.invert(d3.pointer(event)[0])),
             })
             const line_x = event.layerX;
-            const line_y = event.layerY;
-            d3.select(".pointer-line")
-                  .select("circle")
-                  .attr("stroke-width", 3)
-                  .attr("fill", '#00000000')
-                  .attr("r", 10)
-                  .attr("cx", line_x)
-                  //.attr("x2", line_x)
-                  .attr("cy", line_y)
+            //const line_y = event.layerY;
 
+            if(line_x > marginLeft) {
+
+            d3.select(".pointer-line")
+                  .select("line")
+                  .attr("stroke-width", 1)
+                  //.attr("fill", '#00000000')
+                  //.attr("r", 10)
+                  .attr("x1", line_x)
+                  .attr("x2", line_x)
+                  //.attr("cy", line_y)
+            }
 
             
       }
