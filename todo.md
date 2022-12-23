@@ -1,12 +1,15 @@
 # To Do
 
--   [ ] interaction
+-   [ ] interaction scatterplot
   -   [ ] tooltip
   -   [x] select the underlying circle
   -   [x] vertical line
--   [ ] Fix filtering when date not  specified
+  -   [ ] Maybe there's no need for a vertical selection line, otherwise fix it so that it appears in all panels
+-   [ ] interaction heatmap
+-   [ ] Fix filtering when date not specified
 -   [ ] add the right color scales
--   [ ] Maybe there's no need for a vertical selection line
+-   [ ] Blurred landing page
+
 
 # Done
 
