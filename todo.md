@@ -2,7 +2,8 @@
 
 -  [ ] interaction
   - [ ] tooltip
-  - [ ] vertical line
+  - [x] select the underlying circle
+  - [x] vertical line
 -  [ ] Fix filtering when date not  specified
 
 

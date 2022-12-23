@@ -49,8 +49,8 @@ function Scatterplot(data, {
 } = {}) {
   
       console.log({
-        'X': x,
-        'Y': y,
+        'x': x,
+        'y': y,
         'originalData': originalData,
         'smoothedData': smoothedData,
         'euLimits': euLimit,
@@ -214,6 +214,7 @@ function Scatterplot(data, {
             .attr("cx", i => xScale(X[i]))
             .attr("cy", i => yScale(Y[i]))
             .attr("r", r)
+            .attr("id", i => dateForID(X[i]))
 
       // vertical [line] point
       svg.append("g")
@@ -230,11 +231,15 @@ function Scatterplot(data, {
             console.log({
                   'event': event,
                   'pointer': d3.pointer(event),
-                  'invert':  xScale.invert(d3.pointer(event)[0]),
+                  'invertjs':  xScale.invert(d3.pointer(event)[0]).setHours(0, 0, 0, 0),
+                  'invertdayjs': dateForID(xScale.invert(d3.pointer(event)[0])),
+                  'invertinvert': xScale(xScale.invert(d3.pointer(event)[0])),
                   'bisect':  d3.bisectCenter(X, xScale.invert(d3.pointer(event)[0])),
             })
             const line_x = event.layerX;
             //const line_y = event.layerY;
+            const selector = dateForID(xScale.invert(d3.pointer(event)[0]))
+
 
             if(line_x > marginLeft) {
 
@@ -248,6 +253,12 @@ function Scatterplot(data, {
                   //.attr("cy", line_y)
             }
 
+            d3.selectAll("circle")
+                  .attr("stroke", stroke)
+
+            d3.selectAll(`#${selector}`)
+                  .attr("stroke", "yellow")
+
             
       }
       function pointerleft() {
@@ -256,6 +267,11 @@ function Scatterplot(data, {
             d3.select(".pointer-line")
                   .select("line")
                   .attr("stroke-width", 0)
+      }
+
+      function dateForID(msec) {
+            const formatted = dayjs(msec)
+            return(`d${formatted.$y}_${formatted.$M}_${formatted.$D}`)
       }
 
 
