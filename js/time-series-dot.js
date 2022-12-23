@@ -253,16 +253,23 @@ function Scatterplot(data, {
                   //.attr("cy", line_y)
             }
 
-            d3.selectAll("circle")
-                  .attr("stroke", stroke)
+            d3.selectAll(".selectedCircle")
+                  .remove()
+                  
 
             d3.selectAll(`#${selector}`)
-                  .attr("stroke", "yellow")
+                  .clone()
+                  .attr("class", "selectedCircle")
+                  .attr("stroke", "black")
+                  .attr("r", 10)
 
             
       }
       function pointerleft() {
             console.log('pointer left')
+
+            d3.selectAll(".selectedCircle")
+                  .remove()
 
             d3.select(".pointer-line")
                   .select("line")

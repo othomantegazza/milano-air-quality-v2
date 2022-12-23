@@ -1,11 +1,12 @@
 # To Do
 
--  [ ] interaction
-  - [ ] tooltip
-  - [x] select the underlying circle
-  - [x] vertical line
--  [ ] Fix filtering when date not  specified
-
+-   [ ] interaction
+  -   [ ] tooltip
+  -   [x] select the underlying circle
+  -   [x] vertical line
+-   [ ] Fix filtering when date not  specified
+-   [ ] add the right color scales
+-   [ ] Maybe there's no need for a vertical selection line
 
 # Done
 
