@@ -140,9 +140,6 @@ function Scatterplot(data, {
             .attr("width", width)
             .attr("height", height)
             .attr("viewBox", [0, 0, width, height])
-            // .attr("style", `max-width: 100%;
-            //                 height: auto;
-            //                 height: intrinsic;`)
             .on("pointerenter pointermove", pointermoved)
             .on("pointerleave", pointerleft);
 
@@ -237,7 +234,6 @@ function Scatterplot(data, {
                   'bisect':  d3.bisectCenter(X, xScale.invert(d3.pointer(event)[0])),
             })
             const line_x = event.layerX;
-            //const line_y = event.layerY;
             const selector = dateForID(xScale.invert(d3.pointer(event)[0]))
 
 
@@ -246,11 +242,8 @@ function Scatterplot(data, {
             d3.select(".pointer-line")
                   .select("line")
                   .attr("stroke-width", 1)
-                  //.attr("fill", '#00000000')
-                  //.attr("r", 10)
                   .attr("x1", line_x)
                   .attr("x2", line_x)
-                  //.attr("cy", line_y)
             }
 
             d3.selectAll(".selectedCircle")
