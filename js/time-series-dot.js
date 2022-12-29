@@ -132,8 +132,8 @@ function Scatterplot(data, {
       const tooltip = d3.select("body")
             .append("div")
             .attr("class", "svg-tooltip")
-            .style('position', 'fixed')
-            .style('pointer-events', 'none')
+            .style('position', 'absolute')
+            // .style('pointer-events', 'none')
             .style("visibility", "visible")
 
 
@@ -256,6 +256,10 @@ function Scatterplot(data, {
                   .attr("class", "selectedCircle")
                   .attr("stroke", "black")
                   .attr("r", r + r*rMultiplier)
+
+            tooltip.style('top', `${event.pageY - tooltipHeight}px`)
+                  .style('left', `${event.pageX}px`)
+                  .html(`Hello there!`)
 
             
       }
