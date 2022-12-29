@@ -133,8 +133,9 @@ function Scatterplot(data, {
             .append("div")
             .attr("class", "svg-tooltip")
             .style('position', 'absolute')
+            .style('backdrop-filter', 'blur(6px)')
             // .style('pointer-events', 'none')
-            .style("visibility", "visible")
+            .style("visibility", "hidden")
 
 
       const svg = d3.create("svg")
@@ -142,7 +143,7 @@ function Scatterplot(data, {
             .attr("height", height)
             .attr("viewBox", [0, 0, width, height])
             .on("pointerenter pointermove", pointermoved)
-            .on("pointerleave", pointerleft);
+            .on("pointerout", pointerleft);
 
       
             
@@ -257,8 +258,9 @@ function Scatterplot(data, {
                   .attr("stroke", "black")
                   .attr("r", r + r*rMultiplier)
 
-            tooltip.style('top', `${event.pageY - tooltipHeight}px`)
-                  .style('left', `${event.pageX}px`)
+            tooltip.style('top', `${event.pageY}px`)
+                  .style('left', `${event.pageX + 20}px`)
+                  .style("visibility", "visible")
                   .html(`Hello there!`)
 
             
@@ -272,6 +274,8 @@ function Scatterplot(data, {
             d3.select(".pointer-line")
                   .select("line")
                   .attr("stroke-width", 0)
+
+            tooltip.style("visibility", "hidden")
       }
 
       function dateForID(msec) {

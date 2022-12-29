@@ -2,6 +2,8 @@
 
 -   [ ] interaction scatterplot
   -   [ ] tooltip
+    -   [ ] Disappear at mouseout
+    -   [ ] Display useful info
   -   [x] select the underlying circle
   -   [x] vertical line
   -   [ ] Maybe there's no need for a vertical selection line, otherwise fix it so that it appears in all panels
