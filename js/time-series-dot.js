@@ -13,6 +13,7 @@ function Scatterplot(data, {
       start, // start date, from view
       end,  // end date, from view
       r = 3, // (fixed) radius of dots, in pixels
+      rMultiplier = 1.68,
       title, // given d in data, returns the title
       marginTop = 25, // top margin, in pixels
       marginRight = 0, // right margin, in pixels
@@ -254,7 +255,7 @@ function Scatterplot(data, {
                   .clone()
                   .attr("class", "selectedCircle")
                   .attr("stroke", "black")
-                  .attr("r", 10)
+                  .attr("r", r + r*rMultiplier)
 
             
       }
