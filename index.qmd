@@ -2,12 +2,11 @@
 title: "Milano Air Quality Dashboard"
 format:
   html: 
-    theme:
-      - default
-    #  - style/custom.scss
-    page-layout: custom
+    theme: default
+    css: style/style.css
+    page-layout: custom 
     margin-left: 10px
-    margin-top: 10px
+    margin-top: 10px 
     margin-right: 30px
     margin-bottom: 10px
 editor_options: 
