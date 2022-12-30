@@ -45,9 +45,12 @@ function Scatterplot(data, {
       halo = "#fff", // color of label halo 
       haloWidth = 3, // padding around the labels,
       tooltipBackground = 'black',
+      highlightColor = '#b72dfc     ',
       tooltipHeight = 40,
       tooltipPadding = 5
 } = {}) {
+
+      const msec_per_day = 24*60*60*1000
   
       console.log({
         'x': x,
@@ -60,11 +63,11 @@ function Scatterplot(data, {
       })
       
       originalData = originalData.filter((i) => {
-            return (i.date*24*60*60*1000 >= start) & (i.date*24*60*60*1000 <= end)
+            return (i.date*msec_per_day >= start) & (i.date*msec_per_day <= end)
       })
 
       smoothedData = smoothedData.filter((i) => {
-            return (i.date*24*60*60*1000 >= start) & (i.date*24*60*60*1000 <= end)
+            return (i.date*msec_per_day >= start) & (i.date*msec_per_day <= end)
       })
 
       // Compute values.
@@ -133,7 +136,10 @@ function Scatterplot(data, {
             .append("div")
             .attr("class", "svg-tooltip")
             .style('position', 'absolute')
-            .style('backdrop-filter', 'blur(6px)')
+            .style('backdrop-filter', 'blur(3px)')
+            .style('border-color', highlightColor)
+            .style('border-style', 'solid')
+            .style('border-width', "2px")
             // .style('pointer-events', 'none')
             .style("visibility", "hidden")
 
@@ -227,16 +233,47 @@ function Scatterplot(data, {
             .attr("stroke", '#CCCCCC')
 
       function pointermoved(event) {
+
+            const line_x = event.layerX;
+            const milliSec = xScale.invert(d3.pointer(event)[0])
+            const floored_msec = milliSec - (milliSec % msec_per_day)
+            const selector = dateForID(milliSec)
+            const dateLabel = dateForLabel(milliSec)
+
+
             console.log({
                   'event': event,
                   'pointer': d3.pointer(event),
-                  'invertjs':  xScale.invert(d3.pointer(event)[0]).setHours(0, 0, 0, 0),
+                  'milliSec': milliSec - 1 + 1,
+                  'floored_msec': floored_msec,
+                  'remainder': milliSec % msec_per_day,
+                  'xequal': X.filter(i => i == floored_msec),
+                  // 'xindex': X.findIndex(i => i == floored_msec),
+                  'xindex': X.reduce(function(a, e, i) {
+                        if (e === floored_msec)
+                            a.push(i);
+                        return a;
+                    }, []),
+                  'xRemainder': d3.map(X, i => i % msec_per_day),
+                  // 'invertjs':  xScale.invert(d3.pointer(event)[0]).setHours(0, 0, 0, 0),
                   'invertdayjs': dateForID(xScale.invert(d3.pointer(event)[0])),
                   'invertinvert': xScale(xScale.invert(d3.pointer(event)[0])),
                   'bisect':  d3.bisectCenter(X, xScale.invert(d3.pointer(event)[0])),
+                  'label': dateLabel
             })
-            const line_x = event.layerX;
-            const selector = dateForID(xScale.invert(d3.pointer(event)[0]))
+
+            d3.selectAll("#test-floored-msec")
+                  .remove()
+
+            svg.append("g")
+                  .attr("id", "test-floored-msec")
+                  .attr("stroke-width", 4)
+                  .attr("stroke", '#CCCCCC')
+                  .append("line")
+                  .attr("x1", xScale(floored_msec))
+                  .attr("x2", xScale(floored_msec))
+                  .attr("y1", yScale(0))
+                  .attr("y2", yScale(d3.max(Y)))
 
 
             if(line_x > marginLeft) {
@@ -255,16 +292,17 @@ function Scatterplot(data, {
             d3.selectAll(`#${selector}`)
                   .clone()
                   .attr("class", "selectedCircle")
-                  .attr("stroke", "black")
+                  .attr("stroke", highlightColor)
                   .attr("r", r + r*rMultiplier)
 
             tooltip.style('top', `${event.pageY}px`)
                   .style('left', `${event.pageX + 20}px`)
                   .style("visibility", "visible")
-                  .html(`Hello there!`)
+                  .html(`${dateLabel}`)
 
             
       }
+
       function pointerleft() {
             console.log('pointer left')
 
@@ -283,6 +321,10 @@ function Scatterplot(data, {
             return(`d${formatted.$y}_${formatted.$M}_${formatted.$D}`)
       }
 
+      function dateForLabel(msec) {
+            const formatted = dayjs(msec)
+            return(`${formatted.$D}-${formatted.$M}-${formatted.$y}`)
+      }
 
       return svg.node();
 }
