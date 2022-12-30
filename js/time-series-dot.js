@@ -136,7 +136,7 @@ function Scatterplot(data, {
             .append("div")
             .attr("class", "svg-tooltip")
             .style('position', 'absolute')
-            .style('backdrop-filter', 'blur(3px)')
+            .style('backdrop-filter', 'blur(6px)')
             .style('border-color', highlightColor)
             .style('border-style', 'solid')
             .style('border-width', "2px")
@@ -235,31 +235,36 @@ function Scatterplot(data, {
       function pointermoved(event) {
 
             const line_x = event.layerX;
-            const milliSec = xScale.invert(d3.pointer(event)[0])
-            const floored_msec = milliSec - (milliSec % msec_per_day)
-            const selector = dateForID(milliSec)
-            const dateLabel = dateForLabel(milliSec)
+            const millisec = xScale.invert(d3.pointer(event)[0])
+            const floored_msec = millisec - (millisec % msec_per_day)
+            const selector = dateForID(floored_msec)
+            const dateLabel = dateForLabel(floored_msec)
+            const selected_records = X.reduce(function(a, e, i) {
+                  if (e === floored_msec)
+                      a.push(i);
+                  return a;
+              }, [])
+            let poll_levels = Y.filter((lev, index) => selected_records.includes(index))
+            const poll_levels_string = poll_levels.join('<br>')
 
 
             console.log({
                   'event': event,
                   'pointer': d3.pointer(event),
-                  'milliSec': milliSec - 1 + 1,
+                  'millisec': millisec - 1 + 1,
                   'floored_msec': floored_msec,
-                  'remainder': milliSec % msec_per_day,
+                  'remainder': millisec % msec_per_day,
                   'xequal': X.filter(i => i == floored_msec),
                   // 'xindex': X.findIndex(i => i == floored_msec),
-                  'xindex': X.reduce(function(a, e, i) {
-                        if (e === floored_msec)
-                            a.push(i);
-                        return a;
-                    }, []),
+                  'xindex': selected_records,
                   'xRemainder': d3.map(X, i => i % msec_per_day),
                   // 'invertjs':  xScale.invert(d3.pointer(event)[0]).setHours(0, 0, 0, 0),
                   'invertdayjs': dateForID(xScale.invert(d3.pointer(event)[0])),
                   'invertinvert': xScale(xScale.invert(d3.pointer(event)[0])),
                   'bisect':  d3.bisectCenter(X, xScale.invert(d3.pointer(event)[0])),
-                  'label': dateLabel
+                  'label': dateLabel,
+                  'poll_levels': poll_levels,
+                  'poll_levels_string': poll_levels_string,
             })
 
             d3.selectAll("#test-floored-msec")
@@ -298,7 +303,9 @@ function Scatterplot(data, {
             tooltip.style('top', `${event.pageY}px`)
                   .style('left', `${event.pageX + 20}px`)
                   .style("visibility", "visible")
-                  .html(`${dateLabel}`)
+                  .html(`${dateLabel},<br>
+                        measured level:<br>
+                        ${poll_levels_string}`)
 
             
       }
