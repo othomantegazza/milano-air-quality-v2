@@ -46,8 +46,7 @@ function Scatterplot(data, {
       haloWidth = 3, // padding around the labels,
       tooltipBackground = 'black',
       highlightColor = '#b72dfc     ',
-      tooltipHeight = 40,
-      tooltipPadding = 5
+      tooltipOffsetPx = r*rMultiplier*3,
 } = {}) {
 
       const msec_per_day = 24*60*60*1000
@@ -215,17 +214,6 @@ function Scatterplot(data, {
             .attr("r", r)
             .attr("id", i => dateForID(X[i]))
 
-      // vertical [line] point
-      svg.append("g")
-            .attr("class", "pointer-line")
-            .append("line")
-            .attr("y1", yRange[0])
-            .attr("y2", yScale(d3.max(Y)))
-            .attr("x1", 0)
-            .attr("x2", 0)
-            .attr("stroke-width", 0)
-            .attr("stroke", '#CCCCCC')
-
       function pointermoved(event) {
 
             const line_x = event.layerX;
@@ -261,28 +249,18 @@ function Scatterplot(data, {
                   'poll_levels_string': poll_levels_string,
             })
 
-            d3.selectAll("#test-floored-msec")
+            d3.selectAll("#tooltip-vline")
                   .remove()
 
             svg.append("g")
-                  .attr("id", "test-floored-msec")
-                  .attr("stroke-width", 4)
+                  .attr("id", "tooltip-vline")
+                  .attr("stroke-width", 2)
                   .attr("stroke", '#CCCCCC')
                   .append("line")
-                  .attr("x1", xScale(floored_msec))
-                  .attr("x2", xScale(floored_msec))
+                  .attr("x1", xScale(millisec))
+                  .attr("x2", xScale(millisec))
                   .attr("y1", yScale(0))
                   .attr("y2", yScale(d3.max(Y)))
-
-
-            if(line_x > marginLeft) {
-
-            d3.select(".pointer-line")
-                  .select("line")
-                  .attr("stroke-width", 1)
-                  .attr("x1", line_x)
-                  .attr("x2", line_x)
-            }
 
             d3.selectAll(".selectedCircle")
                   .remove()
@@ -295,7 +273,7 @@ function Scatterplot(data, {
                   .attr("r", r + r*rMultiplier)
 
             tooltip.style('top', `${event.pageY}px`)
-                  .style('left', `${event.pageX + 20}px`)
+                  .style('left', `${event.pageX + tooltipOffsetPx}px`)
                   .style("visibility", "visible")
                   .html(`${dateLabel},<br>
                         measured level:<br>
@@ -310,9 +288,8 @@ function Scatterplot(data, {
             d3.selectAll(".selectedCircle")
                   .remove()
 
-            d3.select(".pointer-line")
-                  .select("line")
-                  .attr("stroke-width", 0)
+            d3.select("#tooltip-vline")
+                  .attr("visibility", "hidden")
 
             tooltip.style("visibility", "hidden")
       }
