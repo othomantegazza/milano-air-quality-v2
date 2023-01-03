@@ -26,6 +26,7 @@ function heatmap(data, {
       fillType = d3.scaleLinear,
       fillDomain, // [fillmin, fillmid, fillmax]
       fillRange = [0, 0.5, 1],
+      fillPalette = d3.interpolateCividis,
       targetLimit,
       xLabel, // a label for the x-axis
       yLabel, // a label for the y-axis
@@ -72,7 +73,7 @@ function heatmap(data, {
             'fillrange': fillRange,
       })
 
-      const fillPalette = d3.interpolateCividis
+      // const fillPalette = d3.interpolateCividis
 
       const dayMillisec = 24 * 60 * 60 * 1000
 

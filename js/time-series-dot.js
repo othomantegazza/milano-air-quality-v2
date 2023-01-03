@@ -7,6 +7,7 @@ function Scatterplot(data, {
       euLimit = data.eu_limits,
       x = ([x]) => x, // given d in data, returns the (quantitative) x-value
       y = ([y]) => y, // given d in data, returns the (quantitative) y-value
+      fill = ([fill]) => fill,
       xSmooth = ([x]) => x,
       yLow95 = ([y]) => y,
       yHigh95 = ([y]) => y,
@@ -36,10 +37,13 @@ function Scatterplot(data, {
       yLabel, // a label for the y-axis
       xFormat, // a format specifier string for the x-axis
       yFormat, // a format specifier string for the y-axis
+      fillType = d3.scaleLinear,
+      fillDomain, // [fillmin, fillmid, fillmax]
+      fillRange = [0, 0.5, 1],
+      fillPalette = d3.interpolateCividis,
       curve = d3.curveLinear,  // method of interpolation between points
       fontSize = 14,
       fontTickReducer = 0.9,
-      fill = "none", // fill color for dots
       stroke = "currentColor", // stroke color for the dots
       strokeWidth = 1.5, // stroke width for dots
       halo = "#fff", // color of label halo 
@@ -85,6 +89,7 @@ function Scatterplot(data, {
       const YLOW95 = d3.map(smoothedData, yLow95);
       const YHIGH95 = d3.map(smoothedData, yHigh95);
       const Y = d3.map(originalData, y);
+      const FILL = d3.map(originalData, fill)
       const T = title == null ? null : d3.map(originalData, title);
       const I = d3.range(X.length).filter(i => !isNaN(X[i]) && !isNaN(Y[i]))
       const ISMOOTH = d3.range(XSMOOTH.length);
@@ -92,10 +97,15 @@ function Scatterplot(data, {
       // Compute default domains.
       if (xDomain === undefined) xDomain = d3.extent(X);
       if (yDomain === undefined) yDomain = [0, d3.max(Y)];
+      if (fillDomain === undefined) fillDomain = [d3.min(FILL), euLimit, d3.max(FILL)];
 
       // Construct scales and axes.
       const xScale = xType(xDomain, xRange);
       const yScale = yType(yDomain, yRange);
+      const fillScale = fillType()
+            .domain(fillDomain)
+            .range(fillRange)
+            .interpolate((i, j) => (t) => fillPalette(i + t * (j - i)));
       const xAxis = d3.axisBottom(xScale).ticks(width / 80, xFormat);
       const yAxis = d3.axisLeft(yScale).ticks(height / 50, yFormat);
 
@@ -203,7 +213,7 @@ function Scatterplot(data, {
 
       // circles    
       svg.append("g")
-            .attr("fill", fill)
+            .attr("fill", "none")
             .attr("stroke", stroke)
             .attr("stroke-width", strokeWidth)
             .selectAll("circle")
@@ -229,7 +239,7 @@ function Scatterplot(data, {
             let poll_levels = Y
                   .filter((lev, index) => selected_records.includes(index))
                   .sort(function(a, b){return b-a})
-            let poll_levels_colors = d3.map(poll_levels, i => '<span style="color: #ff0000">⬤</span> ' + i)
+            let poll_levels_colors = d3.map(poll_levels, i => `<span style="color: ${fillScale(i)}">⬤</span>  ${i}`)
             const poll_levels_string = poll_levels_colors.join('<br>')
 
 

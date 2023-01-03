@@ -207,7 +207,8 @@ heatmap(allScaledFiltered, {
 //| echo: false
 Scatterplot(air_q_list.C6H6, {
   x: d => d.date*24*60*60*1000,
-  y: d => d.valore, 
+  y: d => d.valore,
+  fill: d => d.valore, 
   xSmooth: d => d.date*24*60*60*1000,
   yLow95: d => d.low_95,
   yHigh95: d => d.high_95,
@@ -229,7 +230,8 @@ Scatterplot(air_q_list.C6H6, {
 //| echo: false
 Scatterplot(air_q_list.CO, {
   x: d => d.date*24*60*60*1000,
-  y: d => d.valore, 
+  y: d => d.valore,
+  fill: d => d.valore,
   xSmooth: d => d.date*24*60*60*1000,
   yLow95: d => d.low_95,
   yHigh95: d => d.high_95,
@@ -253,6 +255,7 @@ Scatterplot(air_q_list.CO, {
 Scatterplot(air_q_list.NO2, {
   x: d => d.date*24*60*60*1000,
   y: d => d.valore,
+  fill: d => d.valore,
   xSmooth: d => d.date*24*60*60*1000,
   yLow95: d => d.low_95,
   yHigh95: d => d.high_95,
@@ -275,6 +278,7 @@ Scatterplot(air_q_list.NO2, {
 Scatterplot(air_q_list.O3, {
   x: d => d.date*24*60*60*1000,
   y: d => d.valore,
+  fill: d => d.valore,
   xSmooth: d => d.date*24*60*60*1000,
   yLow95: d => d.low_95,
   yHigh95: d => d.high_95,
@@ -297,6 +301,7 @@ Scatterplot(air_q_list.O3, {
 Scatterplot(air_q_list.PM10, {
   x: d => d.date*24*60*60*1000,
   y: d => d.valore, 
+  fill: d => d.valore,
   xSmooth: d => d.date*24*60*60*1000,
   yLow95: d => d.low_95,
   yHigh95: d => d.high_95,
@@ -318,7 +323,8 @@ Scatterplot(air_q_list.PM10, {
 //| echo: false
 Scatterplot(air_q_list.PM25, {
   x: d => d.date*24*60*60*1000,
-  y: d => d.valore, 
+  y: d => d.valore,
+  fill: d => d.valore,
   xSmooth: d => d.date*24*60*60*1000,
   yLow95: d => d.low_95,
   yHigh95: d => d.high_95,
@@ -340,7 +346,8 @@ Scatterplot(air_q_list.PM25, {
 //| echo: false
 Scatterplot(air_q_list.SO2, {
   x: d => d.date*24*60*60*1000,
-  y: d => d.valore, 
+  y: d => d.valore,
+  fill: d => d.valore,
   xSmooth: d => d.date*24*60*60*1000,
   yLow95: d => d.low_95,
   yHigh95: d => d.high_95,
