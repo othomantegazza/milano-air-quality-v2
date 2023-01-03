@@ -226,8 +226,11 @@ function Scatterplot(data, {
                       a.push(i);
                   return a;
               }, [])
-            let poll_levels = Y.filter((lev, index) => selected_records.includes(index)).sort(function(a, b){return b-a})
-            const poll_levels_string = poll_levels.join('<br>')
+            let poll_levels = Y
+                  .filter((lev, index) => selected_records.includes(index))
+                  .sort(function(a, b){return b-a})
+            let poll_levels_colors = d3.map(poll_levels, i => '<span style="color: #ff0000">⬤</span> ' + i)
+            const poll_levels_string = poll_levels_colors.join('<br>')
 
 
             console.log({
@@ -272,10 +275,11 @@ function Scatterplot(data, {
                   .attr("stroke", highlightColor)
                   .attr("r", r + r*rMultiplier)
 
+            // tooltip text
             tooltip.style('top', `${event.pageY}px`)
                   .style('left', `${event.pageX + tooltipOffsetPx}px`)
                   .style("visibility", "visible")
-                  .html(`${dateLabel},<br>
+                  .html(`${dateLabel}<br>
                         measured level:<br>
                         ${poll_levels_string}`)
 
