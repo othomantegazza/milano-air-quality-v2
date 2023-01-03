@@ -1,3 +1,12 @@
 input {
     height: inherit !important;
 }
+
+.svg-tooltip {
+    backdrop-filter: blur(6px);
+    position: absolute;
+    border-color: #b72dfc;
+    border-style: solid;
+    border-width: 1.5px;
+    padding: 3px;
+}

@@ -135,12 +135,6 @@ function Scatterplot(data, {
       const tooltip = d3.select("body")
             .append("div")
             .attr("class", "svg-tooltip")
-            .style('position', 'absolute')
-            .style('backdrop-filter', 'blur(6px)')
-            .style('border-color', highlightColor)
-            .style('border-style', 'solid')
-            .style('border-width', "2px")
-            // .style('pointer-events', 'none')
             .style("visibility", "hidden")
 
 
