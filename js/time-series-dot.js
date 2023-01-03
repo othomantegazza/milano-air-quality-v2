@@ -226,7 +226,7 @@ function Scatterplot(data, {
                       a.push(i);
                   return a;
               }, [])
-            let poll_levels = Y.filter((lev, index) => selected_records.includes(index))
+            let poll_levels = Y.filter((lev, index) => selected_records.includes(index)).sort(function(a, b){return b-a})
             const poll_levels_string = poll_levels.join('<br>')
 
 
