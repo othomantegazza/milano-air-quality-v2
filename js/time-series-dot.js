@@ -60,7 +60,7 @@ function Scatterplot(data, {
         'y': y,
         'originalData': originalData,
         'smoothedData': smoothedData,
-        'euLimits': euLimit,
+        'euLimit': euLimit,
         'start': start,
         'end': end
       })
@@ -89,7 +89,7 @@ function Scatterplot(data, {
       const YLOW95 = d3.map(smoothedData, yLow95);
       const YHIGH95 = d3.map(smoothedData, yHigh95);
       const Y = d3.map(originalData, y);
-      const FILL = d3.map(originalData, fill)
+      const FILL = d3.map(d3.map(originalData, fill), i => i/euLimit)
       const T = title == null ? null : d3.map(originalData, title);
       const I = d3.range(X.length).filter(i => !isNaN(X[i]) && !isNaN(Y[i]))
       const ISMOOTH = d3.range(XSMOOTH.length);
@@ -117,6 +117,7 @@ function Scatterplot(data, {
             'XSMOOTH': XSMOOTH,
             'YLOW95': YLOW95,
             'YHIGH95': YHIGH95,
+            'FILL': FILL,
       })
       
       // Construct an area generator.
@@ -224,7 +225,7 @@ function Scatterplot(data, {
             .attr("r", r)
             .attr("id", i => dateForID(X[i]))
 
-      function pointermoved(event) {
+      function pointermoved(event) { 
 
             const line_x = event.layerX;
             const millisec = xScale.invert(d3.pointer(event)[0])
@@ -239,7 +240,9 @@ function Scatterplot(data, {
             let poll_levels = Y
                   .filter((lev, index) => selected_records.includes(index))
                   .sort(function(a, b){return b-a})
-            let poll_levels_colors = d3.map(poll_levels, i => `<span style="color: ${fillScale(i)}">⬤</span>  ${i}`)
+            let poll_levels_colors = d3.map(poll_levels, i => `
+                  <span style="color: ${fillScale(i/euLimit)}">⬤</span> ${i}
+                  ${i/euLimit}`)
             const poll_levels_string = poll_levels_colors.join('<br>')
 
 

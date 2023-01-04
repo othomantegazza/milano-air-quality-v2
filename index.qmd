@@ -113,6 +113,11 @@ air_q_scaled <-
   unnest(scaled) %>% 
   select(-data)
 
+# check how much the values go out of limits
+# you'll use this number to compute a relative 
+# colour scale across graphics
+max_over_limits <- air_q_scaled$scaled %>% max(na.rm = T)
+
 # named list for all other plot
 air_q_list <-
   air_q_nested %>% 
@@ -131,16 +136,19 @@ air_q_list <-
 
 ojs_define(
   all_scaled_in = air_q_scaled,
-  air_q_list = air_q_list
+  air_q_list = air_q_list,
+  max_over_limits = max_over_limits
   )
 ```
-
 
 ```{js params-js}
 //| echo: false
 var height = 350
 ```
 
+```{ojs}
+max_over_limits
+```
 
 ```{ojs}
 //| echo: false
@@ -208,12 +216,13 @@ heatmap(allScaledFiltered, {
 Scatterplot(air_q_list.C6H6, {
   x: d => d.date*24*60*60*1000,
   y: d => d.valore,
-  fill: d => d.valore, 
+  fill: d => d.valore,
   xSmooth: d => d.date*24*60*60*1000,
   yLow95: d => d.low_95,
   yHigh95: d => d.high_95,
   start: start,
   end: end,
+  fillDomain: [0, 1, max_over_limits],
   xType: d3.scaleTime,
   xLabel: "Days →",
   yLabel: "↑ Concentration [µg/m3]",
@@ -237,6 +246,7 @@ Scatterplot(air_q_list.CO, {
   yHigh95: d => d.high_95,
   start: start,
   end: end,
+  fillDomain: [0, 1, max_over_limits],
   xType: d3.scaleTime,
   xLabel: "Days →",
   yLabel: "↑ Concentration [µg/m3]",
@@ -255,12 +265,13 @@ Scatterplot(air_q_list.CO, {
 Scatterplot(air_q_list.NO2, {
   x: d => d.date*24*60*60*1000,
   y: d => d.valore,
-  fill: d => d.valore,
+  fill: d => d.valore, 
   xSmooth: d => d.date*24*60*60*1000,
   yLow95: d => d.low_95,
   yHigh95: d => d.high_95,
   start: start,
   end: end,
+  fillDomain: [0, 1, max_over_limits],
   xType: d3.scaleTime,
   xLabel: "Days →",
   yLabel: "↑ Concentration [µg/m3]",
@@ -284,6 +295,7 @@ Scatterplot(air_q_list.O3, {
   yHigh95: d => d.high_95,
   start: start,
   end: end,
+  fillDomain: [0, 1, max_over_limits],
   xType: d3.scaleTime,
   xLabel: "Days →",
   yLabel: "↑ Concentration [µg/m3]",
@@ -307,6 +319,7 @@ Scatterplot(air_q_list.PM10, {
   yHigh95: d => d.high_95,
   start: start,
   end: end,
+  fillDomain: [0, 1, max_over_limits],
   xType: d3.scaleTime,
   xLabel: "Days →",
   yLabel: "↑ Concentration [µg/m3]",
@@ -330,6 +343,7 @@ Scatterplot(air_q_list.PM25, {
   yHigh95: d => d.high_95,
   start: start,
   end: end,
+  fillDomain: [0, 1, max_over_limits],
   xType: d3.scaleTime,
   xLabel: "Days →",
   yLabel: "↑ Concentration [µg/m3]",
@@ -353,6 +367,7 @@ Scatterplot(air_q_list.SO2, {
   yHigh95: d => d.high_95,
   start: start,
   end: end,
+  fillDomain: [0, 1, max_over_limits],
   xType: d3.scaleTime,
   xLabel: "Days →",
   yLabel: "↑ Concentration [µg/m3]",
