@@ -3,10 +3,10 @@
 -   [ ] interaction scatterplot
   -   [ ] tooltip
     -   [ ] Disappear at mouseout
-    -   [ ] Display useful info
+    -   [x] Display percent rounded to first decimal.
   -   [x] select the underlying circle
   -   [x] vertical line
-  -   [ ] Maybe there's no need for a vertical selection line, otherwise fix it so that it appears in all panels
+  -   [x] Maybe there's no need for a vertical selection line, otherwise fix it so that it appears in all panels --> fixed
 -   [ ] interaction heatmap
 -   [ ] Fix filtering when date not specified
 -   [ ] add the right color scales

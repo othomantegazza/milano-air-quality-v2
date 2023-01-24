@@ -216,7 +216,7 @@ function Scatterplot(data, {
       // circles    
       svg.append("g")
             .attr("fill", "none")
-            .attr("stroke", stroke)
+            //.attr("stroke", stroke)
             .attr("stroke-width", strokeWidth)
             .selectAll("circle")
             .data(I)
@@ -224,6 +224,7 @@ function Scatterplot(data, {
             .attr("cx", i => xScale(X[i]))
             .attr("cy", i => yScale(Y[i]))
             .attr("r", r)
+            .attr("stroke", i => fillScale(Y[i]/euLimit))
             .attr("id", i => dateForID(X[i]))
 
       function pointermoved(event) { 
