@@ -39,7 +39,7 @@ function Scatterplot(data, {
       yFormat, // a format specifier string for the y-axis
       fillType = d3.scaleLinear,
       fillDomain, // [fillmin, fillmid, fillmax]
-      fillRange = [0, 0.5, 1],
+      fillRange = ["#02417e", "grey", "#8e2905"],
       fillPalette = d3.interpolateCividis,
       curve = d3.curveLinear,  // method of interpolation between points
       fontSize = 14,
@@ -53,6 +53,7 @@ function Scatterplot(data, {
       tooltipOffsetPx = r*rMultiplier*3,
 } = {}) {
 
+      // parameter to convert time scales
       const msec_per_day = 24*60*60*1000
   
       console.log({
@@ -65,6 +66,7 @@ function Scatterplot(data, {
         'end': end
       })
       
+      // convert time scales
       originalData = originalData.filter((i) => {
             return (i.date*msec_per_day >= start) & (i.date*msec_per_day <= end)
       })
@@ -73,17 +75,16 @@ function Scatterplot(data, {
             return (i.date*msec_per_day >= start) & (i.date*msec_per_day <= end)
       })
 
-      // Compute values.
-
+      // Compute page layout values
       if (screen.width >= 1200) {
             width = width * columnsRatio
       } else if (width < minWidth) {
             width = minWidth
       }
 
+      // Define scales parameters and build data variables
       const xRange = [marginLeft + insetLeft, width - marginRight - insetRight] // [left, right]
       const yRange = [height - marginBottom - insetBottom, marginTop + insetTop] // [bottom, top]
-
       const X = d3.map(originalData, x);
       const XSMOOTH = d3.map(smoothedData, xSmooth);
       const YLOW95 = d3.map(smoothedData, yLow95);
@@ -105,7 +106,7 @@ function Scatterplot(data, {
       const fillScale = fillType()
             .domain(fillDomain)
             .range(fillRange)
-            .interpolate((i, j) => (t) => fillPalette(i + t * (j - i)));
+            .interpolate(d3.interpolateRgb.gamma(2.2));
       const xAxis = d3.axisBottom(xScale).ticks(width / 80, xFormat);
       const yAxis = d3.axisLeft(yScale).ticks(height / 50, yFormat);
 
