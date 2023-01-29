@@ -12,6 +12,9 @@ index_files
 # mac
 **.DS_Store
 
+# node
+node_modules/**
+
 # History files
 .Rhistory
 .Rapp.history

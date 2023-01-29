@@ -2,8 +2,12 @@ project:
   title: "air-quality-js"
   type: website
   output-dir: docs
+  pre-render: npm install; node js/translate-palettes.js
   render:
     - index.qmd
+  resources:
+    - js/
+    - data/tokyo-palette.json
   preview:
     port: 4200
 
