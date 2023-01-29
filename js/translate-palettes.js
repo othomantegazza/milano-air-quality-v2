@@ -1,7 +1,7 @@
 const convert = require('xml-js');
 const fs = require('fs');
 
-convertScicoPalette('data/tokyo_PARAVIEW.xml', 'data/tokyo.json')
+convertScicoPalette('data/tokyo_PARAVIEW.xml', 'data/tokyo-palette.json')
 
 function convertScicoPalette(path_in, path_out) {
   fs.readFile(path_in, 'utf8', (err, data) => {
