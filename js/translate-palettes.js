@@ -36,6 +36,6 @@ function toHexColor(point) {
 
 function numberstringToHex(str) {
   const intensity = Math.trunc(parseFloat(str) * 255)
-  const hex = intensity.toString(16)
+  const hex = (0 + intensity.toString(16)).slice(-2)
   return (hex)
 }
