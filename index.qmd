@@ -148,7 +148,7 @@ var height = 350
 
 ```{ojs palette}
 tokyo = FileAttachment('data/tokyo-palette.json').json()
-tokyo.reverse()
+tokyo_rev = tokyo.slice().reverse()  
 ```
 
 
@@ -230,7 +230,7 @@ Scatterplot(air_q_list.C6H6, {
   end: end,
   fillRange: [0, 0.5, 1], 
   fillDomain: [0, 1, max_over_limits],
-  palette: tokyo,
+  fillPalette: tokyo_rev,
   width: width,
   height: height,
   columnsRatio: 8/12,
@@ -252,7 +252,7 @@ Scatterplot(air_q_list.CO, {
   end: end,
   fillRange: [0, 0.5, 1], 
   fillDomain: [0, 1, max_over_limits],
-  palette: tokyo,
+  fillPalette: tokyo_rev,
   width: width,
   height: height,
   columnsRatio: 8/12,
@@ -275,7 +275,7 @@ Scatterplot(air_q_list.NO2, {
   end: end,
   fillRange: [0, 0.5, 1], 
   fillDomain: [0, 1, max_over_limits],
-  palette: tokyo,
+  fillPalette: tokyo_rev,
   width: width,
   height: height,
   columnsRatio: 8/12,
@@ -297,7 +297,7 @@ Scatterplot(air_q_list.O3, {
   end: end,
   fillRange: [0, 0.5, 1], 
   fillDomain: [0, 1, max_over_limits],
-  palette: tokyo,
+  fillPalette: tokyo_rev,
   width: width,
   height: height,
   columnsRatio: 8/12,
@@ -319,7 +319,7 @@ Scatterplot(air_q_list.PM10, {
   end: end,
   fillRange: [0, 0.5, 1], 
   fillDomain: [0, 1, max_over_limits],
-  palette: tokyo,
+  fillPalette: tokyo_rev,
   width: width,
   height: height,
   columnsRatio: 8/12,
@@ -342,7 +342,7 @@ Scatterplot(air_q_list.PM25, {
   end: end,
   fillRange: [0, 0.5, 1], 
   fillDomain: [0, 1, max_over_limits],
-  palette: tokyo,
+  fillPalette: tokyo_rev,
   width: width,
   height: height,
   columnsRatio: 8/12,
@@ -365,7 +365,7 @@ Scatterplot(air_q_list.SO2, {
   end: end,
   fillRange: [0, 0.5, 1], 
   fillDomain: [0, 1, max_over_limits],
-  palette: tokyo,
+  fillPalette: tokyo_rev,
   width: width,
   height: height,
   columnsRatio: 8/12,

@@ -40,7 +40,7 @@ function Scatterplot(data, {
       fillType = d3.scaleLinear,
       fillDomain, // [fillmin, fillmid, fillmax]
       fillRange,
-      palette,
+      fillPalette,
       curve = d3.curveLinear,  // method of interpolation between points
       fontSize = 14,
       fontTickReducer = 0.9,
@@ -108,7 +108,7 @@ function Scatterplot(data, {
             .range(fillRange)
       const interpolatePalette = d3.piecewise(
             d3.interpolateHsl,
-            palette
+            fillPalette
       )
       function fillScale(n) {
             return (
