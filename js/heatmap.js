@@ -53,25 +53,25 @@ function heatmap(data, {
       const FILL = d3.map(data, fill)
       const I = d3.range(X.length)//.filter(i => !isNaN(X[i]) && !isNaN(Y[i]));
 
-      console.log({
-            'x': X,
-            'y': Y,
-            'fill': FILL,
-            'I': I,
-      })
+      //console.log({
+      //      'x': X,
+      //      'y': Y,
+      //      'fill': FILL,
+      //      'I': I,
+      //})
 
       // Compute default domains.
       if (xDomain === undefined) xDomain = d3.extent(X);
       if (yDomain === undefined) yDomain = new d3.InternSet(Y);
       if (fillDomain === undefined) fillDomain = [d3.min(FILL), targetLimit, d3.max(FILL)];
 
-      console.log({
-            'xDomain': xDomain,
-            'xRange': xRange,
-            'yDomain': yDomain,
-            'filldomain': fillDomain,
-            'fillrange': fillRange,
-      })
+      //console.log({
+      //      'xDomain': xDomain,
+      //      'xRange': xRange,
+      //      'yDomain': yDomain,
+      //      'filldomain': fillDomain,
+      //      'fillrange': fillRange,
+      //})
 
       // const fillPalette = d3.interpolateCividis
 

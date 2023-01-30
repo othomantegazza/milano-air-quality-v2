@@ -39,7 +39,7 @@ function Scatterplot(data, {
       yFormat, // a format specifier string for the y-axis
       fillType = d3.scaleLinear,
       fillDomain, // [fillmin, fillmid, fillmax]
-      fillRange,
+      fillRange = [0, 0.5, 1],
       fillPalette,
       curve = d3.curveLinear,  // method of interpolation between points
       fontSize = 14,
@@ -56,15 +56,15 @@ function Scatterplot(data, {
       // parameter to convert time scales
       const msec_per_day = 24*60*60*1000
   
-      console.log({
-        'x': x,
-        'y': y,
-        'originalData': originalData,
-        'smoothedData': smoothedData,
-        'euLimit': euLimit,
-        'start': start,
-        'end': end
-      })
+      // console.log({
+      //   'x': x,
+      //   'y': y,
+      //   'originalData': originalData,
+      //   'smoothedData': smoothedData,
+      //   'euLimit': euLimit,
+      //   'start': start,
+      //   'end': end
+      // })
       
       // convert time scales
       originalData = originalData.filter((i) => {
@@ -121,15 +121,15 @@ function Scatterplot(data, {
       const yAxis = d3.axisLeft(yScale).ticks(height / 50, yFormat);
 
       
-      console.log({
-            'X': X,
-            'Y': Y,
-            'xRange': xRange,
-            'XSMOOTH': XSMOOTH,
-            'YLOW95': YLOW95,
-            'YHIGH95': YHIGH95,
-            'FILL': FILL,
-      })
+      // console.log({
+      //       'X': X,
+      //       'Y': Y,
+      //       'xRange': xRange,
+      //       'XSMOOTH': XSMOOTH,
+      //       'YLOW95': YLOW95,
+      //       'YHIGH95': YHIGH95,
+      //       'FILL': FILL,
+      // })
       
       // Construct an area generator.
       defined = (d, i) => true;
@@ -258,24 +258,24 @@ function Scatterplot(data, {
             const poll_levels_string = poll_levels_colors.join('<br>')
 
 
-            console.log({
-                  'event': event,
-                  'pointer': d3.pointer(event),
-                  'millisec': millisec - 1 + 1,
-                  'floored_msec': floored_msec,
-                  'remainder': millisec % msec_per_day,
-                  'xequal': X.filter(i => i == floored_msec),
-                  // 'xindex': X.findIndex(i => i == floored_msec),
-                  'xindex': selected_records,
-                  'xRemainder': d3.map(X, i => i % msec_per_day),
-                  // 'invertjs':  xScale.invert(d3.pointer(event)[0]).setHours(0, 0, 0, 0),
-                  'invertdayjs': dateForID(xScale.invert(d3.pointer(event)[0])),
-                  'invertinvert': xScale(xScale.invert(d3.pointer(event)[0])),
-                  'bisect':  d3.bisectCenter(X, xScale.invert(d3.pointer(event)[0])),
-                  'label': dateLabel,
-                  'poll_levels': poll_levels,
-                  'poll_levels_string': poll_levels_string,
-            })
+            // console.log({
+            //       'event': event,
+            //       'pointer': d3.pointer(event),
+            //       'millisec': millisec - 1 + 1,
+            //       'floored_msec': floored_msec,
+            //       'remainder': millisec % msec_per_day,
+            //       'xequal': X.filter(i => i == floored_msec),
+            //       // 'xindex': X.findIndex(i => i == floored_msec),
+            //       'xindex': selected_records,
+            //       'xRemainder': d3.map(X, i => i % msec_per_day),
+            //       // 'invertjs':  xScale.invert(d3.pointer(event)[0]).setHours(0, 0, 0, 0),
+            //       'invertdayjs': dateForID(xScale.invert(d3.pointer(event)[0])),
+            //       'invertinvert': xScale(xScale.invert(d3.pointer(event)[0])),
+            //       'bisect':  d3.bisectCenter(X, xScale.invert(d3.pointer(event)[0])),
+            //       'label': dateLabel,
+            //       'poll_levels': poll_levels,
+            //       'poll_levels_string': poll_levels_string,
+            // })
 
             d3.selectAll("#tooltip-vline")
                   .remove()
@@ -312,7 +312,7 @@ function Scatterplot(data, {
       }
 
       function pointerleft() {
-            console.log('pointer left')
+            //console.log('pointer left')
 
             d3.selectAll(".selectedCircle")
                   .remove()
