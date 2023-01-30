@@ -148,10 +148,7 @@ var height = 350
 
 ```{ojs palette}
 tokyo = FileAttachment('data/tokyo-palette.json').json()
-```
-
-```{ojs}
-tokyo
+tokyo.reverse()
 ```
 
 
@@ -231,14 +228,10 @@ Scatterplot(air_q_list.C6H6, {
   yHigh95: d => d.high_95,
   start: start,
   end: end,
-  fillRange: [0, 1],
-  fillDomain: [0, max_over_limits],
-  palette: tokyo.reverse(),
-  xType: d3.scaleTime,
-  xLabel: "Days →",
-  yLabel: "↑ Concentration [µg/m3]",
-  stroke: "steelblue",
-  width,
+  fillRange: [0, 0.5, 1], 
+  fillDomain: [0, 1, max_over_limits],
+  palette: tokyo,
+  width: width,
   height: height,
   columnsRatio: 8/12,
 })    
@@ -257,12 +250,10 @@ Scatterplot(air_q_list.CO, {
   yHigh95: d => d.high_95,
   start: start,
   end: end,
+  fillRange: [0, 0.5, 1], 
   fillDomain: [0, 1, max_over_limits],
-  xType: d3.scaleTime,
-  xLabel: "Days →",
-  yLabel: "↑ Concentration [µg/m3]",
-  stroke: "steelblue",
-  width,
+  palette: tokyo,
+  width: width,
   height: height,
   columnsRatio: 8/12,
 })    
@@ -276,18 +267,16 @@ Scatterplot(air_q_list.CO, {
 Scatterplot(air_q_list.NO2, {
   x: d => d.date*24*60*60*1000,
   y: d => d.valore,
-  fill: d => d.valore, 
+  fill: d => d.valore,
   xSmooth: d => d.date*24*60*60*1000,
   yLow95: d => d.low_95,
   yHigh95: d => d.high_95,
   start: start,
   end: end,
+  fillRange: [0, 0.5, 1], 
   fillDomain: [0, 1, max_over_limits],
-  xType: d3.scaleTime,
-  xLabel: "Days →",
-  yLabel: "↑ Concentration [µg/m3]",
-  stroke: "steelblue",
-  width,
+  palette: tokyo,
+  width: width,
   height: height,
   columnsRatio: 8/12,
 })    
@@ -306,15 +295,13 @@ Scatterplot(air_q_list.O3, {
   yHigh95: d => d.high_95,
   start: start,
   end: end,
+  fillRange: [0, 0.5, 1], 
   fillDomain: [0, 1, max_over_limits],
-  xType: d3.scaleTime,
-  xLabel: "Days →",
-  yLabel: "↑ Concentration [µg/m3]",
-  stroke: "steelblue",
-  width,
+  palette: tokyo,
+  width: width,
   height: height,
   columnsRatio: 8/12,
-})    
+})
 ```
 
 ### PM10
@@ -323,23 +310,22 @@ Scatterplot(air_q_list.O3, {
 //| echo: false
 Scatterplot(air_q_list.PM10, {
   x: d => d.date*24*60*60*1000,
-  y: d => d.valore, 
+  y: d => d.valore,
   fill: d => d.valore,
   xSmooth: d => d.date*24*60*60*1000,
   yLow95: d => d.low_95,
   yHigh95: d => d.high_95,
   start: start,
   end: end,
+  fillRange: [0, 0.5, 1], 
   fillDomain: [0, 1, max_over_limits],
-  xType: d3.scaleTime,
-  xLabel: "Days →",
-  yLabel: "↑ Concentration [µg/m3]",
-  stroke: "steelblue",
-  width,
+  palette: tokyo,
+  width: width,
   height: height,
   columnsRatio: 8/12,
 })    
 ```
+
 
 ### PM2.5
 
@@ -354,16 +340,15 @@ Scatterplot(air_q_list.PM25, {
   yHigh95: d => d.high_95,
   start: start,
   end: end,
+  fillRange: [0, 0.5, 1], 
   fillDomain: [0, 1, max_over_limits],
-  xType: d3.scaleTime,
-  xLabel: "Days →",
-  yLabel: "↑ Concentration [µg/m3]",
-  stroke: "steelblue",
-  width,
+  palette: tokyo,
+  width: width,
   height: height,
   columnsRatio: 8/12,
 })    
 ```
+
 
 ### Sulphur Dioxide
 
@@ -378,12 +363,10 @@ Scatterplot(air_q_list.SO2, {
   yHigh95: d => d.high_95,
   start: start,
   end: end,
+  fillRange: [0, 0.5, 1], 
   fillDomain: [0, 1, max_over_limits],
-  xType: d3.scaleTime,
-  xLabel: "Days →",
-  yLabel: "↑ Concentration [µg/m3]",
-  stroke: "steelblue",
-  width,
+  palette: tokyo,
+  width: width,
   height: height,
   columnsRatio: 8/12,
 })    

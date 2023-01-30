@@ -29,19 +29,18 @@ function Scatterplot(data, {
       height = 400, // outer height, in pixels
       minWidth = 375,
       columnsRatio = 8 / 12,
-      xType = d3.scaleLinear, // type of x-scale
+      xType = d3.scaleTime, // type of x-scale
       xDomain, // [xmin, xmax]
       yType = d3.scaleLinear, // type of y-scale
       yDomain, // [ymin, ymax]
-      xLabel, // a label for the x-axis
-      yLabel, // a label for the y-axis
+      xLabel = "Days →", // a label for the x-axis
+      yLabel= "↑ Concentration [µg/m3]", // a label for the y-axis
       xFormat, // a format specifier string for the x-axis
       yFormat, // a format specifier string for the y-axis
       fillType = d3.scaleLinear,
       fillDomain, // [fillmin, fillmid, fillmax]
-      fillRange = ["#02417e", "grey", "#8e2905"],
+      fillRange,
       palette,
-      // fillPalette = d3.interpolateCividis,
       curve = d3.curveLinear,  // method of interpolation between points
       fontSize = 14,
       fontTickReducer = 0.9,
