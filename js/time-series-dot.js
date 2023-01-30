@@ -40,7 +40,8 @@ function Scatterplot(data, {
       fillType = d3.scaleLinear,
       fillDomain, // [fillmin, fillmid, fillmax]
       fillRange = ["#02417e", "grey", "#8e2905"],
-      fillPalette = d3.interpolateCividis,
+      palette,
+      // fillPalette = d3.interpolateCividis,
       curve = d3.curveLinear,  // method of interpolation between points
       fontSize = 14,
       fontTickReducer = 0.9,
@@ -103,10 +104,20 @@ function Scatterplot(data, {
       // Construct scales and axes.
       const xScale = xType(xDomain, xRange);
       const yScale = yType(yDomain, yRange);
-      const fillScale = fillType()
+      const fillBase = fillType()
             .domain(fillDomain)
             .range(fillRange)
-            .interpolate(d3.interpolateRgb.gamma(2.2));
+      const interpolatePalette = d3.piecewise(
+            d3.interpolateHsl,
+            palette
+      )
+      function fillScale(n) {
+            return (
+                  interpolatePalette(
+                        fillBase(n)
+                  )
+            )
+      }
       const xAxis = d3.axisBottom(xScale).ticks(width / 80, xFormat);
       const yAxis = d3.axisLeft(yScale).ticks(height / 50, yFormat);
 
