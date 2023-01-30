@@ -26,7 +26,7 @@ function heatmap(data, {
       fillType = d3.scaleLinear,
       fillDomain, // [fillmin, fillmid, fillmax]
       fillRange = [0, 0.5, 1],
-      fillPalette = d3.interpolateCividis,
+      fillPalette,
       targetLimit,
       xLabel, // a label for the x-axis
       yLabel, // a label for the y-axis
@@ -83,25 +83,35 @@ function heatmap(data, {
       // Construct scales and axes.
       const xScale = xType(xDomain, xRange);
       const yScale = yType(yDomain, yRange);
-      const fillScale = fillType()
+      const fillBase = fillType()
             .domain(fillDomain)
             .range(fillRange)
-            .interpolate((i, j) => (t) => fillPalette(i + t * (j - i)));
+      const interpolatePalette = d3.piecewise(
+            d3.interpolateHsl,
+            fillPalette
+      )
+      function fillScale(n) {
+            return (
+                  interpolatePalette(
+                        fillBase(n)
+                  )
+            )
+      }
       const xAxis = d3.axisBottom(xScale).ticks(width / 80, xFormat);
       const yAxis = d3.axisLeft(yScale).ticks(height / 50, yFormat);
 
-      console.log({
-            'y_ozone': yScale('O3'),
-            'y_SO2': yScale('SO2'),
-            'fill_50': fillScale(50),
-            'yStep': yScale.step(), 
-            'tileWidth': tileWidth,
-      })
+      //console.log({
+      //      'y_ozone': yScale('O3'),
+      //      'y_SO2': yScale('SO2'),
+      //      'fill_50': fillScale(50),
+      //      'yStep': yScale.step(), 
+      //      'tileWidth': tileWidth,
+      //})
 
 
-      console.log({ 'x': xScale })
-      console.log({ 'y': yScale })
-      console.log({ 'fill': fillScale })
+      //console.log({ 'x': xScale })
+      //console.log({ 'y': yScale })
+      //console.log({ 'fill': fillScale })
 
       const svg = d3.create("svg")
             .attr("width", width)
@@ -160,5 +170,14 @@ function heatmap(data, {
             .attr("width", tileWidth)
             .attr("height", yScale.step() - 2 * rectYPadding);
 
+      console.log({
+            'fillScale': fillScale,
+            'fillDomain': fillDomain,
+            'fillRange': fillRange,
+            'FILL': FILL,
+            'fill_0': fillScale(0),
+            'fillPalette': fillPalette,
+      })
+      
       return svg.node();
 }
