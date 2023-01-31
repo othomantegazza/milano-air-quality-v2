@@ -216,50 +216,43 @@ heatmap(allScaledFiltered, {
 
 :::: {.g-col-12}
 
+```{ojs scatter-params}
+scatter_params = {
+  let scatter_params = {
+    x: d => d.date*24*60*60*1000,
+    y: d => d.valore,
+    fill: d => d.valore,
+    xSmooth: d => d.date*24*60*60*1000,
+    yLow95: d => d.low_95,
+    yHigh95: d => d.high_95,
+    start: start,
+    end: end,
+    fillRange: [0, 0.5, 1], 
+    fillDomain: [0, 1, max_over_limits],
+    fillPalette: tokyo_rev,
+    width: width,
+    height: height,
+    columnsRatio: 8/12,
+  }
+  return scatter_params
+}
+```
+
+
 ::: {.panel-tabset}
 
 ### Cyclic aromatics
 
 ```{ojs c6h6}
 //| echo: false
-Scatterplot(air_q_list.C6H6, {
-  x: d => d.date*24*60*60*1000,
-  y: d => d.valore,
-  fill: d => d.valore,
-  xSmooth: d => d.date*24*60*60*1000,
-  yLow95: d => d.low_95,
-  yHigh95: d => d.high_95,
-  start: start,
-  end: end,
-  fillRange: [0, 0.5, 1], 
-  fillDomain: [0, 1, max_over_limits],
-  fillPalette: tokyo_rev,
-  width: width,
-  height: height,
-  columnsRatio: 8/12,
-})    
+Scatterplot(air_q_list.C6H6, scatter_params)    
 ```
 
 ### Carbon Monoxide
 
 ```{ojs co}
 //| echo: false
-Scatterplot(air_q_list.CO, {
-  x: d => d.date*24*60*60*1000,
-  y: d => d.valore,
-  fill: d => d.valore,
-  xSmooth: d => d.date*24*60*60*1000,
-  yLow95: d => d.low_95,
-  yHigh95: d => d.high_95,
-  start: start,
-  end: end,
-  fillRange: [0, 0.5, 1], 
-  fillDomain: [0, 1, max_over_limits],
-  fillPalette: tokyo_rev,
-  width: width,
-  height: height,
-  columnsRatio: 8/12,
-})    
+Scatterplot(air_q_list.CO, scatter_params)    
 ```
 
 
@@ -267,66 +260,21 @@ Scatterplot(air_q_list.CO, {
 
 ```{ojs no2}
 //| echo: false
-Scatterplot(air_q_list.NO2, {
-  x: d => d.date*24*60*60*1000,
-  y: d => d.valore,
-  fill: d => d.valore,
-  xSmooth: d => d.date*24*60*60*1000,
-  yLow95: d => d.low_95,
-  yHigh95: d => d.high_95,
-  start: start,
-  end: end,
-  fillRange: [0, 0.5, 1], 
-  fillDomain: [0, 1, max_over_limits],
-  fillPalette: tokyo_rev,
-  width: width,
-  height: height,
-  columnsRatio: 8/12,
-})    
+Scatterplot(air_q_list.NO2, scatter_params)    
 ```
 
 ### Ozone
 
 ```{ojs ozone}
 //| echo: false
-Scatterplot(air_q_list.O3, {
-  x: d => d.date*24*60*60*1000,
-  y: d => d.valore,
-  fill: d => d.valore,
-  xSmooth: d => d.date*24*60*60*1000,
-  yLow95: d => d.low_95,
-  yHigh95: d => d.high_95,
-  start: start,
-  end: end,
-  fillRange: [0, 0.5, 1], 
-  fillDomain: [0, 1, max_over_limits],
-  fillPalette: tokyo_rev,
-  width: width,
-  height: height,
-  columnsRatio: 8/12,
-})
+Scatterplot(air_q_list.O3, scatter_params)
 ```
 
 ### PM10
 
 ```{ojs pm10}
 //| echo: false
-Scatterplot(air_q_list.PM10, {
-  x: d => d.date*24*60*60*1000,
-  y: d => d.valore,
-  fill: d => d.valore,
-  xSmooth: d => d.date*24*60*60*1000,
-  yLow95: d => d.low_95,
-  yHigh95: d => d.high_95,
-  start: start,
-  end: end,
-  fillRange: [0, 0.5, 1], 
-  fillDomain: [0, 1, max_over_limits],
-  fillPalette: tokyo_rev,
-  width: width,
-  height: height,
-  columnsRatio: 8/12,
-})    
+Scatterplot(air_q_list.PM10, scatter_params)    
 ```
 
 
@@ -334,22 +282,7 @@ Scatterplot(air_q_list.PM10, {
 
 ```{ojs pm25}
 //| echo: false
-Scatterplot(air_q_list.PM25, {
-  x: d => d.date*24*60*60*1000,
-  y: d => d.valore,
-  fill: d => d.valore,
-  xSmooth: d => d.date*24*60*60*1000,
-  yLow95: d => d.low_95,
-  yHigh95: d => d.high_95,
-  start: start,
-  end: end,
-  fillRange: [0, 0.5, 1], 
-  fillDomain: [0, 1, max_over_limits],
-  fillPalette: tokyo_rev,
-  width: width,
-  height: height,
-  columnsRatio: 8/12,
-})    
+Scatterplot(air_q_list.PM25, scatter_params)    
 ```
 
 
@@ -357,22 +290,7 @@ Scatterplot(air_q_list.PM25, {
 
 ```{ojs so2}
 //| echo: false
-Scatterplot(air_q_list.SO2, {
-  x: d => d.date*24*60*60*1000,
-  y: d => d.valore,
-  fill: d => d.valore,
-  xSmooth: d => d.date*24*60*60*1000,
-  yLow95: d => d.low_95,
-  yHigh95: d => d.high_95,
-  start: start,
-  end: end,
-  fillRange: [0, 0.5, 1], 
-  fillDomain: [0, 1, max_over_limits],
-  fillPalette: tokyo_rev,
-  width: width,
-  height: height,
-  columnsRatio: 8/12,
-})    
+Scatterplot(air_q_list.SO2, scatter_params)    
 ```
 
 
