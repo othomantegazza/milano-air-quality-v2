@@ -151,23 +151,18 @@ tokyo = FileAttachment('data/tokyo-palette.json').json()
 tokyo_rev = tokyo.slice().reverse()  
 ```
 
-
-```{ojs}
-max_over_limits
-```
-
-```{ojs}
+```{ojs data}
 //| echo: false
 allScaled = transpose(all_scaled_in)
 ```
 
-```{ojs}
+```{ojs dates}
 getDates = d => Date.parse(d.date)
 
 allDates = d3.map(allScaled, getDates)
 ```
 
-```{ojs}
+```{ojs inputs-start}
 viewof start = Inputs.date({label: "Start date",
                             value: d3.min(allDates),
                             min: d3.min(allDates),
@@ -175,14 +170,14 @@ viewof start = Inputs.date({label: "Start date",
 ```
 
 
-```{ojs}
+```{ojs inputs-end}
 viewof end = Inputs.date({label: "End date",
                             value: d3.max(allDates),
                             min: start,
                             max: d3.max(allDates)})   
 ```
 
-```{ojs}
+```{ojs filter-data}
 allScaledFiltered = allScaled.filter((i) => {
     return (Date.parse(i.date) >= start) & (Date.parse(i.date) <= end) 
 })
