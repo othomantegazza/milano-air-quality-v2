@@ -55,17 +55,7 @@ function Scatterplot(data, {
 
       // parameter to convert time scales
       const msec_per_day = 24*60*60*1000
-  
-      // console.log({
-      //   'x': x,
-      //   'y': y,
-      //   'originalData': originalData,
-      //   'smoothedData': smoothedData,
-      //   'euLimit': euLimit,
-      //   'start': start,
-      //   'end': end
-      // })
-      
+
       // convert time scales
       originalData = originalData.filter((i) => {
             return (i.date*msec_per_day >= start) & (i.date*msec_per_day <= end)
@@ -119,17 +109,6 @@ function Scatterplot(data, {
       }
       const xAxis = d3.axisBottom(xScale).ticks(width / 80, xFormat);
       const yAxis = d3.axisLeft(yScale).ticks(height / 50, yFormat);
-
-      
-      // console.log({
-      //       'X': X,
-      //       'Y': Y,
-      //       'xRange': xRange,
-      //       'XSMOOTH': XSMOOTH,
-      //       'YLOW95': YLOW95,
-      //       'YHIGH95': YHIGH95,
-      //       'FILL': FILL,
-      // })
       
       // Construct an area generator.
       defined = (d, i) => true;
@@ -139,19 +118,6 @@ function Scatterplot(data, {
             .x(i => xScale(XSMOOTH[i]))
             .y0(i => yScale(YLOW95[i]))
             .y1(i => yScale(YHIGH95[i]));
-
-      // Tooltip
-      // const div = d3.selectAll(".observablehq")
-      // const tooltip = div.append('div')
-      //       .attr('class', 'tooltiptest')
-      //       .style('background-color', tooltipBackground)
-      //       .style('width', 'fit-content')
-      //       .style('height', tooltipHeight + 'px')
-      //       .style('position', 'fixed')
-      //       .style('pointer-events', 'none')
-      //       .style('opacity', 1)
-      //       .style('padding', tooltipPadding + 'px')
-      //       .style('font-size', '10px')
 
       const tooltip = d3.select("body")
             .append("div")
@@ -164,16 +130,12 @@ function Scatterplot(data, {
             .attr("height", height)
             .attr("viewBox", [0, 0, width, height])
             .on("pointerenter pointermove", pointermoved)
-            .on("pointerout", pointerleft);
-
-      
-            
+            .on("pointerout", pointerleft);       
 
       // axis x                  
       svg.append("g")
             .attr("transform", `translate(0,${height - marginBottom})`)
             .call(xAxis)
-            //.call(g => g.select(".domain").remove())
             .call(g => g.selectAll(".tick line").clone()
                   .attr("y2", marginTop + marginBottom - height)
                   .attr("stroke-opacity", 0.1))
@@ -226,7 +188,6 @@ function Scatterplot(data, {
       // circles    
       svg.append("g")
             .attr("fill", "none")
-            //.attr("stroke", stroke)
             .attr("stroke-width", strokeWidth)
             .selectAll("circle")
             .data(I)
@@ -256,26 +217,6 @@ function Scatterplot(data, {
                   <span style="color: ${fillScale(i/euLimit)}">⬤</span> ${i}
                   ${i/euLimit}`)
             const poll_levels_string = poll_levels_colors.join('<br>')
-
-
-            // console.log({
-            //       'event': event,
-            //       'pointer': d3.pointer(event),
-            //       'millisec': millisec - 1 + 1,
-            //       'floored_msec': floored_msec,
-            //       'remainder': millisec % msec_per_day,
-            //       'xequal': X.filter(i => i == floored_msec),
-            //       // 'xindex': X.findIndex(i => i == floored_msec),
-            //       'xindex': selected_records,
-            //       'xRemainder': d3.map(X, i => i % msec_per_day),
-            //       // 'invertjs':  xScale.invert(d3.pointer(event)[0]).setHours(0, 0, 0, 0),
-            //       'invertdayjs': dateForID(xScale.invert(d3.pointer(event)[0])),
-            //       'invertinvert': xScale(xScale.invert(d3.pointer(event)[0])),
-            //       'bisect':  d3.bisectCenter(X, xScale.invert(d3.pointer(event)[0])),
-            //       'label': dateLabel,
-            //       'poll_levels': poll_levels,
-            //       'poll_levels_string': poll_levels_string,
-            // })
 
             d3.selectAll("#tooltip-vline")
                   .remove()

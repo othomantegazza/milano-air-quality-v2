@@ -10,7 +10,6 @@ function convertScicoPalette(path_in, path_out) {
       return
     }
     const pal = convert.xml2json(data, { compact: true, spaces: 4 })
-    // console.log(JSON.parse(pal))
     const pal_js = JSON.parse(pal)
     const points = pal_js.ColorMaps.ColorMap.Point
     const pointsHex = points.map(point => toHexColor(point))

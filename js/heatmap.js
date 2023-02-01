@@ -51,29 +51,13 @@ function heatmap(data, {
       const X = d3.map(data, x);
       const Y = d3.map(data, y);
       const FILL = d3.map(data, fill)
-      const I = d3.range(X.length)//.filter(i => !isNaN(X[i]) && !isNaN(Y[i]));
+      const I = d3.range(X.length)
 
-      //console.log({
-      //      'x': X,
-      //      'y': Y,
-      //      'fill': FILL,
-      //      'I': I,
-      //})
 
       // Compute default domains.
       if (xDomain === undefined) xDomain = d3.extent(X);
       if (yDomain === undefined) yDomain = new d3.InternSet(Y);
       if (fillDomain === undefined) fillDomain = [d3.min(FILL), targetLimit, d3.max(FILL)];
-
-      //console.log({
-      //      'xDomain': xDomain,
-      //      'xRange': xRange,
-      //      'yDomain': yDomain,
-      //      'filldomain': fillDomain,
-      //      'fillrange': fillRange,
-      //})
-
-      // const fillPalette = d3.interpolateCividis
 
       const dayMillisec = 24 * 60 * 60 * 1000
 
@@ -99,19 +83,6 @@ function heatmap(data, {
       }
       const xAxis = d3.axisBottom(xScale).ticks(width / 80, xFormat);
       const yAxis = d3.axisLeft(yScale).ticks(height / 50, yFormat);
-
-      //console.log({
-      //      'y_ozone': yScale('O3'),
-      //      'y_SO2': yScale('SO2'),
-      //      'fill_50': fillScale(50),
-      //      'yStep': yScale.step(), 
-      //      'tileWidth': tileWidth,
-      //})
-
-
-      //console.log({ 'x': xScale })
-      //console.log({ 'y': yScale })
-      //console.log({ 'fill': fillScale })
 
       const svg = d3.create("svg")
             .attr("width", width)
@@ -169,15 +140,6 @@ function heatmap(data, {
             .attr("stroke",  i => fillScale(FILL[i]))
             .attr("width", tileWidth)
             .attr("height", yScale.step() - 2 * rectYPadding);
-
-      console.log({
-            'fillScale': fillScale,
-            'fillDomain': fillDomain,
-            'fillRange': fillRange,
-            'FILL': FILL,
-            'fill_0': fillScale(0),
-            'fillPalette': fillPalette,
-      })
       
       return svg.node();
 }
