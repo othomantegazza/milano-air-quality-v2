@@ -14,3 +14,10 @@ input {
 #heatmap-tooltip  td {
     text-align: end;
 }
+
+th, td {
+    border-right: 1px solid black;
+    border-style: dotted;
+    padding: 5px;
+    border-collapse: collapse;
+  }
