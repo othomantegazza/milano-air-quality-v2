@@ -214,8 +214,11 @@ function Scatterplot(data, {
                   .filter((lev, index) => selected_records.includes(index))
                   .sort(function(a, b){return b-a})
             let poll_levels_colors = d3.map(poll_levels, i => `
-                  <span style="color: ${fillScale(i/euLimit)}">⬤</span> ${i}
-                  ${i/euLimit}`)
+                  <tr>
+                  <td><span style="color: ${fillScale(i/euLimit)}">⬤</span></td>
+                  <td> ${i}</td>
+                  <td>${i/euLimit}</td></tr>
+                  `)
             const poll_levels_string = poll_levels_colors.join('<br>')
 
             d3.selectAll("#tooltip-vline")
@@ -245,9 +248,11 @@ function Scatterplot(data, {
             tooltip.style('top', `${event.pageY}px`)
                   .style('left', `${event.pageX + tooltipOffsetPx}px`)
                   .style("visibility", "visible")
-                  .html(`${dateLabel}<br>
-                        measured level:<br>
-                        ${poll_levels_string}`)
+                  .html(`${dateLabel}
+                        <table>
+                        <th></th><th>µg/m<sup>3</sup></th><th>% limits</th>
+                        ${poll_levels_string}
+                        </table>`)
 
             
       }
