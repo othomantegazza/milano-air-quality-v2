@@ -34,7 +34,7 @@ function Scatterplot(data, {
       yType = d3.scaleLinear, // type of y-scale
       yDomain, // [ymin, ymax]
       xLabel = "Days →", // a label for the x-axis
-      yLabel= "↑ Concentration [µg/m3]", // a label for the y-axis
+      yLabel= "↑ Concentration [µg/m³]", // a label for the y-axis
       xFormat, // a format specifier string for the x-axis
       yFormat, // a format specifier string for the y-axis
       fillType = d3.scaleLinear,
