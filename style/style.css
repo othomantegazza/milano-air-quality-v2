@@ -10,3 +10,7 @@ input {
     border-width: 1.5px;
     padding: 3px;
 }
+
+#heatmap-tooltip  td {
+    text-align: end;
+}
