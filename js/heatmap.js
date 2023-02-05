@@ -146,9 +146,27 @@ function heatmap(data, {
             .attr("height", yScale.step() - 2 * rectYPadding);
 
       function pointermoved(event) { 
+            const millisec = xScale.invert(d3.pointer(event)[0])
+
+            d3.selectAll("#heatmap-tooltipline")
+                  .remove()
+
+            svg.append("g")
+                  .attr("id", "heatmap-tooltipline")
+                  .attr("stroke-width", 2)
+                  .attr("stroke", '#CCCCCC')
+                  .append("line")
+                  .attr("x1", xScale(millisec))
+                  .attr("x2", xScale(millisec))
+                  .attr("y1", yRange[0])
+                  .attr("y2", yRange[1]) 
+
       }
 
+
       function pointerleft(event) {
+            d3.selectAll("#heatmap-tooltipline")
+                  .remove()
       }      
       
       return svg.node();
