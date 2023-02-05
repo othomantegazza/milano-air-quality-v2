@@ -2,7 +2,6 @@ function heatmap(data, {
       x = ([x]) => x, // given d in data, returns the (quantitative) x-value
       y = ([y]) => y, // given d in data, returns the (quantitative) y-value
       fill = ([, fill]) => fill,
-      title, // given d in data, returns the title
       marginTop = 20, // top margin, in pixels
       marginRight = 0, // right margin, in pixels
       marginBottom = 40, // bottom margin, in pixels
@@ -35,8 +34,6 @@ function heatmap(data, {
       fontSize = 14,
       fontTickReducer = 0.9,
       strokeWidth = .5, // stroke width for dots
-      halo = "#fff", // color of label halo 
-      haloWidth = 3 // padding around the labels
 } = {}) {
 
       if (screen.width >= columnWidth) {
@@ -84,13 +81,20 @@ function heatmap(data, {
       const xAxis = d3.axisBottom(xScale).ticks(width / 80, xFormat);
       const yAxis = d3.axisLeft(yScale).ticks(height / 50, yFormat);
 
+      const tooltip = d3.select("body")
+            .append("div")
+            .attr("class", "tooltip-heatmap")
+            .style("visibility", "hidden")
+
       const svg = d3.create("svg")
             .attr("width", width)
             .attr("height", height)
             .attr("viewBox", [0, 0, width, height])
             .attr("style", `max-width: 100%;
                     height: auto;
-                    height: intrinsic;`);
+                    height: intrinsic;`)
+            .on("pointerenter pointermove", pointermoved)
+            .on("pointerout", pointerleft);    
 
       // axis x                  
       svg.append("g")
@@ -140,6 +144,12 @@ function heatmap(data, {
             .attr("stroke",  i => fillScale(FILL[i]))
             .attr("width", tileWidth)
             .attr("height", yScale.step() - 2 * rectYPadding);
+
+      function pointermoved(event) { 
+      }
+
+      function pointerleft(event) {
+      }      
       
       return svg.node();
 }
