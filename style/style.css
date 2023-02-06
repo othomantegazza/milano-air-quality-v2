@@ -21,3 +21,7 @@ th, td {
     padding: 5px;
     border-collapse: collapse;
   }
+
+th:last-child, td:last-child {
+    border-right: 0px;   
+}
