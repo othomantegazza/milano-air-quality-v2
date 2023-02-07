@@ -5,7 +5,7 @@ function heatmap(data, {
       marginTop = 20, // top margin, in pixels
       marginRight = 0, // right margin, in pixels
       marginBottom = 40, // bottom margin, in pixels
-      marginLeft = 40, // left margin, in pixels
+      marginLeft = 50, // left margin, in pixels
       rectYPadding = 4,
       inset = 3, // inset the default range, in pixels
       insetTop = inset, // inset the default y-range
@@ -49,6 +49,7 @@ function heatmap(data, {
       const Y = d3.map(data, y);
       const FILL = d3.map(data, fill)
       const I = d3.range(X.length)
+      const pollutants = [...new Set(Y)]
 
 
       // Compute default domains.
@@ -81,10 +82,13 @@ function heatmap(data, {
       const xAxis = d3.axisBottom(xScale).ticks(width / 80, xFormat);
       const yAxis = d3.axisLeft(yScale).ticks(height / 50, yFormat);
 
-      const tooltip = d3.select("body")
-            .append("div")
-            .attr("class", "tooltip-heatmap")
-            .style("visibility", "hidden")
+      const tooltip = d3.select("body").append("div").attr("class", "tooltip-heatmap")
+            
+
+      console.log({'yDomain': yDomain,
+                  'pol': pollutants,
+                  Y: yScale("C6H6"),
+                  I: I})
 
       const svg = d3.create("svg")
             .attr("width", width)
@@ -159,7 +163,23 @@ function heatmap(data, {
                   .attr("x1", xScale(millisec))
                   .attr("x2", xScale(millisec))
                   .attr("y1", yRange[0])
-                  .attr("y2", yRange[1]) 
+                  .attr("y2", yRange[1])
+                  
+            console.log({event})
+
+            d3.selectAll(".htips").remove()
+
+            d3.select(".tooltip-heatmap")
+                  .selectAll("div")
+                  .data(pollutants).enter()
+                  .append("div")
+                  .attr("class", "htips")
+                  .attr("id", i => i)
+                  .style("position", "absolute")
+                  .style("top", i => event.pageY - event.layerY + yScale(i) +  "px")
+                  .style("left", event.pageX + 10 + "px")
+                  .html(i => i)
+            
 
       }
 
