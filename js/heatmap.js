@@ -82,7 +82,9 @@ function heatmap(data, {
       const xAxis = d3.axisBottom(xScale).ticks(width / 80, xFormat);
       const yAxis = d3.axisLeft(yScale).ticks(height / 50, yFormat);
 
-      const tooltip = d3.select("body").append("div").attr("class", "tooltip-heatmap")
+      const tooltip = d3.select("body")
+            .append("div")
+            .attr("id", "tooltip-heatmap-container")
             
 
       console.log({'yDomain': yDomain,
@@ -98,7 +100,8 @@ function heatmap(data, {
                     height: auto;
                     height: intrinsic;`)
             .on("pointerenter pointermove", pointermoved)
-            .on("pointerout", pointerleft);    
+            .on("pointerout", pointerleft)
+            .attr("id", "svgheatmap")    
 
       // axis x                  
       svg.append("g")
@@ -155,6 +158,13 @@ function heatmap(data, {
             d3.selectAll("#heatmap-tooltipline")
                   .remove()
 
+            const topPos = document
+                  .getElementById("svgheatmap")
+                  .getBoundingClientRect()
+                  .y
+
+            console.log({topPos})
+
             svg.append("g")
                   .attr("id", "heatmap-tooltipline")
                   .attr("stroke-width", 2)
@@ -167,17 +177,18 @@ function heatmap(data, {
                   
             console.log({event})
 
-            d3.selectAll(".htips").remove()
-
-            d3.select(".tooltip-heatmap")
+            d3.select("#tooltip-heatmap-container")
                   .selectAll("div")
-                  .data(pollutants).enter()
-                  .append("div")
-                  .attr("class", "htips")
+                  .data(pollutants)
+                  .join("div")
+                  //.append("div")
+                  .attr("class", "svg-tooltip")
                   .attr("id", i => i)
+                  .attr("id", "tooltip-heatmap")
+                  //.attr
                   .style("position", "absolute")
-                  .style("top", i => event.pageY - event.layerY + yScale(i) +  "px")
-                  .style("left", event.pageX + 10 + "px")
+                  .style("top", i => scrollY +topPos + (yScale(i)) +  "px")
+                  .style("left", event.pageX + 15 + "px")
                   .html(i => i)
             
 
@@ -186,6 +197,9 @@ function heatmap(data, {
 
       function pointerleft(event) {
             d3.selectAll("#heatmap-tooltipline")
+                  .attr("visibility", "hidden")
+
+            d3.selectAll("#tooltip-heatmap")
                   .remove()
       }      
       
