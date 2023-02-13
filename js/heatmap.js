@@ -21,7 +21,6 @@ function heatmap(data, {
       xDomain, // [xmin, xmax]
       yType = d3.scaleBand, // type of y-scale
       yDomain, // [ymin, ymax]
-      //fillType = d3.interpolateRgb.gamma,
       fillType = d3.scaleLinear,
       fillDomain, // [fillmin, fillmid, fillmax]
       fillRange = [0, 0.5, 1],

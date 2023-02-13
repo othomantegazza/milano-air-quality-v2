@@ -122,6 +122,7 @@ function Scatterplot(data, {
       const tooltip = d3.select("body")
             .append("div")
             .attr("class", "svg-tooltip")
+            .attr("id", "tooltip-scatter")
             .style("visibility", "hidden")
 
 

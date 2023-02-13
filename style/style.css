@@ -3,7 +3,6 @@ input {
 }
 
 .svg-tooltip {
-    backdrop-filter: blur(12px);
     position: absolute;
     border-color: #b72dfc;
     border-style: solid;
@@ -11,8 +10,12 @@ input {
     padding: 3px;
 }
 
-#heatmap-tooltip  td {
-    text-align: end;
+#tooltip-heatmap {
+    backdrop-filter: blur(12px) brightness(150%);
+}
+
+#tooltip-scatter {
+    backdrop-filter: blur(12px);
 }
 
 th, td {
