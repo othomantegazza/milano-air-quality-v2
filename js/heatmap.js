@@ -35,7 +35,7 @@ function heatmap(data, {
       strokeWidth = .5, // stroke width for dots
 } = {}) {
 
-      const dayMillisec = 24 * 60 * 60 * 1000
+      const msec_per_day = 24 * 60 * 60 * 1000
 
       // fit to screen size
       if (screen.width >= columnWidth) {
@@ -66,7 +66,7 @@ function heatmap(data, {
       if (fillDomain === undefined) fillDomain = [d3.min(FILL), targetLimit, d3.max(FILL)];
 
       // compute daily tile width
-      const nDays = (xDomain[1] - xDomain[0]) / dayMillisec
+      const nDays = (xDomain[1] - xDomain[0]) / msec_per_day
       const tileWidth = (xRange[1] - xRange[0]) / nDays
 
       // Construct scales and axes.
@@ -156,16 +156,27 @@ function heatmap(data, {
             .attr("height", yScale.step() - 2 * rectYPadding)
 
       function pointermoved(e) { 
+
+            // transform pointer position into scale X
             const millisec = xScale.invert(d3.pointer(e)[0])
+            const floored_msec = millisec - (millisec % msec_per_day)
+
+            // data under pointer
+            dataSel = data.filter(i => i.date == floored_msec)
+
+            console.log({dataSel})
+
 
             d3.selectAll("#heatmap-tooltipline")
                   .remove()
 
+            // Fixed y position over squares
             const topPos = document
                   .getElementById("svgheatmap")
                   .getBoundingClientRect()
                   .y
 
+            // vline
             svg.append("g")
                   .attr("id", "heatmap-tooltipline")
                   .attr("stroke-width", 2)
@@ -176,6 +187,7 @@ function heatmap(data, {
                   .attr("y1", yRange[0])
                   .attr("y2", yRange[1])
 
+            // tooltip
             d3.select("#tooltip-heatmap-container")
                   .selectAll("div")
                   .data(pollutants)
@@ -186,9 +198,11 @@ function heatmap(data, {
                   .attr("id", "tooltip-heatmap")
                   //.attr
                   .style("position", "absolute")
-                  .style("top", i => scrollY +topPos + (yScale(i)) +  "px")
+                  .style("top", i => scrollY + topPos + (yScale(i)) +  "px")
                   .style("left", e.pageX + 15 + "px")
-                  .html(i => i)
+                  .html(i => `${i};
+                              ${getScaled(dataSel, i)};
+                              ${getLevels(dataSel, i)}`)
             
 
       }
@@ -201,6 +215,16 @@ function heatmap(data, {
             d3.selectAll("#tooltip-heatmap")
                   .remove()
       }      
+
+      function getScaled(d, pol) {
+            out = dataSel.filter(d => d.inquinante == pol)[0]
+            return out.scaled
+      }
+
+      function getLevels(d, pol) {
+            out = dataSel.filter(d => d.inquinante == pol)[0]
+            return out.valore
+      }
       
       return svg.node();
 }
