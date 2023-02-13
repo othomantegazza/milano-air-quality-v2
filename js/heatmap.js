@@ -156,7 +156,7 @@ function heatmap(data, {
             .attr("width", tileWidth)
             .attr("height", yScale.step() - 2 * rectYPadding)
 
-      function pointermoved(e, d) { 
+      function pointermoved(e) { 
             const millisec = xScale.invert(d3.pointer(e)[0])
 
             d3.selectAll("#heatmap-tooltipline")
@@ -167,8 +167,6 @@ function heatmap(data, {
                   .getBoundingClientRect()
                   .y
 
-            console.log({topPos})
-
             svg.append("g")
                   .attr("id", "heatmap-tooltipline")
                   .attr("stroke-width", 2)
@@ -178,8 +176,6 @@ function heatmap(data, {
                   .attr("x2", xScale(millisec))
                   .attr("y1", yRange[0])
                   .attr("y2", yRange[1])
-                  
-            console.log({e, d})
 
             d3.select("#tooltip-heatmap-container")
                   .selectAll("div")
@@ -199,14 +195,12 @@ function heatmap(data, {
       }
 
 
-      function pointerleft(e, d) {
+      function pointerleft(e) {
             d3.selectAll("#heatmap-tooltipline")
                   .attr("visibility", "hidden")
 
             d3.selectAll("#tooltip-heatmap")
                   .remove()
-
-            console.log({e,d})
       }      
       
       return svg.node();
