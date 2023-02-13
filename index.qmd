@@ -151,13 +151,19 @@ tokyo = FileAttachment('data/tokyo-palette.json').json()
 tokyo_rev = tokyo.slice().reverse()  
 ```
 
+
+```{ojs}
+//| output: false
+all_scaled_in.date = all_scaled_in.date.map(x => Date.parse(x))
+```
+
 ```{ojs data}
 //| echo: false
 allScaled = transpose(all_scaled_in)
 ```
 
 ```{ojs dates}
-getDates = d => Date.parse(d.date)
+getDates = d => d.date
 
 allDates = d3.map(allScaled, getDates)
 ```
@@ -179,7 +185,7 @@ viewof end = Inputs.date({label: "End date",
 
 ```{ojs filter-data}
 allScaledFiltered = allScaled.filter((i) => {
-    return (Date.parse(i.date) >= start) & (Date.parse(i.date) <= end) 
+    return (i.date >= start & i.date <= end) 
 })
 ```
 
@@ -192,9 +198,9 @@ allScaledFiltered = allScaled.filter((i) => {
 ```{ojs heatmap}
 //| echo: false
 heatmap(allScaledFiltered, {
-  x: d => Date.parse(d.date),
-  y: d => d.inquinante,
-  fill: d => d.scaled,
+  xName: 'date',
+  yName: 'inquinante',
+  fillName: 'scaled',
   xType: d3.scaleTime,
   fillPalette: tokyo_rev,
   fillDomain: [0, 1, max_over_limits],
