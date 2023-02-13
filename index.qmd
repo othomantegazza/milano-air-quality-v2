@@ -135,7 +135,7 @@ air_q_list <-
   }
 
 ojs_define(
-  all_scaled_in = air_q_scaled,
+  all_scaled_in = air_q_scaled %>% select(-smoothed),
   air_q_list = air_q_list,
   max_over_limits = max_over_limits
   )
