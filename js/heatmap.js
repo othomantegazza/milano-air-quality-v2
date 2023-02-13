@@ -1,7 +1,7 @@
 function heatmap(data, {
-      x = ([x]) => x, // given d in data, returns the (quantitative) x-value
-      y = ([y]) => y, // given d in data, returns the (quantitative) y-value
-      fill = ([, fill]) => fill,
+      xName, 
+      yName, 
+      fillName,
       marginTop = 20, // top margin, in pixels
       marginRight = 0, // right margin, in pixels
       marginBottom = 40, // bottom margin, in pixels
@@ -36,29 +36,37 @@ function heatmap(data, {
       strokeWidth = .5, // stroke width for dots
 } = {}) {
 
+      const dayMillisec = 24 * 60 * 60 * 1000
+
+      // fit to screen size
       if (screen.width >= columnWidth) {
             width = width * columnsRatio
       } else if (width < minWidth) {
             width = minWidth
       }
 
+      // ranges within svg
       const xRange = [marginLeft + insetLeft, width - marginRight - insetRight] // [left, right]
       const yRange = [height - marginBottom - insetBottom, marginTop + insetTop] // [bottom, top]
 
+      
+      // extract variables from data
+      const x = d => d[xName]
+      const y = d => d[yName]
+      const fill = d => d[fillName]
+      // 
       const X = d3.map(data, x);
       const Y = d3.map(data, y);
       const FILL = d3.map(data, fill)
       const I = d3.range(X.length)
       const pollutants = [...new Set(Y)]
 
-
       // Compute default domains.
       if (xDomain === undefined) xDomain = d3.extent(X);
       if (yDomain === undefined) yDomain = new d3.InternSet(Y);
       if (fillDomain === undefined) fillDomain = [d3.min(FILL), targetLimit, d3.max(FILL)];
 
-      const dayMillisec = 24 * 60 * 60 * 1000
-
+      // compute daily tile width
       const nDays = (xDomain[1] - xDomain[0]) / dayMillisec
       const tileWidth = (xRange[1] - xRange[0]) / nDays
 
@@ -82,16 +90,12 @@ function heatmap(data, {
       const xAxis = d3.axisBottom(xScale).ticks(width / 80, xFormat);
       const yAxis = d3.axisLeft(yScale).ticks(height / 50, yFormat);
 
+      // append invisible tooltip
       const tooltip = d3.select("body")
             .append("div")
             .attr("id", "tooltip-heatmap-container")
-            
 
-      console.log({'yDomain': yDomain,
-                  'pol': pollutants,
-                  Y: yScale("C6H6"),
-                  I: I})
-
+      // define SVG
       const svg = d3.create("svg")
             .attr("width", width)
             .attr("height", height)
@@ -143,17 +147,17 @@ function heatmap(data, {
       svg.append("g")
             .attr("stroke-width", strokeWidth)
             .selectAll("rect")
-            .data(I)
+            .data(data)
             .join("rect")
-            .attr("x", i => xScale(X[i]))
-            .attr("y", i => yScale(Y[i]) + rectYPadding)
-            .attr("fill", i => fillScale(FILL[i]))
-            .attr("stroke",  i => fillScale(FILL[i]))
+            .attr("x", d => xScale(d[xName]))
+            .attr("y", d => yScale(d[yName]) + rectYPadding)
+            .attr("fill", d => fillScale(d[fillName]))
+            .attr("stroke",  d => fillScale(d[fillName]))
             .attr("width", tileWidth)
-            .attr("height", yScale.step() - 2 * rectYPadding);
+            .attr("height", yScale.step() - 2 * rectYPadding)
 
-      function pointermoved(event) { 
-            const millisec = xScale.invert(d3.pointer(event)[0])
+      function pointermoved(e, d) { 
+            const millisec = xScale.invert(d3.pointer(e)[0])
 
             d3.selectAll("#heatmap-tooltipline")
                   .remove()
@@ -175,7 +179,7 @@ function heatmap(data, {
                   .attr("y1", yRange[0])
                   .attr("y2", yRange[1])
                   
-            console.log({event})
+            console.log({e, d})
 
             d3.select("#tooltip-heatmap-container")
                   .selectAll("div")
@@ -188,19 +192,21 @@ function heatmap(data, {
                   //.attr
                   .style("position", "absolute")
                   .style("top", i => scrollY +topPos + (yScale(i)) +  "px")
-                  .style("left", event.pageX + 15 + "px")
+                  .style("left", e.pageX + 15 + "px")
                   .html(i => i)
             
 
       }
 
 
-      function pointerleft(event) {
+      function pointerleft(e, d) {
             d3.selectAll("#heatmap-tooltipline")
                   .attr("visibility", "hidden")
 
             d3.selectAll("#tooltip-heatmap")
                   .remove()
+
+            console.log({e,d})
       }      
       
       return svg.node();
