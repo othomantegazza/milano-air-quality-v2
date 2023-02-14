@@ -200,9 +200,28 @@ function heatmap(data, {
                   .style("position", "absolute")
                   .style("top", i => scrollY + topPos + (yScale(i)) +  "px")
                   .style("left", e.pageX + 15 + "px")
-                  .html(i => `${i};
-                              ${getScaled(dataSel, i)};
-                              ${getLevels(dataSel, i)}`)
+                  .html(i => `<table id="table-heatmap">
+                              <tr>
+                                    <td rowspan="2">
+                                          <span id="heatmap-percent">
+                                                <span style="color: ${fillScale(getScaled(dataSel, i))}">⬤</span>
+                                                ${d3.format('.0%')(getScaled(dataSel, i))}
+                                          </span>
+                                    </td>
+                                    <td>
+                                          <span id="heatmap-else">
+                                                ${i}
+                                          </span>
+                                    </td>     
+                              </tr>
+                              <tr>
+                                    <td>
+                                          <span id="heatmap-else">
+                                                ${getLevels(dataSel, i)}
+                                          </span>
+                                    <td>
+                              </tr>
+                              </table>`)
             
 
       }

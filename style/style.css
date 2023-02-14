@@ -18,12 +18,31 @@ input {
     backdrop-filter: blur(12px);
 }
 
-th, td {
+#table-scatterplot td, th {
     border-right: 1px solid black;
     border-style: dotted;
     padding: 5px;
     border-collapse: collapse;
   }
+
+#table-heatmap {
+    padding: 0px;
+    margin: 0px;
+}
+
+#table-heatmap td, th  {
+    padding: 0px !important;
+    border-collapse: collapse;
+    margin: 0px !important;
+}
+
+#heatmap-percent {
+    font-size: 25px;
+}
+
+#heatmap-else {
+    font-size: 8px;
+}
 
 th:last-child, td:last-child {
     border-right: 0px;   

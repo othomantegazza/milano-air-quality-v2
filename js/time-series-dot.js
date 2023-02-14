@@ -252,7 +252,7 @@ function Scatterplot(data, {
                   .style("visibility", "visible")
 
                   .html(`${dateLabel}
-                        <table id="heatmap-tooltip">
+                        <table id="table-scatterplot">
                         <th></th><th>µg/m<sup>3</sup></th><th>limits(%)</th>
                         ${poll_levels_string}
                         </table>`)
