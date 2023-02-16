@@ -264,7 +264,7 @@ function heatmap(data, {
 
       function dateForLabel(msec) {
             const formatted = dayjs(msec)
-            return(`${formatted.$D}-${formatted.$M}-${formatted.$y}`)
+            return(`${formatted.$D}-${formatted.$M + 1}-${formatted.$y}`)
       }
       
       return svg.node();
