@@ -250,6 +250,9 @@ function heatmap(data, {
 
             d3.selectAll("#tooltip-heatmap")
                   .remove()
+
+            d3.selectAll("#tooltip-date")
+                  .remove()
       }      
 
       function getScaled(d, pol) {

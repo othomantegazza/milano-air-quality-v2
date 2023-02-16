@@ -175,7 +175,6 @@ viewof start = Inputs.date({label: "Start date",
                             max: d3.max(allDates)})
 ```
 
-
 ```{ojs inputs-end}
 viewof end = Inputs.date({label: "End date",
                             value: d3.max(allDates),
