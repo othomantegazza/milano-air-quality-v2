@@ -235,7 +235,7 @@ function heatmap(data, {
                   .append("div")
                   .attr("id", "tooltip-date")
                   .style("position", "absolute")
-                  .style("top", topPos +  "px")
+                  .style("top", scrollY + topPos +  "px")
                   .style("left", e.pageX + "px")
                   .style("color", hoverStroke)
                   .html(dateForLabel(floored_msec))
