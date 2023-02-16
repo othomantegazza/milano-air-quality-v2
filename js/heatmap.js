@@ -222,9 +222,14 @@ function heatmap(data, {
                                                 ${i}
                                           </span>
                                           </p>
-                                          <p  class="heatmap-tooltip-p">
+                                          <p class="heatmap-tooltip-p">
                                           <span id="heatmap-else">
                                                 ${getLevels(dataSel, i) + ' µg/m³'}
+                                          </span>
+                                          </p>
+                                          <p class="heatmap-tooltip-p">
+                                          <span id="heatmap-else">
+                                                ${isImputed(dataSel, i)}
                                           </span>
                                           </p>
                                     <td>
@@ -256,13 +261,25 @@ function heatmap(data, {
       }      
 
       function getScaled(d, pol) {
-            out = dataSel.filter(d => d.inquinante == pol)[0]
+            let out = dataSel.filter(d => d.inquinante == pol)[0]
             return out.scaled
       }
 
       function getLevels(d, pol) {
-            out = dataSel.filter(d => d.inquinante == pol)[0]
+            let out = dataSel.filter(d => d.inquinante == pol)[0]
             return out.valore
+      }
+
+      function isImputed(d, pol) {
+            let ds = dataSel.filter(d => d.inquinante == pol)[0]
+            let out
+            if (ds.is_imputed) {
+                out = 'guessed'
+            } else {
+                 out = 'measured'
+            }
+            console.log({ds, out})
+            return out
       }
 
       function dateForLabel(msec) {

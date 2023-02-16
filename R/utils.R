@@ -23,6 +23,7 @@ scale_pollutant <-
       ungroup() %>% 
       as_tsibble(index = 'date') %>% 
       fill_gaps() %>% 
+      mutate(is_imputed = is.na(valore)) %>% 
       fill(valore, scaled, .direction = 'down') %>% 
       as_tibble()
     
