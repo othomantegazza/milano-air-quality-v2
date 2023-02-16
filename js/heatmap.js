@@ -224,7 +224,7 @@ function heatmap(data, {
                                           </p>
                                           <p  class="heatmap-tooltip-p">
                                           <span id="heatmap-else">
-                                                ${getLevels(dataSel, i)}
+                                                ${getLevels(dataSel, i) + ' µg/m³'}
                                           </span>
                                           </p>
                                     <td>
