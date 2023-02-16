@@ -32,7 +32,7 @@ input {
 }
 
 #table-heatmap td, th  {
-    padding: 5px !important;
+    padding: 2px 5px 2px 5px;
     border-collapse: collapse;
     margin: 0px !important;
     line-height: 100%;
