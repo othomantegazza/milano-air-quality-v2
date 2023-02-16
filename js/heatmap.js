@@ -202,23 +202,23 @@ function heatmap(data, {
                   .style("left", e.pageX + 15 + "px")
                   .html(i => `<table id="table-heatmap">
                               <tr>
-                                    <td rowspan="2">
+                                    <td>
                                           <span id="heatmap-percent">
                                                 <span style="color: ${fillScale(getScaled(dataSel, i))}">⬤</span>
                                                 ${d3.format('.0%')(getScaled(dataSel, i))}
                                           </span>
                                     </td>
                                     <td>
+                                          <p class="heatmap-tooltip-p">
                                           <span id="heatmap-else">
                                                 ${i}
                                           </span>
-                                    </td>     
-                              </tr>
-                              <tr>
-                                    <td>
+                                          </p>
+                                          <p  class="heatmap-tooltip-p">
                                           <span id="heatmap-else">
                                                 ${getLevels(dataSel, i)}
                                           </span>
+                                          </p>
                                     <td>
                               </tr>
                               </table>`)

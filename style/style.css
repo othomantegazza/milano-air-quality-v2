@@ -31,17 +31,21 @@ input {
 }
 
 #table-heatmap td, th  {
-    padding: 0px !important;
+    padding: 5px !important;
     border-collapse: collapse;
     margin: 0px !important;
+    line-height: 100%;
+    font-size: 8px;
 }
 
 #heatmap-percent {
     font-size: 25px;
 }
 
-#heatmap-else {
-    font-size: 8px;
+.heatmap-tooltip-p {
+    margin: 0px;
+    min-height: 0px;
+    height: auto;
 }
 
 th:last-child, td:last-child {
