@@ -32,7 +32,8 @@ function heatmap(data, {
       yFormat, // a format specifier string for the y-axis
       fontSize = 14,
       fontTickReducer = 0.9,
-      strokeWidth = .5, // stroke width for dots
+      strokeWidth = .5,
+      hoverStroke = "black" // stroke width for dots
 } = {}) {
 
       const msec_per_day = 24 * 60 * 60 * 1000
@@ -93,6 +94,10 @@ function heatmap(data, {
       const tooltip = d3.select("body")
             .append("div")
             .attr("id", "tooltip-heatmap-container")
+      
+      const tooltipDate = d3.select("body")
+            .append("div")
+            .attr("id", "tooltip-date-container")
 
       // define SVG
       const svg = d3.create("svg")
@@ -169,6 +174,9 @@ function heatmap(data, {
 
             d3.selectAll("#heatmap-tooltipline")
                   .remove()
+            
+            d3.selectAll("#tooltip-date")
+                  .remove()
 
             // Fixed y position over squares
             const topPos = document
@@ -180,7 +188,7 @@ function heatmap(data, {
             svg.append("g")
                   .attr("id", "heatmap-tooltipline")
                   .attr("stroke-width", 2)
-                  .attr("stroke", '#CCCCCC')
+                  .attr("stroke", hoverStroke)
                   .append("line")
                   .attr("x1", xScale(millisec))
                   .attr("x2", xScale(millisec))
@@ -222,6 +230,15 @@ function heatmap(data, {
                                     <td>
                               </tr>
                               </table>`)
+
+            d3.select("#tooltip-date-container")
+                  .append("div")
+                  .attr("id", "tooltip-date")
+                  .style("position", "absolute")
+                  .style("top", topPos +  "px")
+                  .style("left", e.pageX + "px")
+                  .style("color", hoverStroke)
+                  .html(dateForLabel(floored_msec))
             
 
       }
@@ -243,6 +260,11 @@ function heatmap(data, {
       function getLevels(d, pol) {
             out = dataSel.filter(d => d.inquinante == pol)[0]
             return out.valore
+      }
+
+      function dateForLabel(msec) {
+            const formatted = dayjs(msec)
+            return(`${formatted.$D}-${formatted.$M}-${formatted.$y}`)
       }
       
       return svg.node();
