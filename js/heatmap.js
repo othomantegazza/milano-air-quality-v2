@@ -169,9 +169,6 @@ function heatmap(data, {
             // data under pointer
             dataSel = data.filter(i => i.date == floored_msec)
 
-            console.log({dataSel})
-
-
             d3.selectAll("#heatmap-tooltipline")
                   .remove()
             
@@ -278,7 +275,6 @@ function heatmap(data, {
             } else {
                  out = 'measured'
             }
-            console.log({ds, out})
             return out
       }
 
