@@ -1,6 +1,7 @@
 # To Do
 
-- [ ] Fix filtering when date not specified
+- [ ] Typography
+- [ ] Fix hover errors on margins
 
 
 # Done
@@ -31,3 +32,4 @@
   -   [x] remove nested smoothed data? Do I need them in the frontend
   - [x] interaction heatmap
   - [x] show data
+  - [x] Fix filtering when date not specified, fix filtering reactivity => Could do with mutable values, but not needed

@@ -1,5 +1,5 @@
 project:
-  title: "air-quality-js"
+  title: "Milano Air Quality Dashboard"
   type: website
   output-dir: docs
   pre-render: npm install; node js/translate-palettes.js
@@ -10,11 +10,20 @@ project:
     - data/tokyo-palette.json
   preview:
     port: 4200
+    
+format:
+  html:
+    echo: false
+    theme: default
+    css: style/style.css
+    page-layout: custom 
+    margin-left: 10px
+    margin-top: 10px 
+    margin-right: 30px
+    margin-bottom: 10px
 
 execute:
   freeze: auto
 
-format:
-  html:
-   echo: false
+
 
