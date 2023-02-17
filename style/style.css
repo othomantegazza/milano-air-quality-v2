@@ -1,5 +1,23 @@
+@font-face {
+    font-family: Aileron-Thin;
+    src: url("Aileron-Thin.otf") format("opentype");
+}
+
+body {
+    font-family: Aileron-Thin;
+    letter-spacing: .03em;
+}
+
 input {
     height: inherit !important;
+}
+
+.cell {
+    padding: 0px !important;
+}
+
+h1 {
+    margin: 0px 0px 18px 0px;
 }
 
 .svg-tooltip {
