@@ -3,16 +3,16 @@
     src: url("Aileron-Thin.otf") format("opentype");
 }
 
-/* ::root {
-
-} */
+:root {
+    --main-color: black;
+}
 
 
 
 body {
     font-family: Aileron-Thin;
     letter-spacing: .03em;
-    color: black;
+    color: var(--main-color);
 }
 
 input {
@@ -21,10 +21,10 @@ input {
 
 input {
     height: inherit !important;
-    border-color: black !important;
+    border-color: var(--main-color) !important;
     border-style: solid;
     border-width: 1px;
-    color: black !important;
+    color: var(--main-color) !important;
     caret-color: black;
     accent-color: purple;
 }
@@ -40,7 +40,7 @@ h1 {
 .svg-tooltip {
     position: absolute;
     /* border-color: #b72dfc; */
-    border-color: black;
+    border-color: var(--main-color);
     border-style: solid;
     border-width: 1.5px;
     padding: 3px;
@@ -55,7 +55,7 @@ h1 {
 }
 
 #table-scatterplot td, th {
-    border-right: 1px solid black;
+    border-right: 1px solid var(--main-color);
     border-style: dotted;
     padding: 5px;
     border-collapse: collapse;
