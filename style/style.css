@@ -3,13 +3,30 @@
     src: url("Aileron-Thin.otf") format("opentype");
 }
 
+/* ::root {
+
+} */
+
+
+
 body {
     font-family: Aileron-Thin;
     letter-spacing: .03em;
+    color: black;
+}
+
+input {
+    all: unset;
 }
 
 input {
     height: inherit !important;
+    border-color: black !important;
+    border-style: solid;
+    border-width: 1px;
+    color: black !important;
+    caret-color: black;
+    accent-color: purple;
 }
 
 .cell {
