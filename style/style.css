@@ -36,9 +36,14 @@ a:hover {
     color: var(--accent-color);
 }
 
+.nav-tabs {
+    border-bottom-color: var(--main-color) !important;
+}
+
 .nav-link {
     color: var(--main-color);
     font-size: var(--bs-root-font-size);
+    border-bottom-color: var(--main-color) !important;
 }
 
 .nav-link:hover {
@@ -46,7 +51,16 @@ a:hover {
 }
 
 .nav-link.active {
-    color: var(--accent-color) !important;   
+    color: var(--accent-color) !important;
+    border-top-color: var(--main-color) !important;
+    border-left-color: var(--main-color) !important;
+    border-right-color: var(--main-color) !important;
+    border-bottom-color: white !important;
+}
+
+.tab-content {
+    padding: 15px 0px 0px 0px;
+    border: 0px;
 }
 
 .cell {
