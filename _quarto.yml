@@ -21,6 +21,7 @@ format:
     margin-top: 10px 
     margin-right: 30px
     margin-bottom: 10px
+    fontsize: 16px
 
 execute:
   freeze: auto

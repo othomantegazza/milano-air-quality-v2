@@ -38,6 +38,7 @@ a:hover {
 
 .nav-link {
     color: var(--main-color);
+    font-size: var(--bs-root-font-size);
 }
 
 .nav-link:hover {
