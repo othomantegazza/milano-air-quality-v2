@@ -5,6 +5,7 @@
 
 :root {
     --main-color: black;
+    --accent-color: #9e019e;
 }
 
 
@@ -25,8 +26,26 @@ input {
     border-style: solid;
     border-width: 1px;
     color: var(--main-color) !important;
-    caret-color: black;
-    accent-color: purple;
+}
+
+a {
+    color: var(--main-color);
+}
+
+a:hover {
+    color: var(--accent-color);
+}
+
+.nav-link {
+    color: var(--main-color);
+}
+
+.nav-link:hover {
+    color: var(--accent-color);
+}
+
+.nav-link.active {
+    color: var(--accent-color) !important;   
 }
 
 .cell {
