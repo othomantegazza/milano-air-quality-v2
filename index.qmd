@@ -3,8 +3,6 @@ editor_options:
   chunk_output_type: console
 ---
 
-
-
 ```{r notes}
 #| include: false
 # https://www.eea.europa.eu/themes/air/air-quality-concentrations/AirQlimitvalues.png
@@ -157,14 +155,6 @@ allDates = d3.map(allScaled, getDates)
 
 # Milano Air Quality
 
-This dashboard represents the air quality in the city of Milan, Italy, stating from open data measurements of pollutants concentration.
-
-The measurements come from the [Open Data Portal](https://dati.comune.milano.it/dataset/ds411-rilevazione-qualita-aria-2022) of the city of Milan. After featching those measurements, I'm making minor fixes to the measurement units of *policyclic aromatic compounds* which are reported at concentrations 1000 times higher than the expected range, and of *carbon monoxide*, which is reported at concentrations 1000 smaller than the expected range.
-
-All measurements are compared to European target limits, which [are documented  here](https://environment.ec.europa.eu/topics/air/air-quality/eu-air-quality-standards_en). I choose to use the most stringent limits reported.
-
-Air pollutant in Milano are often above target limits.
-
 ```{ojs inputs-start}
 viewof start = Inputs.date({label: "Start date",
                             value: d3.min(allDates),
@@ -178,6 +168,14 @@ viewof end = Inputs.date({label: "End date",
                             min: start,
                             max: d3.max(allDates)})   
 ```
+
+This dashboard displays the air quality in the city of Milano, Italy.
+
+All measurements come from the [Open Data Portal](https://dati.comune.milano.it/dataset/ds411-rilevazione-qualita-aria-2022) of the city of Milan, with minor fixes to the measurement units of **policyclic aromatic compounds**, reported at concentrations 1000 times higher than the expected range, and of **carbon monoxide**, reported at concentrations 1000 smaller than the expected range.
+
+Besides displaying raw measurements of air pollutants concentration, this dashboards displays percentages of target limits, which [are documented  here](https://environment.ec.europa.eu/topics/air/air-quality/eu-air-quality-standards_en). I choose to use the most stringent limits reported.
+
+Air pollutant in Milano are often above target limits.
 
 ```{ojs filter-data}
 allScaledFiltered = allScaled.filter((i) => {
