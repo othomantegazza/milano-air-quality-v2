@@ -17,7 +17,7 @@ format:
     theme: default
     css: style/style.css
     page-layout: custom 
-    margin-left: 10px
+    margin-left: 20px
     margin-top: 10px 
     margin-right: 30px
     margin-bottom: 10px
