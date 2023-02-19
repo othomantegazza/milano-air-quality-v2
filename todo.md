@@ -3,7 +3,6 @@
 - [ ] Typography
   - [ ] Add monospace font
   - [ ] Switch thin to thicker font?
-- [ ] Fix hover errors on margins
 
 
 # Done
@@ -35,3 +34,4 @@
   - [x] interaction heatmap
   - [x] show data
   - [x] Fix filtering when date not specified, fix filtering reactivity => Could do with mutable values, but not needed
+  - [x] Fix hover errors on margins

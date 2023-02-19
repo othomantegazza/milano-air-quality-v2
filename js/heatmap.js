@@ -163,7 +163,16 @@ function heatmap(data, {
       function pointermoved(e) { 
 
             // transform pointer position into scale X
-            const millisec = xScale.invert(d3.pointer(e)[0])
+            const input_millisec = xScale.invert(d3.pointer(e)[0])
+            const millisec = (() => {
+                  if (input_millisec < d3.min(X)) {
+                        return d3.min(X)
+                  } else if (input_millisec > d3.max(X)) {
+                        return d3.max(X)
+                  } else {
+                        return input_millisec
+                  }
+                  })()
             const floored_msec = millisec - (millisec % msec_per_day)
 
             // data under pointer
