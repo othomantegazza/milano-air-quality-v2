@@ -228,8 +228,8 @@ function Scatterplot(data, {
 
             svg.append("g")
                   .attr("id", "tooltip-vline")
-                  .attr("stroke-width", 2)
-                  .attr("stroke", '#CCCCCC')
+                  .attr("stroke-width", 1)
+                  .attr("stroke", 'black')
                   .append("line")
                   .attr("x1", xScale(millisec))
                   .attr("x2", xScale(millisec))

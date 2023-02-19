@@ -184,7 +184,7 @@ function heatmap(data, {
             // vline
             svg.append("g")
                   .attr("id", "heatmap-tooltipline")
-                  .attr("stroke-width", 2)
+                  .attr("stroke-width", 1)
                   .attr("stroke", hoverStroke)
                   .append("line")
                   .attr("x1", xScale(millisec))
