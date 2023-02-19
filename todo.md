@@ -1,6 +1,8 @@
 # To Do
 
 - [ ] Typography
+  - [ ] Add monospace font
+  - [ ] Switch thin to thicker font?
 - [ ] Fix hover errors on margins
 
 

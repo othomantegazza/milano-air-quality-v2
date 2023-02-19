@@ -6,6 +6,7 @@
 :root {
     --main-color: black;
     --accent-color: #9e019e;
+    --accent-background: #f7dffd;
 }
 
 
@@ -26,6 +27,11 @@ input {
     border-style: solid;
     border-width: 1px;
     color: var(--main-color) !important;
+    padding: 0.2em !important;
+}
+
+input:hover {
+    background-color: var(--accent-background);
 }
 
 a {
