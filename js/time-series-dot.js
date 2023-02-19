@@ -202,7 +202,6 @@ function Scatterplot(data, {
 
       function pointermoved(event) { 
 
-            const line_x = event.layerX;
             const millisec = xScale.invert(d3.pointer(event)[0])
             const floored_msec = millisec - (millisec % msec_per_day)
             const selector = dateForID(floored_msec)
