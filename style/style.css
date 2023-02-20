@@ -82,7 +82,7 @@ h1 {
     /* border-color: #b72dfc; */
     border-color: var(--main-color);
     border-style: solid;
-    border-width: 1.5px;
+    border-width: 1px;
     padding: 3px;
 }
 

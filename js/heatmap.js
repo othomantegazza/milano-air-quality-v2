@@ -182,14 +182,14 @@ function heatmap(data, {
                   .y
 
             // distance from right coprner
-            const tooltipY = e.pageX + 15
+            const tooltipX = e.pageX + 15
             const rightLimit = window.innerWidth - 200
 
             // invert tooltip if too close to right corner
             let fromCorner
             let cornerDist
 
-            if (tooltipY > rightLimit) {
+            if (tooltipX > rightLimit) {
                   fromCorner = 'right'
                   cornerDist = window.innerWidth - (e.pageX - 15) + "px"
             } else {
