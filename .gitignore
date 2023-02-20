@@ -2,7 +2,8 @@
 docs/**
 
 # data
-data/**
+data/*.xml
+data/*.csv
 
 # quarto
 _freeze

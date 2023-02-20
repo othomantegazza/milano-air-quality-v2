@@ -2,7 +2,7 @@ project:
   title: "Milano Air Quality Dashboard"
   type: website
   output-dir: docs
-  pre-render: npm install; node js/translate-palettes.js
+  # pre-render: npm install; node js/translate-palettes.js
   render:
     - index.qmd
   resources:
