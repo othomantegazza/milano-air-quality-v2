@@ -178,3 +178,11 @@ tr:hover {
 th:last-child, td:last-child {
     border-right: 0px;   
 }
+
+/* ----------------------- GRAPHS SVG ----------------------- */
+
+.xaxis, .yaxis {
+    font-size: 0.8em;
+    font-family: Aileron-Thin;
+}
+

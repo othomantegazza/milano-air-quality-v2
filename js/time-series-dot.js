@@ -135,6 +135,7 @@ function Scatterplot(data, {
       // axis x                  
       svg.append("g")
             .attr("transform", `translate(0,${height - marginBottom})`)
+            .attr("class", "xaxis")
             .call(xAxis)
             .call(g => g.selectAll(".tick line").clone()
                   .attr("y2", marginTop + marginBottom - height)
@@ -144,14 +145,12 @@ function Scatterplot(data, {
             .call(g => g.append("text")
                   .attr("x", width)
                   .attr("y", marginBottom - 4)
-                  .attr("font-size", fontSize)
-                  .attr("fill", "currentColor")
-                  .attr("text-anchor", "end")
                   .text(xLabel));
 
       // axis y
       svg.append("g")
             .attr("transform", `translate(${marginLeft},0)`)
+            .attr("class", "yaxis")
             .call(yAxis)
             .call(g => g.select(".domain").remove())
             .call(g => g.selectAll(".tick line").clone()
@@ -162,9 +161,6 @@ function Scatterplot(data, {
             .call(g => g.append("text")
                   .attr("x", -marginLeft)
                   .attr("y", 10)
-                  .attr("font-size", fontSize)
-                  .attr("fill", "currentColor")
-                  .attr("text-anchor", "start")
                   .text(yLabel));
 
       // smooth

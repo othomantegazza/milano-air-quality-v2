@@ -1,6 +1,5 @@
 # To Do
 
-- [ ] Style axes
 - [ ] Deploy
 
 
@@ -40,3 +39,4 @@
   - [x] Switch thin to thicker font?
 - [x] Style table
 - [x] connect data
+- [x] Style axes

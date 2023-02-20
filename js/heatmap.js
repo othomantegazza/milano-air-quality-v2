@@ -114,24 +114,23 @@ function heatmap(data, {
       // axis x                  
       svg.append("g")
             .attr("transform", `translate(0,${height - marginBottom})`)
+            .attr("class", "xaxis")
             .call(xAxis)
             //.call(g => g.select(".domain").remove())
             .call(g => g.selectAll(".tick line").clone()
                   .attr("y2", marginTop + marginBottom - height)
                   .attr("stroke-opacity", 0.1))
-            .call(g => g.selectAll(".tick text")
-                  .attr("font-size", fontSize * fontTickReducer))
+            //.call(g => g.selectAll(".tick text")
+            //      .attr("font-size", fontSize * fontTickReducer))
             .call(g => g.append("text")
                   .attr("x", width)
                   .attr("y", marginBottom - 4)
-                  .attr("font-size", fontSize)
-                  .attr("fill", "currentColor")
-                  .attr("text-anchor", "end")
                   .text(xLabel));
 
       // axis y
       svg.append("g")
             .attr("transform", `translate(${marginLeft},0)`)
+            .attr("class", "yaxis")
             .call(yAxis)
             .call(g => g.select(".domain").remove())
             .call(g => g.selectAll(".tick line").clone()
@@ -142,9 +141,6 @@ function heatmap(data, {
             .call(g => g.append("text")
                   .attr("x", -marginLeft)
                   .attr("y", 10)
-                  .attr("font-size", fontSize)
-                  .attr("fill", "currentColor")
-                  .attr("text-anchor", "start")
                   .text(yLabel));
 
       // rectangles
