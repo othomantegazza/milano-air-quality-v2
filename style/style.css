@@ -13,6 +13,12 @@
     src: url("Aileron-ThinItalic.otf") format("opentype");
 }
 
+@font-face {
+    font-family: Inconsolata-Light;
+    src: url("Inconsolata-Light.ttf") format("truetype");
+}
+
+
 :root {
     --main-color: black;
     --accent-color: #9e019e;
@@ -42,6 +48,7 @@ input {
 }
 
 input {
+    font-family: Inconsolata-Light !important;
     height: inherit !important;
     border-color: var(--main-color) !important;
     border-style: solid;
@@ -52,6 +59,11 @@ input {
 
 input:hover {
     background-color: var(--accent-background);
+}
+
+table {
+    font-family: Inconsolata-Light;
+    letter-spacing: -0.02em;
 }
 
 a {

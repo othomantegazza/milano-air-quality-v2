@@ -1,8 +1,5 @@
 # To Do
 
-- [ ] Typography
-  - [ ] Add monospace font
-  - [x] Switch thin to thicker font?
 - [ ] Style table
 - [ ] Style axes
 - [ ] Deploy
@@ -39,3 +36,6 @@
   - [x] Fix filtering when date not specified, fix filtering reactivity => Could do with mutable values, but not needed
   - [x] Fix hover errors on margins
   - [x] Style dots
+  - [x] Typography
+  - [x] Add monospace font
+  - [x] Switch thin to thicker font?
