@@ -175,6 +175,29 @@ function heatmap(data, {
                   })()
             const floored_msec = millisec - (millisec % msec_per_day)
 
+            // Fixed y position over squares
+            const topPos = document
+                  .getElementById("svgheatmap")
+                  .getBoundingClientRect()
+                  .y
+
+            // distance from right coprner
+            const tooltipY = e.pageX + 15
+            const rightLimit = window.innerWidth - 200
+
+            // invert tooltip if too close to right corner
+            let fromCorner
+            let cornerDist
+
+            if (tooltipY > rightLimit) {
+                  fromCorner = 'right'
+                  cornerDist = window.innerWidth - (e.pageX - 15) + "px"
+            } else {
+                  fromCorner = 'left'
+                  cornerDist =  e.pageX + 15 + "px"
+            }
+
+
             // data under pointer
             dataSel = data.filter(i => i.date == floored_msec)
 
@@ -183,12 +206,6 @@ function heatmap(data, {
             
             d3.selectAll("#tooltip-date")
                   .remove()
-
-            // Fixed y position over squares
-            const topPos = document
-                  .getElementById("svgheatmap")
-                  .getBoundingClientRect()
-                  .y
 
             // vline
             svg.append("g")
@@ -206,14 +223,12 @@ function heatmap(data, {
                   .selectAll("div")
                   .data(pollutants)
                   .join("div")
-                  //.append("div")
                   .attr("class", "svg-tooltip")
                   .attr("id", i => i)
                   .attr("id", "tooltip-heatmap")
-                  //.attr
                   .style("position", "absolute")
                   .style("top", i => scrollY + topPos + (yScale(i)) +  "px")
-                  .style("left", e.pageX + 15 + "px")
+                  .style(fromCorner, cornerDist)
                   .html(i => `<table id="table-heatmap">
                               <tr>
                                     <td>
