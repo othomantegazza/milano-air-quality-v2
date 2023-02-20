@@ -19,8 +19,6 @@ function tableDays(data) {
                     ${makeRow(data, 'Sulphur Dioxide', 'SO2')}
                 </table>`)
 
-    console.log(makeRow(data, 'Cylcic Aromatics', 'C6H6'))
-
     return d.node()
 }
 
@@ -31,8 +29,7 @@ function makeRow(data, pollName, pollutant) {
     let daysAboveLimit = daysMeasured.filter((i) => {
         return (i.valore > i.eu_limits)
     })
-    console.log({daysMeasured, daysAboveLimit})
-    console.log(daysMeasured.length)
+    
     let out
     out = `<tr>
                 <td>${pollName}</td>
