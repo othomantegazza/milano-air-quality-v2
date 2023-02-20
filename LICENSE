@@ -1,5 +1,16 @@
+# Main Work
+
 This work is licenced by Otho Mantegazza under the CC4-BY-SA license.
 
 The text of the license can be found at this link: https://creativecommons.org/licenses/by-sa/4.0/legalcode
 
+# Color Palette
+
 The [color palette](data/tokyo-PARAVIEW.xml) is a [Scientific Color Map](https://zenodo.org/record/5501399), published by [Fabio Crameri], and made available also under the MIT Licensed.
+
+# Fonts
+
+The font used are:
+
+- Aileron, by [Sora Sagano](http://www.dotcolon.net/), licensed under [CC0](https://www.fontsquirrel.com/fonts/aileron).
+- Inconsolata, by Raph Levien, licensed under the [Open Font License](https://fonts.google.com/specimen/Inconsolata/about?category=Monospace).
