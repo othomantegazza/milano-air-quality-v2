@@ -22,7 +22,7 @@
 :root {
     --main-color: black;
     --accent-color: #9e019e;
-    --accent-background: #f7dffd;
+    --accent-background: #e8d5ff;
     --letter-spacing: .03em
 }
 
@@ -39,7 +39,7 @@ h1, label, strong {
 } 
 
 em {
-    font-family: Aileron-ThinItalic;
+    font-family: Aileron-ThinItalic;    
     font-style: normal;
 }
 
@@ -64,6 +64,7 @@ input:hover {
 table {
     font-family: Inconsolata-Light;
     letter-spacing: -0.02em;
+    margin-top: 16px;
 }
 
 #daystable td, #daystable th {
@@ -74,6 +75,10 @@ table {
     border-collapse: collapse;
     line-height: 1.5;
     vertical-align: bottom;
+}
+
+#daystable th {
+    font-family: Aileron-Semibold;
 }
 
 a {
