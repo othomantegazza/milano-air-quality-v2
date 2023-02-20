@@ -1,11 +1,9 @@
 # Fixes
 
-- [ ] Blur background for ios
-- [ ] Tooltip for touchscreen
+- [ ] Tooltip width for touchscreen
 
 # To Do
 
-- [ ] remove stripes over table
 - [ ] readme
 - [ ] license (general, colors, fonts, data)
 
@@ -48,3 +46,6 @@
 - [x] connect data
 - [x] Style axes
 - [x] Deploy
+- [x] remove stripes over table
+- [x] Blur background for ios
+- [x] Tooltip for touchscreen

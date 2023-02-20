@@ -107,7 +107,7 @@ function heatmap(data, {
             .attr("style", `max-width: 100%;
                     height: auto;
                     height: intrinsic;`)
-            .on("pointerenter pointermove", pointermoved)
+            .on("mousemove touchmove", pointermoved)
             .on("pointerout", pointerleft)
             .attr("id", "svgheatmap")    
 
