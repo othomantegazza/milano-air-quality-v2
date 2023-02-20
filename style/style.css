@@ -66,6 +66,16 @@ table {
     letter-spacing: -0.02em;
 }
 
+#daystable td, #daystable th {
+    font-size: var(--bs-root-font-size) !important;
+    padding: 2px 5px 0px 2px;
+    border-bottom: 1px solid var(--main-color);
+    border-style: dotted;
+    border-collapse: collapse;
+    line-height: 1.5;
+    vertical-align: bottom;
+}
+
 a {
     color: var(--main-color);
 }
@@ -126,19 +136,23 @@ h1 {
     backdrop-filter: blur(12px);
 }
 
-#table-scatterplot td, th {
+#table-scatterplot td, #table-scatterplot th {
     border-right: 1px solid var(--main-color);
     border-style: dotted;
     padding: 5px;
     border-collapse: collapse;
   }
 
+tr:hover {
+    background-color: var(--accent-background);
+}
+
 #table-heatmap {
     padding: 0px;
     margin: 0px;
 }
 
-#table-heatmap td, th  {
+#table-heatmap td, #table-heatmap th  {
     padding: 2px 5px 2px 5px;
     border-collapse: collapse;
     margin: 0px !important;
