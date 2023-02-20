@@ -3,18 +3,38 @@
     src: url("Aileron-Thin.otf") format("opentype");
 }
 
+@font-face {
+    font-family: Aileron-Semibold;
+    src: url("Aileron-SemiBold.otf") format("opentype");
+}
+
+@font-face {
+    font-family: Aileron-ThinItalic;
+    src: url("Aileron-ThinItalic.otf") format("opentype");
+}
+
 :root {
     --main-color: black;
     --accent-color: #9e019e;
     --accent-background: #f7dffd;
+    --letter-spacing: .03em
 }
-
-
 
 body {
     font-family: Aileron-Thin;
-    letter-spacing: .03em;
+    letter-spacing: var(--letter-spacing);
     color: var(--main-color);
+}
+
+h1, label, strong {
+    font-family: Aileron-Semibold;
+    /* letter -spacing: var(--letter-spacing); */
+    color: var(--main-color);
+} 
+
+em {
+    font-family: Aileron-ThinItalic;
+    font-style: normal;
 }
 
 input {

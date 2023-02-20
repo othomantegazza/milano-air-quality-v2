@@ -2,7 +2,7 @@
 
 - [ ] Typography
   - [ ] Add monospace font
-  - [ ] Switch thin to thicker font?
+  - [x] Switch thin to thicker font?
 - [ ] Style table
 - [ ] Style axes
 - [ ] Deploy
