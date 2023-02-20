@@ -121,9 +121,7 @@ function Scatterplot(data, {
 
       const tooltip = d3.select("body")
             .append("div")
-            .attr("class", "svg-tooltip")
-            .attr("id", "tooltip-scatter")
-            .style("visibility", "hidden")
+            .attr("id", "tooltip-heatmap-container")
 
 
       const svg = d3.create("svg")
@@ -231,7 +229,29 @@ function Scatterplot(data, {
                   `)
             const poll_levels_string = poll_levels_colors.join('')
 
+            // distance from right coprner
+            const tooltipX = event.pageX + tooltipOffsetPx
+            const rightLimit = window.innerWidth - 200
+
+            // invert tooltip if too close to right corner
+            let fromCorner
+            let cornerDist
+
+            if (tooltipX > rightLimit) {
+                  fromCorner = 'right'
+                  cornerDist = window.innerWidth - (event.pageX - 15) + "px"
+            } else {
+                  fromCorner = 'left'
+                  cornerDist =  event.pageX + 15 + "px"
+            }
+
             d3.selectAll("#tooltip-vline")
+                  .remove()
+            
+            d3.selectAll(".selectedCircle")
+                  .remove()
+            
+            d3.select("#tooltip-scatter")
                   .remove()
 
             svg.append("g")
@@ -243,10 +263,7 @@ function Scatterplot(data, {
                   .attr("x2", xScale(millisec))
                   .attr("y1", yScale(0))
                   .attr("y2", yScale(d3.max(Y)))
-
-            d3.selectAll(".selectedCircle")
-                  .remove()
-                  
+            
 
             d3.selectAll(`#${selector}`)
                   .clone()
@@ -255,10 +272,13 @@ function Scatterplot(data, {
                   .attr("r", r + r*rMultiplier)
 
             // tooltip text
-            tooltip.style('top', `${event.pageY}px`)
-                  .style('left', `${event.pageX + tooltipOffsetPx}px`)
+      d3.select('#tooltip-heatmap-container').append("div")
+                  .attr("class", "svg-tooltip")
+                  .attr("id", "tooltip-scatter")
+                  .style("visibility", "hidden")
+                  .style('top', event.pageY + 'px')
+                  .style(fromCorner, cornerDist)
                   .style("visibility", "visible")
-
                   .html(`${dateLabel}
                         <table id="table-scatterplot">
                         <th></th><th>µg/m<sup>3</sup></th><th>limits(%)</th>
@@ -269,7 +289,6 @@ function Scatterplot(data, {
       }
 
       function pointerleft() {
-            //console.log('pointer left')
 
             d3.selectAll(".selectedCircle")
                   .remove()
@@ -277,7 +296,8 @@ function Scatterplot(data, {
             d3.select("#tooltip-vline")
                   .attr("visibility", "hidden")
 
-            tooltip.style("visibility", "hidden")
+            d3.select("#tooltip-scatter")
+                  .remove()
       }
 
       function dateForID(msec) {
