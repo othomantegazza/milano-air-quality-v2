@@ -126,10 +126,12 @@ input:hover {
 
 #tooltip-heatmap {
     backdrop-filter: blur(12px) brightness(150%);
+    -webkit-backdrop-filter: blur(12px) brightness(150%);
 }
 
 #tooltip-scatter {
     backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
 }
 
 #table-scatterplot td, #table-scatterplot th {
