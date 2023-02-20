@@ -3,6 +3,9 @@
 - [ ] Typography
   - [ ] Add monospace font
   - [ ] Switch thin to thicker font?
+- [ ] Style table
+- [ ] Style axes
+- [ ] Deploy
 
 
 # Done
@@ -35,3 +38,4 @@
   - [x] show data
   - [x] Fix filtering when date not specified, fix filtering reactivity => Could do with mutable values, but not needed
   - [x] Fix hover errors on margins
+  - [x] Style dots

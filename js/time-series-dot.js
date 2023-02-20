@@ -195,7 +195,7 @@ function Scatterplot(data, {
             .attr("cx", i => xScale(X[i]))
             .attr("cy", i => yScale(Y[i]))
             .attr("r", r)
-            .attr("stroke", i => fillScale(Y[i]/euLimit))
+            .attr("fill", i => fillScale(Y[i]/euLimit))
             .attr("id", i => dateForID(X[i]))
 
       function pointermoved(event) { 
