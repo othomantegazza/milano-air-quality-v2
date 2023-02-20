@@ -1,3 +1,5 @@
+/* ------------------- Main Vars ------------------- */
+
 @font-face {
     font-family: Aileron-Thin;
     src: url("Aileron-Thin.otf") format("opentype");
@@ -26,10 +28,16 @@
     --letter-spacing: .03em
 }
 
+/* ------------------- Body / generics ------------------- */
+
 body {
     font-family: Aileron-Thin;
     letter-spacing: var(--letter-spacing);
     color: var(--main-color);
+}
+
+h1 {
+    margin: 0px 0px 18px 0px;
 }
 
 h1, label, strong {
@@ -38,10 +46,25 @@ h1, label, strong {
     color: var(--main-color);
 } 
 
+a {
+    color: var(--main-color);
+}
+
+a:hover {
+    color: var(--accent-color);
+}
+
 em {
     font-family: Aileron-ThinItalic;    
     font-style: normal;
 }
+
+.cell {
+    padding: 0px !important;
+}
+
+
+/* ------------------- OJS INPUTS ------------------- */
 
 input {
     all: unset;
@@ -61,33 +84,7 @@ input:hover {
     background-color: var(--accent-background);
 }
 
-table {
-    font-family: Inconsolata-Light;
-    letter-spacing: -0.02em;
-    margin-top: 16px;
-}
-
-#daystable td, #daystable th {
-    font-size: var(--bs-root-font-size) !important;
-    padding: 2px 5px 0px 2px;
-    border-bottom: 1px solid var(--main-color);
-    border-style: dotted;
-    border-collapse: collapse;
-    line-height: 1.5;
-    vertical-align: bottom;
-}
-
-#daystable th {
-    font-family: Aileron-Semibold;
-}
-
-a {
-    color: var(--main-color);
-}
-
-a:hover {
-    color: var(--accent-color);
-}
+/* ------------------- NAV TABS ------------------- */
 
 .nav-tabs {
     border-bottom-color: var(--main-color) !important;
@@ -116,13 +113,7 @@ a:hover {
     border: 0px;
 }
 
-.cell {
-    padding: 0px !important;
-}
-
-h1 {
-    margin: 0px 0px 18px 0px;
-}
+/* ------------------- TOOLTIPS ------------------- */
 
 .svg-tooltip {
     position: absolute;
@@ -148,9 +139,7 @@ h1 {
     border-collapse: collapse;
   }
 
-tr:hover {
-    background-color: var(--accent-background);
-}
+
 
 #table-heatmap {
     padding: 0px;
@@ -177,6 +166,33 @@ tr:hover {
 
 th:last-child, td:last-child {
     border-right: 0px;   
+}
+
+/* ------------------- TABLES ------------------- */
+
+table {
+    font-family: Inconsolata-Light;
+    letter-spacing: -0.02em;
+    margin-top: 16px;
+}
+
+#daystable td, #daystable th {
+    font-size: var(--bs-root-font-size) !important;
+    padding: 2px 5px 0px 2px;
+    border-bottom: 1px solid var(--main-color);
+    border-style: dotted;
+    border-collapse: collapse;
+    line-height: 1.5;
+    vertical-align: bottom;
+}
+
+#daystable th {
+    font-family: Aileron-Semibold;
+}
+
+
+tr:hover {
+    background-color: var(--accent-background);
 }
 
 /* ----------------------- GRAPHS SVG ----------------------- */

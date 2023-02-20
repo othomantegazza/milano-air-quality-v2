@@ -1,6 +1,13 @@
+# Fixes
+
+- [ ] Blur background for ios
+- [ ] Tooltip for touchscreen
+
 # To Do
 
-- [ ] Deploy
+- [ ] remove stripes over table
+- [ ] readme
+- [ ] license (general, colors, fonts, data)
 
 
 # Done
@@ -40,3 +47,4 @@
 - [x] Style table
 - [x] connect data
 - [x] Style axes
+- [x] Deploy
