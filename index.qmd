@@ -314,4 +314,4 @@ Scatterplot(air_q_list.SO2, scatter_params)
 ::::::
 
 
-This dashboard was made and is maintained by [Otho Mantegazza](https://otho-mantegazza.netlify.app/), feel free to contact me for any question or suggestion. You can find the [source code on Github](https://github.com/othomantegazza/milano-air-quality-js).
+This dashboard was made and is maintained by [Otho Mantegazza](https://otho-mantegazza.netlify.app/), feel free to contact me for any question or suggestion. You can find the [source code on Github](https://github.com/othomantegazza/milano-air-quality-v2).
