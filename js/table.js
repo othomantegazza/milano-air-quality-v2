@@ -24,7 +24,7 @@ function tableDays(data) {
 
 function makeRow(data, pollName, pollutant) {
     let daysMeasured = data.filter((i) => {
-        return (i.inquinante === pollutant)
+        return (i.inquinante === pollutant & ! i.is_imputed)
     })
     let daysAboveLimit = daysMeasured.filter((i) => {
         return (i.valore > i.eu_limits)

@@ -1,5 +1,7 @@
 # Fixes
 
+- [ ] Where did the y axis label go?
+
 # To Do
 
 # Done
