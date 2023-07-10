@@ -34,6 +34,7 @@ jobs:
       - name: Install R Dependencies
         uses: r-lib/actions/setup-renv@v2
         with:
+          version: 0.16.0
           cache-version: 1
 
       - name: Get data and Render
